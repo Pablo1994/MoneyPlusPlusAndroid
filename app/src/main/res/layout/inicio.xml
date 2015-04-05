@@ -12,11 +12,11 @@
         android:text="@string/StringIngreso"
         android:id="@+id/textViewIngreso"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.10"
+        android:layout_weight="0.15"
         android:textColor="#ff030344"
         android:textSize="@dimen/grande"
         android:layout_marginTop="@dimen/grande"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="20dp" />
 
     <LinearLayout
         android:orientation="horizontal"
