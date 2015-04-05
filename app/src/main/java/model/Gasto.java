@@ -1,0 +1,29 @@
+package model;
+
+public class Gasto {
+	private double monto;
+	private String descripcion;
+
+	public Gasto(double monto, String descripcion) {
+		super();
+		this.monto = monto;
+		this.descripcion = descripcion;
+	}
+	public double getMonto() {
+		return monto;
+	}
+
+	public void setMonto(double monto) {
+		this.monto = monto;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	
+}

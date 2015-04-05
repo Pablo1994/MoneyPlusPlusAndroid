@@ -3,14 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
-    android:background="#ff83ff77">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.10" />
+    android:background="@drawable/fondo">
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,18 +14,59 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.10"
         android:textColor="#ff030344"
-        android:textSize="@dimen/grande" />
+        android:textSize="@dimen/grande"
+        android:layout_marginTop="@dimen/grande"
+        android:layout_marginBottom="15dp" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.10">
+        android:layout_weight="0.27"
+        android:weightSum="1"
+        android:layout_marginBottom="20dp">
 
-        <ImageButton
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageButton" />
+            android:id="@+id/textView2" />
+
+        <Button
+            android:layout_width="135dp"
+            android:layout_height="match_parent"
+            android:text="@string/ingresoStr"
+            android:id="@+id/buttonIngreso"
+            android:layout_weight="0.05"
+            android:background="@drawable/round_corners_plus"
+            android:layout_marginLeft="35sp"
+            android:textSize="20sp"
+            android:typeface="serif"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="135dp"
+            android:layout_height="match_parent"
+            android:text="@string/gastoStr"
+            android:id="@+id/buttonGasto"
+            android:layout_marginLeft="40sp"
+            android:background="@drawable/round_corners_minus"
+            android:textSize="20sp"
+            android:typeface="serif"
+            android:textStyle="bold" />
+
     </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver Actividades para el día de hoy"
+        android:id="@+id/buttonActividades"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/round_corners_normal"
+        android:layout_weight="0.07"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
 </LinearLayout>
