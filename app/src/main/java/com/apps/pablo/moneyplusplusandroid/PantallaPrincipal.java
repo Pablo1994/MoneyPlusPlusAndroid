@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class PantallaPrincipal extends ActionBarActivity
+public class PantallaPrincipal extends Base
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**

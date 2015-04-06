@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="@drawable/fondo">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Ingreso Único"
+        android:id="@+id/textViewIngUnico"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35dp"
+        android:textStyle="bold"
+        android:textSize="35sp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04"
+        android:weightSum="1"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/str_monto"
+            android:id="@+id/textViewMonto"
+            android:textStyle="normal"
+            android:textSize="25sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editTextMonto"
+        android:layout_weight="0.06"
+        android:background="#ffc7ccfb" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.03"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/str_descripcion"
+            android:id="@+id/textViewDesc"
+            android:textStyle="normal"
+            android:textSize="25sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp" />
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextDescripcion"
+        android:layout_gravity="center_horizontal"
+        android:background="#ffcfdefb"
+        android:inputType="text"
+        android:layout_weight="0.06" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.09"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/str_fecha"
+            android:id="@+id/textViewFecha"
+            android:textStyle="normal"
+            android:textSize="25sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.07">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/editTextFecha"
+            android:layout_weight="1"
+            android:background="#ffcddcfb" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="172dp"
+        android:layout_height="wrap_content"
+        android:text="Registrar ingreso"
+        android:id="@+id/buttonIngresoUnico"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/round_corners_normal"
+        android:layout_marginTop="40dp"
+        android:layout_weight="0.07" />
+
+</LinearLayout>
