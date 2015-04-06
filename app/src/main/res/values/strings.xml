@@ -23,4 +23,12 @@
     <string name="str_monto">Monto: </string>
     <string name="str_descripcion">Descripción:</string>
     <string name="str_fecha">Fecha:</string>
+    <string name="str_dias">Días:</string>
+    <string name="str_lunes">Lunes</string>
+    <string name="str_martes">Martes</string>
+    <string name="str_miercoles">Miércoles</string>
+    <string name="str_jueves">Jueves</string>
+    <string name="str_viernes">Viernes</string>
+    <string name="str_sabado">Sábado</string>
+    <string name="str_domingo">Domingo</string>
 </resources>

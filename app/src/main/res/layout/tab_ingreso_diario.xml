@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,4 +15,151 @@
         android:layout_marginTop="35dp"
         android:textStyle="bold"
         android:textSize="35sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/str_monto"
+        android:id="@+id/textViewMontoDiario"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:textStyle="normal"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.03"
+        android:layout_marginTop="5dp">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editTextMontoDiario"
+            android:layout_weight="1"
+            android:background="#ffc3fbf0" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/str_descripcion"
+        android:id="@+id/textView"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.03"
+        android:layout_marginTop="5dp">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/editTextDescDiario"
+            android:layout_weight="1"
+            android:background="#ffc3fbf0"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/str_dias"
+        android:id="@+id/textViewDias"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="25dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/str_lunes"
+                android:id="@+id/checkBoxLunes"
+                android:layout_column="1"
+                android:checked="false"
+                android:layout_weight="1" />
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/str_martes"
+                android:id="@+id/checkBoxMartes"
+                android:layout_column="3"
+                android:checked="false"
+                android:layout_weight="1" />
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/str_miercoles"
+                android:id="@+id/checkBoxMiercoles"
+                android:layout_column="5"
+                android:checked="false"
+                android:layout_weight="1.1" />
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/str_jueves"
+                android:id="@+id/checkBoxJueves"
+                android:layout_column="7"
+                android:checked="false"
+                android:layout_weight="1" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/str_viernes"
+                android:id="@+id/checkBoxViernes"
+                android:layout_column="8"
+                android:checked="false"
+                android:layout_weight="1" />
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/str_sabado"
+                android:id="@+id/checkBoxSabado"
+                android:layout_column="13"
+                android:checked="false"
+                android:layout_weight="1" />
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/str_domingo"
+                android:id="@+id/checkBoxDomingo"
+                android:layout_column="16"
+                android:checked="false"
+                android:layout_weight="1" />
+        </TableRow>
+    </TableLayout>
+
 </LinearLayout>

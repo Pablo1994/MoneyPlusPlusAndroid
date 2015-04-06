@@ -20,7 +20,8 @@
         <activity
             android:name=".IngresaIngreso"
             android:label="@string/title_activity_ingresa_ingreso"
-            android:parentActivityName=".PantallaPrincipal" >
+            android:parentActivityName=".PantallaPrincipal"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.apps.pablo.moneyplusplusandroid.PantallaPrincipal" />
