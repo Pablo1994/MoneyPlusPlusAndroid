@@ -7,18 +7,51 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 /**
  * Created by pablo on 05/04/15.
  */
-public class tabIngresoPeriodico extends android.support.v4.app.Fragment implements AdapterView.OnItemSelectedListener{
+public class tabIngresoPeriodico extends android.support.v4.app.Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener{
     View rootView;
-
+    EditText editTextFecha;
+    EditText editTextFecha2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.tab_ingreso_periodico, container, false);
+
+        editTextFecha = (EditText) rootView.findViewById(R.id.editTextFecPerFecha);
+
+        editTextFecha2 = (EditText) rootView.findViewById(R.id.editTextFecha2PerFecha);
+
+        RadioGroup radioGroup = (RadioGroup) rootView.findViewById(R.id.radio_group_fecha);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // checkedId is the RadioButton selected
+                TextView textView;
+                EditText editText;
+                switch (checkedId){
+                    case R.id.radioButtonMensFecha:
+                        textView = (TextView) rootView.findViewById(R.id.textViewFecha2PerFecha);
+                        editText = (EditText) rootView.findViewById(R.id.editTextFecha2PerFecha);
+                        textView.setVisibility(View.GONE);
+                        editText.setVisibility(View.GONE);
+                        break;
+                    case R.id.radioButtonQuinFecha:
+                        textView = (TextView) rootView.findViewById(R.id.textViewFecha2PerFecha);
+                        editText = (EditText) rootView.findViewById(R.id.editTextFecha2PerFecha);
+                        textView.setVisibility(View.VISIBLE);
+                        editText.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        });
 
         //Spiner Modo:
         Spinner spinnerModo = (Spinner) rootView.findViewById(R.id.spinnerModo);
@@ -82,6 +115,11 @@ public class tabIngresoPeriodico extends android.support.v4.app.Fragment impleme
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
 
     }
 }

@@ -243,7 +243,8 @@
                 android:layout_width="337dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:id="@+id/radio_group_fecha">
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -280,14 +281,13 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:inputType="date"
+                    android:inputType="number"
                     android:ems="10"
                     android:id="@+id/editTextFecPerFecha"
                     android:layout_weight="1"
                     android:background="#ffa8ded6"
-                    android:clickable="true"
-                    android:focusableInTouchMode="false"
-                    android:focusable="false" />
+                    android:focusableInTouchMode="true"
+                    android:focusable="true" />
             </LinearLayout>
 
             <TextView
@@ -295,7 +295,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_fecha2"
-                android:id="@+id/textView7"
+                android:id="@+id/textViewFecha2PerFecha"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="10dp"
                 android:textStyle="normal"
@@ -311,14 +311,13 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:inputType="date"
+                    android:inputType="number"
                     android:ems="10"
-                    android:id="@+id/editTextFecha2PerDia"
+                    android:id="@+id/editTextFecha2PerFecha"
                     android:layout_weight="1"
                     android:background="#ffa8ded6"
-                    android:clickable="true"
-                    android:focusableInTouchMode="false"
-                    android:focusable="false"
+                    android:focusableInTouchMode="true"
+                    android:focusable="true"
                     android:visibility="gone" />
             </LinearLayout>
 
