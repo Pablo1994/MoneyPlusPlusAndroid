@@ -18,7 +18,7 @@ import java.util.Date;
 import model.IngresoUnico;
 
 /**
- * Created by pablo on 05/04/15.
+ * Created by Pablo Arias on 05/04/15.
  */
 public class tabIngresoUnico extends BaseFragment implements View.OnClickListener{
     EditText editTextMonto, editTextDesc, editTextFecha;
@@ -80,10 +80,14 @@ public class tabIngresoUnico extends BaseFragment implements View.OnClickListene
                 e.printStackTrace();
             }
             IngresoUnico ingreso = new IngresoUnico(monto,desc,fecha);
-            if(IngresaIngreso.manager.insertar(ingreso))
-                Mensaje(rootView.getContext(),"Insertado correctamente");
+            if(IngresaIngreso.manager.insertar(ingreso)) {
+                Mensaje(rootView.getContext(), "Insertado correctamente");
+                editTextMonto.setText("");
+                editTextDesc.setText("");
+                editTextFecha.setText("");
+            }
             else
-                Mensaje(rootView.getContext(),"No se pudo insertar!");
+                Mensaje(rootView.getContext(),"No se pudo insertar, revise los valores e intente de nuevo.");
         }
     }
 }
