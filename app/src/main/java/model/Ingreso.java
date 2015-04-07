@@ -1,8 +1,8 @@
 package model;
 
 public class Ingreso {
-	private double monto;
-	private String descripcion;
+	protected double monto;
+	protected String descripcion;
 
 	public Ingreso(double monto, String descripcion) {
 		super();
