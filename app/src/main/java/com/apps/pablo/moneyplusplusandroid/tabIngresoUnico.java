@@ -7,26 +7,34 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+
+import model.IngresoUnico;
 
 /**
  * Created by pablo on 05/04/15.
  */
-public class tabIngresoUnico extends android.support.v4.app.Fragment implements View.OnClickListener{
+public class tabIngresoUnico extends BaseFragment implements View.OnClickListener{
     EditText editTextMonto, editTextDesc, editTextFecha;
+    Button regIngreso;
     private int mYear,mMonth,mDay;
+    View rootView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.tab_ingreso_unico, container, false);
+        rootView = inflater.inflate(R.layout.tab_ingreso_unico, container, false);
         editTextMonto = (EditText) rootView.findViewById(R.id.editTextMonto);
         editTextDesc = (EditText) rootView.findViewById(R.id.editTextDescripcion);
         editTextFecha = (EditText) rootView.findViewById(R.id.editTextFecha);
         editTextFecha.setOnClickListener(this);
-
+        regIngreso = (Button) rootView.findViewById(R.id.buttonIngresoUnico);
+        regIngreso.setOnClickListener(this);
         return rootView;
     }
     @Override
@@ -59,6 +67,23 @@ public class tabIngresoUnico extends android.support.v4.app.Fragment implements 
                         }
                     }, mYear, mMonth, mDay);
             dpd.show();
+        }
+        if(v == regIngreso){
+            double monto = Double.parseDouble(editTextMonto.getText().toString());
+            String desc = editTextDesc.getText().toString();
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            Date fecha = null;
+            try {
+                fecha = format.parse(editTextFecha.getText().toString());
+                System.out.println("Date ->" + fecha);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            IngresoUnico ingreso = new IngresoUnico(monto,desc,fecha);
+            if(IngresaIngreso.manager.insertar(ingreso))
+                Mensaje(rootView.getContext(),"Insertado correctamente");
+            else
+                Mensaje(rootView.getContext(),"No se pudo insertar!");
         }
     }
 }

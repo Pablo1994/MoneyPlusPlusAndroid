@@ -325,12 +325,13 @@
     </ScrollView>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="176dp"
         android:layout_height="wrap_content"
-        android:text="@string/str_ingresar"
-        android:id="@+id/buttonIngresaPer"
+        android:text="@string/str_reg_ingreso"
+        android:id="@+id/buttonIngresoPeriódico"
         android:layout_gravity="center_horizontal"
-        android:visibility="visible"
-        android:background="@drawable/round_corners_normal" />
+        android:background="@drawable/round_corners_normal"
+        android:layout_marginTop="40dp"
+        android:layout_weight="0.07" />
 
 </LinearLayout>

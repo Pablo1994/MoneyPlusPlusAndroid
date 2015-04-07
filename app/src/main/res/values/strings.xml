@@ -34,4 +34,5 @@
     <string name="str_fecha2">Segunda Fecha</string>
     <string name="str_semanal">Semanal</string>
     <string name="str_ingresar">Ingresar</string>
+    <string name="str_reg_ingreso">Registrar ingreso</string>
 </resources>
