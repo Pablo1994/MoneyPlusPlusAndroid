@@ -17,7 +17,7 @@
     <string name="StringIngreso">Ingreso de Datos</string>
     <string name="Ingreso">Mas</string>
     <string name="ingresoStr">Ingreso</string>
-    <string name="gastoStr">Gasto</string>
+    <string name="gastoStr">Gasto:</string>
     <string name="actividades_str">Actividades del día de hoy</string>
     <string name="title_activity_ingresa_ingreso">Nuevo Ingreso</string>
     <string name="str_monto">Monto: </string>
