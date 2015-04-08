@@ -1,21 +1,21 @@
 package model;
 
 public class IngresoPeriodicoFecha extends Ingreso {
-	private int[] fechas;
+	private String[] fechas;
 	private String frecuencia;
 
 	public IngresoPeriodicoFecha(double monto, String descripcion,
-			int[] fechas, String frecuencia) {
+			String[] fechas, String frecuencia) {
 		super(monto, descripcion);
 		this.fechas = fechas;
 		this.frecuencia = frecuencia;
 	}
 
-	public int[] getFechas() {
+	public String[] getFechas() {
 		return fechas;
 	}
 
-	public void setFechas(int[] fechas) {
+	public void setFechas(String[] fechas) {
 		this.fechas = fechas;
 	}
 

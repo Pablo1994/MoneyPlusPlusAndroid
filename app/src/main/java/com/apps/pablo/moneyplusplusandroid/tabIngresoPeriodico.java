@@ -2,7 +2,6 @@ package com.apps.pablo.moneyplusplusandroid;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +14,15 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import model.IngresoDiario;
 import model.IngresoPeriodicoDia;
+import model.IngresoPeriodicoFecha;
 
 /**
  * Created by pablo on 05/04/15.
  */
 public class tabIngresoPeriodico extends BaseFragment implements AdapterView.OnItemSelectedListener, View.OnClickListener{
     View rootView;
-    EditText editTextMontoDia, editTextDescripcionDia, getEditTextMontoFecha, getEditTextDescripcionFecha, editTextDia;
+    EditText editTextMontoDia, editTextDescripcionDia, editTextMontoFecha, editTextDescripcionFecha;
     RadioGroup radioGroupDia;
     Spinner spinnerDia;
     RadioGroup radioGroupFecha;
@@ -48,6 +47,10 @@ public class tabIngresoPeriodico extends BaseFragment implements AdapterView.OnI
         // Apply the adapter to the spinner
         spinnerDia.setAdapter(adapter2);
         spinnerDia.setOnItemSelectedListener(this);
+
+        editTextMontoFecha = (EditText) rootView.findViewById(R.id.editTextMontoPerFecha);
+        editTextDescripcionFecha = (EditText) rootView.findViewById(R.id.editTextDescPerFecha);
+
 
         editTextFecha = (EditText) rootView.findViewById(R.id.editTextFecPerFecha);
 
@@ -136,18 +139,37 @@ public class tabIngresoPeriodico extends BaseFragment implements AdapterView.OnI
     @Override
     public void onClick(View v) {
         if(v == regIngreso){
-            Log.i("Paul","Entró al if del botón");
             if(rootView.findViewById(R.id.scrollViewDia).getVisibility() == View.VISIBLE){
-                Log.i("Paul","Entró al if");
                 double monto = Double.parseDouble(editTextMontoDia.getText().toString());
-                String desc = (String) editTextDescripcionDia.getText().toString();
-                String freq = (String) ((RadioButton) rootView.findViewById(radioGroupDia.getCheckedRadioButtonId())).getText().toString();
-                String dia = (String) spinnerDia.getSelectedItem().toString();
+                String desc = editTextDescripcionDia.getText().toString();
+                String freq = ((RadioButton) rootView.findViewById(radioGroupDia.getCheckedRadioButtonId())).getText().toString();
+                String dia = spinnerDia.getSelectedItem().toString();
                 IngresoPeriodicoDia ingreso = new IngresoPeriodicoDia(monto,desc,dia,freq);
                 if(IngresaIngreso.manager.insertar(ingreso)) {
                     Mensaje(rootView.getContext(), "Insertado correctamente");
                     editTextMontoDia.setText("");
                     editTextDescripcionDia.setText("");
+                }
+                else
+                    Mensaje(rootView.getContext(),"No se pudo insertar, revise los valores e intente de nuevo.");
+            } else if(rootView.findViewById(R.id.scrollViewFecha).getVisibility() == View.VISIBLE){
+                double monto = Double.parseDouble(editTextMontoFecha.getText().toString());
+                String desc = editTextDescripcionFecha.getText().toString();
+                String freq = ((RadioButton) rootView.findViewById(radioGroupFecha.getCheckedRadioButtonId())).getText().toString();
+                String [] fechas = {};
+                String fecha1 = editTextFecha.getText().toString();
+                fechas[0] = fecha1;
+                if(editTextFecha2.getVisibility() == View.VISIBLE){
+                    String fecha2 = editTextFecha2.getText().toString();
+                    fechas[1] = fecha2;
+                }
+                IngresoPeriodicoFecha ingreso = new IngresoPeriodicoFecha(monto,desc,fechas,freq);
+                if(IngresaIngreso.manager.insertar(ingreso)) {
+                    Mensaje(rootView.getContext(), "Insertado correctamente");
+                    editTextMontoFecha.setText("");
+                    editTextDescripcionFecha.setText("");
+                    editTextFecha.setText("");
+                    editTextFecha2.setText("");
                 }
                 else
                     Mensaje(rootView.getContext(),"No se pudo insertar, revise los valores e intente de nuevo.");

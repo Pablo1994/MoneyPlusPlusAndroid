@@ -2,21 +2,21 @@ package model;
 
 public class GastoPeriodicoFecha extends GastoPeriodico {
 
-	private int[] fechas;
+	private String[] fechas;
 	private String frecuencia;
 
-	public GastoPeriodicoFecha(double monto, String descripcion, int[] fechas,
+	public GastoPeriodicoFecha(double monto, String descripcion, String[] fechas,
 			String frecuencia) {
 		super(monto, descripcion);
 		this.fechas = fechas;
 		this.frecuencia = frecuencia;
 	}
 
-	public int[] getFechas() {
+	public String[] getFechas() {
 		return fechas;
 	}
 
-	public void setFechas(int[] fechas) {
+	public void setFechas(String[] fechas) {
 		this.fechas = fechas;
 	}
 

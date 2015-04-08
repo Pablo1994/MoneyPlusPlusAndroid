@@ -9,11 +9,12 @@ import android.view.ViewGroup;
 /**
  * Created by pablo on 05/04/15.
  */
-public class tabGastoDiario extends android.support.v4.app.Fragment{
+public class tabGastoDiario extends BaseFragment {
+    View rootView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.tab_gasto_diario, container, false);
+        rootView = inflater.inflate(R.layout.tab_gasto_diario, container, false);
 
         return rootView;
     }

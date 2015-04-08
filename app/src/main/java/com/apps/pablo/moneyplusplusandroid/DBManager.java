@@ -112,7 +112,8 @@ public class DBManager {
         return values;
     }
     public boolean insertar(IngresoPeriodicoDia i){
-        return db.insert(TABLA_ING_DIA, null, valoresIngresoPerDia(i)) != 1;
+
+        return db.insert(TABLA_ING_DIA, null, valoresIngresoPerDia(i)) != -1;
     }
     public ContentValues valoresIngresoFechas(IngresoPeriodicoFecha i){
         ContentValues values = new ContentValues();
@@ -125,8 +126,7 @@ public class DBManager {
         long id = db.insert(TABLA_ING_DIARIO, null, valoresIngresoFechas(i));
         if(id != -1){
             ContentValues valoresFechas = new ContentValues();
-            for(int d : i.getFechas()){
-                String s = String.valueOf(d);
+            for(String s : i.getFechas()){
                 valoresFechas.put(DIA,s);
                 valoresFechas.put(FK_ING_DIARIO,id);
                 if(db.insert(DIAS,null,valoresFechas) == -1)
