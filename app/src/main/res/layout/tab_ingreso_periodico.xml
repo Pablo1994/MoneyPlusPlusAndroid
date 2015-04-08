@@ -329,7 +329,7 @@
         android:layout_width="176dp"
         android:layout_height="wrap_content"
         android:text="@string/str_reg_ingreso"
-        android:id="@+id/buttonIngresoPeriódico"
+        android:id="@+id/buttonIngresoPeriodico"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/round_corners_normal"
         android:layout_marginTop="40dp"

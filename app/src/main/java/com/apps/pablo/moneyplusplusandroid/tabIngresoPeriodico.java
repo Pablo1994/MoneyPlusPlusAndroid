@@ -2,6 +2,7 @@ package com.apps.pablo.moneyplusplusandroid;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,8 @@ public class tabIngresoPeriodico extends BaseFragment implements AdapterView.OnI
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.tab_ingreso_periodico, container, false);
-        regIngreso = (Button) rootView.findViewById(R.id.buttonIngresoPeriódico);
+        regIngreso = (Button) rootView.findViewById(R.id.buttonIngresoPeriodico);
+        regIngreso.setOnClickListener(this);
         editTextMontoDia = (EditText) rootView.findViewById(R.id.editTextMontoPerDia);
         editTextDescripcionDia = (EditText) rootView.findViewById(R.id.editTextDescPerDia);
         radioGroupDia = (RadioGroup) rootView.findViewById(R.id.radio_group_dia);
@@ -134,8 +136,9 @@ public class tabIngresoPeriodico extends BaseFragment implements AdapterView.OnI
     @Override
     public void onClick(View v) {
         if(v == regIngreso){
+            Log.i("Paul","Entró al if del botón");
             if(rootView.findViewById(R.id.scrollViewDia).getVisibility() == View.VISIBLE){
-
+                Log.i("Paul","Entró al if");
                 double monto = Double.parseDouble(editTextMontoDia.getText().toString());
                 String desc = (String) editTextDescripcionDia.getText().toString();
                 String freq = (String) ((RadioButton) rootView.findViewById(radioGroupDia.getCheckedRadioButtonId())).getText().toString();
