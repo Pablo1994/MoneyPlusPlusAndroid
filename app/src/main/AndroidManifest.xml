@@ -10,7 +10,7 @@
         <activity
             android:name=".PantallaPrincipal"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +21,15 @@
             android:name=".IngresaIngreso"
             android:label="@string/title_activity_ingresa_ingreso"
             android:parentActivityName=".PantallaPrincipal"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.apps.pablo.moneyplusplusandroid.PantallaPrincipal" />
+        </activity>
+        <activity
+            android:name=".ResumenDia"
+            android:label="@string/title_activity_resumen_dia"
+            android:parentActivityName=".PantallaPrincipal" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.apps.pablo.moneyplusplusandroid.PantallaPrincipal" />

@@ -2,6 +2,7 @@ package com.apps.pablo.moneyplusplusandroid;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.text.SimpleDateFormat;
@@ -25,7 +26,7 @@ public class DBManager {
     public static final String DIA = "dia";
     public static final String FRECUENCIA = "frecuencia";
     public static final String TIPO = "tipo";
-
+    public static final String BANDERA = "flag";
     // ------------------- TABLAS DE INGRESOS ---------------------- //
 
     public static final String TABLA_ING_PURO = "ingreso_puro";
@@ -39,7 +40,7 @@ public class DBManager {
     public static final String ID_ING_DIA = "ingPerDiaId";
 
     public static final String INGRESO_PER_DIA = "CREATE TABLE " + TABLA_ING_DIA + " (" + ID_ING_DIA + " INTEGER primary key autoincrement, " +
-            MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + DIA + " TEXT, " + FRECUENCIA + " TEXT);";
+            MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + DIA + " TEXT, " + FRECUENCIA + " TEXT, " + BANDERA + " TEXT);";
 
     public static final String TABLA_ING_DIARIO = "ingreso_diario";
     public static final String ID_ING_DIARIO = "ingDiarioId";
@@ -119,7 +120,6 @@ public class DBManager {
         return values;
     }
     public boolean insertar(IngresoPeriodicoDia i){
-
         return db.insert(TABLA_ING_DIA, null, valoresIngresoPerDia(i)) != -1;
     }
     public ContentValues valoresIngresoFechas(IngresoPeriodicoFecha i){
@@ -144,6 +144,58 @@ public class DBManager {
         else
             return false;
     }
+
+    public boolean eliminaIngUnico(int id){
+        return db.delete(TABLA_ING_PURO,ID_ING_PURO + "=?", new String[]{String.valueOf(id)}) > 0;
+    }
+
+    public boolean eliminaIngDiario(int id){
+        return db.delete(TABLA_ING_PURO,ID_ING_DIARIO+"=?", new String[]{String.valueOf(id)}) > 0;
+    }
+
+    public boolean eliminaIngPerFecha(int id){
+        return db.delete(TABLA_ING_PURO,ID_ING_FECHA+"=?", new String[]{String.valueOf(id)}) > 0;
+    }
+
+    public boolean eliminaIngPerDia(int id){
+        return db.delete(TABLA_ING_PURO,ID_ING_DIA+"=?", new String[]{String.valueOf(id)}) > 0;
+    }
+
+    public Cursor cargaCursorIngPuro(){
+        String columnas [] = new String[]{ID_ING_PURO,MONTO,DESCRIPCION,FECHA};
+        return db.query(TABLA_ING_PURO, columnas,null,null,null,null,null);
+    }
+
+    public Cursor cargaCursorDias(String dia){
+        String columnas [] = new String[]{FK_ING_DIARIO,DIA};
+        return db.query(TABLA_DIAS,columnas,DIA + "=?",new String[]{dia},null,null,null);
+    }
+
+    public Cursor cargaCursorIngDiario(String id){
+        String columnas [] = new String[]{ID_ING_DIARIO,MONTO,DESCRIPCION};
+        return db.query(TABLA_ING_DIARIO, columnas,ID_ING_DIARIO + "=?",new String[]{id},null,null,null);
+    }
+
+    public void cambiaEstadoIngPerDia(String id,String flag){
+        ContentValues values = new ContentValues();
+        values.put(BANDERA,flag);
+        db.update(TABLA_ING_DIA,values,ID_ING_DIA+"=?",new String[]{id});
+    }
+    public Cursor cargaCursorIngPerDia(String dia){
+        String columnas [] = new String[]{ID_ING_DIA,MONTO,DESCRIPCION,DIA,FRECUENCIA};
+        return db.query(TABLA_ING_DIA, columnas,DIA + "=?",new String[]{dia},null,null,null);
+    }
+
+    public Cursor cargaCursorFechas(String fecha){
+        String columnas [] = new String[]{FK_ING_FECHAS,FECHA};
+        return db.query(TABLA_FECHAS,columnas,FECHA + "=?",new String[]{fecha},null,null,null);
+    }
+
+    public Cursor cargaCursorIngPerFecha(String id){
+        String columnas [] = new String[]{ID_ING_PURO,MONTO,DESCRIPCION,FRECUENCIA};
+        return db.query(TABLA_ING_FECHA, columnas,ID_ING_FECHA + "=?",new String[]{id},null,null,null);
+    }
+
 
     // ------------------- TABLAS DE GASTOS ------------------------ //
     public static final String TABLA_GASTO_PURO = "gasto_puro";
@@ -258,5 +310,55 @@ public class DBManager {
         }
         else
             return false;
+    }
+    public boolean eliminaGastoUnico(int id){
+        return db.delete(TABLA_GASTO_PURO,ID_GASTO_PURO + "=?", new String[]{String.valueOf(id)}) > 0;
+    }
+
+    public boolean eliminaGastoDiario(int id){
+        return db.delete(TABLA_GASTO_PURO,ID_GASTO_DIARIO+"=?", new String[]{String.valueOf(id)}) > 0;
+    }
+
+    public boolean eliminaGastoPerFecha(int id){
+        return db.delete(TABLA_GASTO_PURO,ID_GASTO_FECHA+"=?", new String[]{String.valueOf(id)}) > 0;
+    }
+
+    public boolean eliminaGastoPerDia(int id){
+        return db.delete(TABLA_GASTO_PURO,ID_GASTO_DIA+"=?", new String[]{String.valueOf(id)}) > 0;
+    }
+
+    public Cursor cargaCursorGastoPuro(){
+        String columnas [] = new String[]{ID_ING_PURO,MONTO,DESCRIPCION,FECHA};
+        return db.query(TABLA_ING_PURO, columnas,null,null,null,null,null);
+    }
+
+    public Cursor cargaCursorDiasGasto(String dia){
+        String columnas [] = new String[]{FK_GASTO_DIARIO,DIA};
+        return db.query(TABLA_DIAS_GASTOS,columnas,DIA + "=?",new String[]{dia},null,null,null);
+    }
+
+    public Cursor cargaCursorGastoDiario(String id){
+        String columnas [] = new String[]{ID_GASTO_DIARIO,MONTO,DESCRIPCION};
+        return db.query(TABLA_GASTO_DIARIO, columnas,ID_GASTO_DIARIO + "=?",new String[]{id},null,null,null);
+    }
+
+    public void cambiaEstadoGastoPerDia(String id,String flag){
+        ContentValues values = new ContentValues();
+        values.put(BANDERA,flag);
+        db.update(TABLA_GASTO_DIA,values,ID_GASTO_DIA+"=?",new String[]{id});
+    }
+    public Cursor cargaCursorGastoPerDia(String dia){
+        String columnas [] = new String[]{ID_GASTO_DIA,MONTO,DESCRIPCION,DIA,FRECUENCIA};
+        return db.query(TABLA_GASTO_DIA, columnas,DIA + "=?",new String[]{dia},null,null,null);
+    }
+
+    public Cursor cargaCursorFechasGasto(String fecha){
+        String columnas [] = new String[]{FK_GASTO_FECHAS,FECHA};
+        return db.query(TABLA_FECHAS_GASTOS,columnas,FECHA + "=?",new String[]{fecha},null,null,null);
+    }
+
+    public Cursor cargaCursorGastoPerFecha(String id){
+        String columnas [] = new String[]{ID_ING_PURO,MONTO,DESCRIPCION,FRECUENCIA};
+        return db.query(TABLA_GASTO_FECHA, columnas,ID_GASTO_FECHA + "=?",new String[]{id},null,null,null);
     }
 }

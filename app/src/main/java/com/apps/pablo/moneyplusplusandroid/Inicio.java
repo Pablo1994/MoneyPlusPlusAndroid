@@ -33,6 +33,13 @@ public class Inicio extends android.support.v4.app.Fragment{
                 startActivity(intento);
             }
         });
+        Button btnActividades = (Button) rootView.findViewById(R.id.buttonActividades);
+        btnActividades.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return rootView;
     }
 
