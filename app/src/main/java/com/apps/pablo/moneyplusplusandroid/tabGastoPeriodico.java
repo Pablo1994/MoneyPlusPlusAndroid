@@ -7,29 +7,73 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import model.GastoPeriodicoDia;
+import model.GastoPeriodicoFecha;
+
 /**
  * Created by pablo on 05/04/15.
  */
-public class tabGastoPeriodico extends android.support.v4.app.Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener{
+public class tabGastoPeriodico extends BaseFragment implements AdapterView.OnItemSelectedListener, View.OnClickListener{
     View rootView;
+    EditText editTextMontoDia, editTextDescripcionDia, editTextMontoFecha, editTextDescripcionFecha;
+    Spinner spinnerTipoDia, spinnerTipoFecha;
+    RadioGroup radioGroupDia;
+    Spinner spinnerDia;
+    RadioGroup radioGroupFecha;
     EditText editTextFecha;
     EditText editTextFecha2;
+    Button regGasto;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.tab_gasto_periodico, container, false);
+        regGasto = (Button) rootView.findViewById(R.id.buttonGastoPeriodico);
+        regGasto.setOnClickListener(this);
+        editTextMontoDia = (EditText) rootView.findViewById(R.id.editTextGastoMontoPerDia);
+        editTextDescripcionDia = (EditText) rootView.findViewById(R.id.editTextGastoDescPerDia);
+        spinnerTipoDia = (Spinner) rootView.findViewById(R.id.spinnerTipoDias);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(rootView.getContext(),
+                R.array.array_tipos, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinnerTipoDia.setAdapter(adapter2);
+        radioGroupDia = (RadioGroup) rootView.findViewById(R.id.radio_group_gasto_dia);
+        spinnerDia = (Spinner) rootView.findViewById(R.id.spinnerGastoDias);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adaptertd = ArrayAdapter.createFromResource(rootView.getContext(),
+                R.array.array_dias, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adaptertd.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinnerDia.setAdapter(adaptertd);
+        spinnerDia.setOnItemSelectedListener(this);
 
-        editTextFecha = (EditText) rootView.findViewById(R.id.editTextFecPerFecha);
+        editTextMontoFecha = (EditText) rootView.findViewById(R.id.editTextGastoPerFecha);
+        editTextDescripcionFecha = (EditText) rootView.findViewById(R.id.editTextDescGastoPerFecha);
+        spinnerTipoFecha = (Spinner) rootView.findViewById(R.id.spinnerTipoFechas);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adaptertf = ArrayAdapter.createFromResource(rootView.getContext(),
+                R.array.array_tipos, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adaptertf.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinnerTipoFecha.setAdapter(adaptertf);
 
-        editTextFecha2 = (EditText) rootView.findViewById(R.id.editTextFecha2PerFecha);
+        editTextFecha = (EditText) rootView.findViewById(R.id.editTextGastoFecPerFecha);
 
-        RadioGroup radioGroup = (RadioGroup) rootView.findViewById(R.id.radio_group_fecha);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        editTextFecha2 = (EditText) rootView.findViewById(R.id.editTextGastoFecha2PerFecha);
+
+        radioGroupFecha = (RadioGroup) rootView.findViewById(R.id.radio_group_gasto_fecha);
+        radioGroupFecha.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -37,15 +81,15 @@ public class tabGastoPeriodico extends android.support.v4.app.Fragment implement
                 TextView textView;
                 EditText editText;
                 switch (checkedId){
-                    case R.id.radioButtonMensFecha:
-                        textView = (TextView) rootView.findViewById(R.id.textViewFecha2PerFecha);
-                        editText = (EditText) rootView.findViewById(R.id.editTextFecha2PerFecha);
+                    case R.id.radioButtonGastoMensFecha:
+                        textView = (TextView) rootView.findViewById(R.id.textViewGastoFecha2PerFecha);
+                        editText = (EditText) rootView.findViewById(R.id.editTextGastoFecha2PerFecha);
                         textView.setVisibility(View.GONE);
                         editText.setVisibility(View.GONE);
                         break;
                     case R.id.radioButtonQuinFecha:
-                        textView = (TextView) rootView.findViewById(R.id.textViewFecha2PerFecha);
-                        editText = (EditText) rootView.findViewById(R.id.editTextFecha2PerFecha);
+                        textView = (TextView) rootView.findViewById(R.id.textViewGastoFecha2PerFecha);
+                        editText = (EditText) rootView.findViewById(R.id.editTextGastoFecha2PerFecha);
                         textView.setVisibility(View.VISIBLE);
                         editText.setVisibility(View.VISIBLE);
                         break;
@@ -54,7 +98,7 @@ public class tabGastoPeriodico extends android.support.v4.app.Fragment implement
         });
 
         //Spiner Modo:
-        Spinner spinnerModo = (Spinner) rootView.findViewById(R.id.spinnerModo);
+        Spinner spinnerModo = (Spinner) rootView.findViewById(R.id.spinnerModoGasto);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(rootView.getContext(),
@@ -64,18 +108,6 @@ public class tabGastoPeriodico extends android.support.v4.app.Fragment implement
         // Apply the adapter to the spinner
         spinnerModo.setAdapter(adapter);
         spinnerModo.setOnItemSelectedListener(this);
-
-        //Spiner Días:
-        Spinner spinnerDias = (Spinner) rootView.findViewById(R.id.spinnerDias);
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(rootView.getContext(),
-                R.array.array_dias, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinnerDias.setAdapter(adapter2);
-        spinnerDias.setOnItemSelectedListener(this);
 
         return rootView;
     }
@@ -89,18 +121,18 @@ public class tabGastoPeriodico extends android.support.v4.app.Fragment implement
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Spinner spinner = (Spinner) parent;
         switch (spinner.getId()) {
-            case R.id.spinnerModo:
+            case R.id.spinnerModoGasto:
                 String modo = (String) parent.getItemAtPosition(position);
                 View layout = null;
                 View layout2 = null;
                 switch (modo) {
                     case "Por día":
-                        layout = rootView.findViewById(R.id.scrollViewDia);
-                        layout2 = rootView.findViewById(R.id.scrollViewFecha);
+                        layout = rootView.findViewById(R.id.scrollViewDiaGasto);
+                        layout2 = rootView.findViewById(R.id.scrollViewFechaGasto);
                         break;
                     case "Por fecha(s)":
-                        layout = rootView.findViewById(R.id.scrollViewFecha);
-                        layout2 = rootView.findViewById(R.id.scrollViewDia);
+                        layout = rootView.findViewById(R.id.scrollViewFechaGasto);
+                        layout2 = rootView.findViewById(R.id.scrollViewDiaGasto);
                         break;
                 }
                 if (layout2 != null) {
@@ -120,7 +152,45 @@ public class tabGastoPeriodico extends android.support.v4.app.Fragment implement
 
     @Override
     public void onClick(View v) {
-
+        if(v == regGasto){
+            if(rootView.findViewById(R.id.scrollViewDiaGasto).getVisibility() == View.VISIBLE){
+                double monto = Double.parseDouble(editTextMontoDia.getText().toString());
+                String desc = editTextDescripcionDia.getText().toString();
+                String tipo = spinnerTipoDia.getSelectedItem().toString();
+                String freq = ((RadioButton) rootView.findViewById(radioGroupDia.getCheckedRadioButtonId())).getText().toString();
+                String dia = spinnerDia.getSelectedItem().toString();
+                GastoPeriodicoDia gasto = new GastoPeriodicoDia(monto,desc,tipo,dia,freq);
+                if(IngresaIngreso.manager.insertar(gasto)) {
+                    Mensaje(rootView.getContext(), "Insertado correctamente");
+                    editTextMontoDia.setText("");
+                    editTextDescripcionDia.setText("");
+                }
+                else
+                    Mensaje(rootView.getContext(),"No se pudo insertar, revise los valores e intente de nuevo.");
+            } else if(rootView.findViewById(R.id.scrollViewFecha).getVisibility() == View.VISIBLE){
+                double monto = Double.parseDouble(editTextMontoFecha.getText().toString());
+                String desc = editTextDescripcionFecha.getText().toString();
+                String tipo = spinnerTipoFecha.getSelectedItem().toString();
+                String freq = ((RadioButton) rootView.findViewById(radioGroupFecha.getCheckedRadioButtonId())).getText().toString();
+                String [] fechas = {};
+                String fecha1 = editTextFecha.getText().toString();
+                fechas[0] = fecha1;
+                if(editTextFecha2.getVisibility() == View.VISIBLE){
+                    String fecha2 = editTextFecha2.getText().toString();
+                    fechas[1] = fecha2;
+                }
+                GastoPeriodicoFecha gasto = new GastoPeriodicoFecha(monto,desc,tipo, fechas,freq);
+                if(IngresaIngreso.manager.insertar(gasto)) {
+                    Mensaje(rootView.getContext(), "Insertado correctamente");
+                    editTextMontoFecha.setText("");
+                    editTextDescripcionFecha.setText("");
+                    editTextFecha.setText("");
+                    editTextFecha2.setText("");
+                }
+                else
+                    Mensaje(rootView.getContext(),"No se pudo insertar, revise los valores e intente de nuevo.");
+            }
+        }
     }
 }
 

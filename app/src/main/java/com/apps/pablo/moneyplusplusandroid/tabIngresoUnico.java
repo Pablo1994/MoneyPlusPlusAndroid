@@ -3,7 +3,6 @@ package com.apps.pablo.moneyplusplusandroid;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +45,6 @@ public class tabIngresoUnico extends BaseFragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if(v == editTextFecha){
-            Log.i("Fechita", "LO HICIMOS, SÍ!");
             // Process to get Current Date
             final Calendar c = Calendar.getInstance();
             mYear = c.get(Calendar.YEAR);

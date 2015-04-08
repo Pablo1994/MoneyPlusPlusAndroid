@@ -4,9 +4,9 @@ public class GastoPeriodicoDia extends GastoPeriodico {
 	private String dia;
 	private String frecuencia;
 
-	public GastoPeriodicoDia(double monto, String descripcion, String dia,
+	public GastoPeriodicoDia(double monto, String descripcion, String tipo, String dia,
 			String frecuencia) {
-		super(monto, descripcion);
+		super(monto, descripcion, tipo);
 		this.dia = dia;
 		this.frecuencia = frecuencia;
 	}

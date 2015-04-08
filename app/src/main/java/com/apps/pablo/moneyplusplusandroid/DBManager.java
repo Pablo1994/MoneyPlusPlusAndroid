@@ -6,6 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.text.SimpleDateFormat;
 
+import model.GastoDiario;
+import model.GastoPeriodicoDia;
+import model.GastoPeriodicoFecha;
+import model.GastoUnico;
 import model.IngresoDiario;
 import model.IngresoPeriodicoDia;
 import model.IngresoPeriodicoFecha;
@@ -20,6 +24,9 @@ public class DBManager {
     public static final String FECHA = "fecha";
     public static final String DIA = "dia";
     public static final String FRECUENCIA = "frecuencia";
+    public static final String TIPO = "tipo";
+
+    // ------------------- TABLAS DE INGRESOS ---------------------- //
 
     public static final String TABLA_ING_PURO = "ingreso_puro";
     public static final String ID_ING_PURO = "ingPuroId";
@@ -123,13 +130,128 @@ public class DBManager {
         return values;
     }
     public boolean insertar(IngresoPeriodicoFecha i){
-        long id = db.insert(TABLA_ING_DIARIO, null, valoresIngresoFechas(i));
+        long id = db.insert(TABLA_ING_FECHA, null, valoresIngresoFechas(i));
         if(id != -1){
             ContentValues valoresFechas = new ContentValues();
             for(String s : i.getFechas()){
-                valoresFechas.put(DIA,s);
-                valoresFechas.put(FK_ING_DIARIO,id);
-                if(db.insert(DIAS,null,valoresFechas) == -1)
+                valoresFechas.put(FECHA,s);
+                valoresFechas.put(FK_ING_FECHAS,id);
+                if(db.insert(FECHAS,null,valoresFechas) == -1)
+                    return false;
+            }
+            return true;
+        }
+        else
+            return false;
+    }
+
+    // ------------------- TABLAS DE GASTOS ------------------------ //
+    public static final String TABLA_GASTO_PURO = "gasto_puro";
+    public static final String ID_GASTO_PURO = "gastoPuroId";
+
+    public static final String GASTO_PURO = "CREATE TABLE " + TABLA_GASTO_PURO + " (" + ID_GASTO_PURO +
+            " INTEGER primary key autoincrement, " + MONTO + " INTEGER, " + DESCRIPCION +
+            " TEXT, "+ FECHA + " TEXT);";
+
+    public static final String TABLA_GASTO_DIA = "gasto_per_dia";
+    public static final String ID_GASTO_DIA = "gastoPerDiaId";
+
+    public static final String GASTO_PER_DIA = "CREATE TABLE " + TABLA_GASTO_DIA + " (" + ID_GASTO_DIA + " INTEGER primary key autoincrement, " +
+            MONTO + " INTEGER, " + DESCRIPCION +  " TEXT, " + DIA + " TEXT, " + FRECUENCIA + " TEXT);";
+
+    public static final String TABLA_GASTO_DIARIO = "gasto_diario";
+    public static final String ID_GASTO_DIARIO = "gastoDiarioId";
+
+    public static final String GASTO_DIARIO = "CREATE TABLE " + TABLA_GASTO_DIARIO + " (" + ID_GASTO_DIARIO + " INTEGER primary key autoincrement, " +
+            MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + TIPO +" TEXT);";
+
+    public static final String TABLA_DIAS_GASTOS = "dias_gastos";
+    public static final String FK_GASTO_DIARIO = "idGastoDiario";
+
+    public static final String DIAS_GASTOS = "CREATE TABLE " + TABLA_DIAS_GASTOS + " (" + DIA + " TEXT, " + FK_GASTO_DIARIO +
+            " INT, FOREIGN KEY(" + FK_GASTO_DIARIO+ ") REFERENCES " +
+            TABLA_GASTO_DIARIO + "(" + ID_GASTO_DIARIO + "));";
+
+    public static final String TABLA_GASTO_FECHA = "gasto_per_fecha";
+    public static final String ID_GASTO_FECHA = "gastoPerFechaId";
+
+    public static final String GASTO_PER_FECHA = "CREATE TABLE " + TABLA_GASTO_FECHA + " (" + ID_GASTO_FECHA + " INTEGER primary key autoincrement, " +
+            MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + TIPO + " TEXT, " + FRECUENCIA + " TEXT);";
+
+    public static final String TABLA_FECHAS_GASTOS = "fechas_gastos";
+    public static final String FK_GASTO_FECHAS = "idGastoPerFec";
+
+    public static final String FECHAS_GASTOS = "CREATE TABLE " + TABLA_FECHAS_GASTOS + " ("+ FECHA + " TEXT, " + FK_GASTO_FECHAS +
+            " INT, FOREIGN KEY(" + FK_GASTO_FECHAS + ") REFERENCES " + TABLA_GASTO_FECHA + "(" + FK_GASTO_FECHAS +"));";
+    public static String gastos [] = {GASTO_PURO,GASTO_DIARIO,GASTO_PER_DIA,GASTO_PER_FECHA,DIAS_GASTOS,FECHAS_GASTOS};
+
+
+    public ContentValues valoresGastoPuro(GastoUnico i){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(i.getFecha());
+        ContentValues values = new ContentValues();
+        values.put(MONTO,i.getMonto());
+        values.put(DESCRIPCION,i.getDescripcion());
+        values.put(TIPO,i.getTipo());
+        values.put(FECHA,date);
+        return values;
+    }
+    public boolean insertar(GastoUnico i){
+        return db.insert(TABLA_GASTO_PURO, null, valoresGastoPuro(i)) != -1;
+    }
+
+    public ContentValues valoresGastoDiario(GastoDiario i){
+        ContentValues values = new ContentValues();
+        values.put(MONTO, i.getMonto());
+        values.put(DESCRIPCION, i.getDescripcion());
+        values.put(TIPO,i.getTipo());
+        return values;
+    }
+    public boolean insertar(GastoDiario i){
+        long id = db.insert(TABLA_GASTO_DIARIO, null, valoresGastoDiario(i));
+        if(id != -1){
+            ContentValues valoresDias = new ContentValues();
+            for(String s : i.getDias()){
+                valoresDias.put(DIA,s);
+                valoresDias.put(FK_GASTO_DIARIO,id);
+                if(db.insert(DIAS_GASTOS,null,valoresDias) == -1)
+                    return false;
+            }
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public ContentValues valoresGastoPerDia (GastoPeriodicoDia i){
+        ContentValues values = new ContentValues();
+        values.put(MONTO, i.getMonto());
+        values.put(DESCRIPCION, i.getDescripcion());
+        values.put(TIPO,i.getTipo());
+        values.put(DIA,i.getDia());
+        values.put(FRECUENCIA,i.getFrecuencia());
+        return values;
+    }
+    public boolean insertar(GastoPeriodicoDia i){
+
+        return db.insert(TABLA_GASTO_DIA, null, valoresGastoPerDia(i)) != -1;
+    }
+    public ContentValues valoresGastoFechas(GastoPeriodicoFecha i){
+        ContentValues values = new ContentValues();
+        values.put(MONTO, i.getMonto());
+        values.put(DESCRIPCION, i.getDescripcion());
+        values.put(TIPO,i.getTipo());
+        values.put(FRECUENCIA, i.getFrecuencia());
+        return values;
+    }
+    public boolean insertar(GastoPeriodicoFecha i){
+        long id = db.insert(TABLA_GASTO_DIARIO, null, valoresGastoFechas(i));
+        if(id != -1){
+            ContentValues valoresFechas = new ContentValues();
+            for(String s : i.getFechas()){
+                valoresFechas.put(FECHA,s);
+                valoresFechas.put(FK_GASTO_DIARIO,id);
+                if(db.insert(FECHAS_GASTOS,null,valoresFechas) == -1)
                     return false;
             }
             return true;

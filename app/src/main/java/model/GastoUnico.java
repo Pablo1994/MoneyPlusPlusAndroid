@@ -2,12 +2,12 @@ package model;
 
 import java.util.Date;
 
-public class GastoÚnico extends Gasto {
+public class GastoUnico extends Gasto {
 
 	private Date fecha;
 
-	public GastoÚnico(double monto, String descripcion, Date fecha) {
-		super(monto, descripcion);
+	public GastoUnico(double monto, String descripcion, String tipo, Date fecha) {
+		super(monto, descripcion, tipo);
 		this.fecha = fecha;
 	}
 

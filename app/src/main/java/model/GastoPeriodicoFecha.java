@@ -5,9 +5,9 @@ public class GastoPeriodicoFecha extends GastoPeriodico {
 	private String[] fechas;
 	private String frecuencia;
 
-	public GastoPeriodicoFecha(double monto, String descripcion, String[] fechas,
+	public GastoPeriodicoFecha(double monto, String descripcion, String tipo, String[] fechas,
 			String frecuencia) {
-		super(monto, descripcion);
+		super(monto, descripcion, tipo);
 		this.fechas = fechas;
 		this.frecuencia = frecuencia;
 	}

@@ -58,9 +58,10 @@
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner2"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="46dp"
+        android:id="@+id/spinnerGastoDiario"
+        android:layout_gravity="center_horizontal"
+        android:spinnerMode="dialog" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -83,7 +84,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:id="@+id/editTextDescDiario"
+            android:id="@+id/editTextDescGastoDiario"
             android:layout_weight="1"
             android:background="#ffc3fbf0"
             android:inputType="text" />
@@ -112,7 +113,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/str_lunes"
-                android:id="@+id/checkBoxLunes"
+                android:id="@+id/checkBoxLunesGasto"
                 android:layout_column="1"
                 android:checked="false"
                 android:layout_weight="1" />
@@ -121,7 +122,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/str_martes"
-                android:id="@+id/checkBoxMartes"
+                android:id="@+id/checkBoxMartesGasto"
                 android:layout_column="3"
                 android:checked="false"
                 android:layout_weight="1" />
@@ -130,7 +131,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/str_miercoles"
-                android:id="@+id/checkBoxMiercoles"
+                android:id="@+id/checkBoxMiercolesGasto"
                 android:layout_column="5"
                 android:checked="false"
                 android:layout_weight="1.1" />
@@ -139,7 +140,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/str_jueves"
-                android:id="@+id/checkBoxJueves"
+                android:id="@+id/checkBoxJuevesGasto"
                 android:layout_column="7"
                 android:checked="false"
                 android:layout_weight="1" />
@@ -154,7 +155,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/str_viernes"
-                android:id="@+id/checkBoxViernes"
+                android:id="@+id/checkBoxViernesGasto"
                 android:layout_column="8"
                 android:checked="false"
                 android:layout_weight="1" />
@@ -163,7 +164,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/str_sabado"
-                android:id="@+id/checkBoxSabado"
+                android:id="@+id/checkBoxSabadoGasto"
                 android:layout_column="13"
                 android:checked="false"
                 android:layout_weight="1" />
@@ -172,11 +173,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/str_domingo"
-                android:id="@+id/checkBoxDomingo"
+                android:id="@+id/checkBoxDomingoGasto"
                 android:layout_column="16"
                 android:checked="false"
                 android:layout_weight="1" />
         </TableRow>
     </TableLayout>
+
+    <Button
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:text="@string/str_registra_gasto"
+        android:id="@+id/buttonGastoDiario"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/round_corners_normal"
+        android:layout_marginTop="40dp" />
 
 </LinearLayout>

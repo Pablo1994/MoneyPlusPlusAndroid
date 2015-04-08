@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editTextMonto"
+        android:id="@+id/editTextMontoGastoUnico"
         android:layout_weight="0.06"
         android:background="#ffc3fbf0" />
 
@@ -70,8 +70,9 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="41dp"
-        android:id="@+id/spinner"
-        android:layout_gravity="center_horizontal" />
+        android:id="@+id/spinnerGastoUnico"
+        android:layout_gravity="center_horizontal"
+        android:spinnerMode="dialog" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -95,7 +96,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextDescripcion"
+        android:id="@+id/editTextDescripcionGastoUnico"
         android:background="#ffc3fbf0"
         android:inputType="text"
         android:layout_weight="0.06"
@@ -134,7 +135,7 @@
             android:layout_height="fill_parent"
             android:inputType="date"
             android:ems="10"
-            android:id="@+id/editTextFecha"
+            android:id="@+id/editTextFechaGastoUnico"
             android:layout_weight="1"
             android:background="#ffcddcfb"
             android:clickable="true"
@@ -145,7 +146,7 @@
     <Button
         android:layout_width="172dp"
         android:layout_height="wrap_content"
-        android:text="Registrar Gasto"
+        android:text="@string/str_registra_gasto"
         android:id="@+id/buttonGastoUnico"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/round_corners_normal"

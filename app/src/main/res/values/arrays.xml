@@ -13,4 +13,14 @@
         <item>Sábado</item>
         <item>Domingo</item>
     </string-array>
+    <string-array name="array_tipos">
+        <item>Transporte</item>
+        <item>Alimentación</item>
+        <item>Ropa</item>
+        <item>Ocio</item>
+        <item>Teléfono</item>
+        <item>Internet</item>
+        <item>Pagos</item>
+        <item>Otro</item>
+    </string-array>
 </resources>
