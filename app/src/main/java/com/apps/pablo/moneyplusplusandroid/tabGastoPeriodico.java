@@ -111,6 +111,7 @@ public class tabGastoPeriodico extends BaseFragment implements AdapterView.OnIte
 
         return rootView;
     }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
