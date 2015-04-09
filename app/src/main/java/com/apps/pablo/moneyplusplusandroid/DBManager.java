@@ -53,9 +53,9 @@ public class DBManager {
             MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + DIA + " TEXT, " + FRECUENCIA + " TEXT, " + BANDERA + " TEXT);";
 
     public static final String TABLA_ING_DIARIO = "ingreso_diario";
-    public static final String ID_ING_DIARIO = "ingDiarioId";
+    public static final String ID_ING_DIARIO = "_id";
 
-    public static final String INGRESO_DIARIO = "CREATE TABLE " + TABLA_ING_DIARIO + " (" + ID_ING_DIARIO + " INTEGER primary key autoincrement, " +
+    public static final String INGRESO_DIARIO = "CREATE TABLE " + TABLA_ING_DIARIO + " ( " + ID_ING_DIARIO + " INTEGER primary key autoincrement, " +
             MONTO + " INTEGER, " + DESCRIPCION + " TEXT);";
 
     public static final String TABLA_DIAS = "dias";
@@ -184,8 +184,8 @@ public class DBManager {
     }
 
     public Cursor cargaCursorIngDiario(String [] id){
-        String columnas [] = new String[]{ID_ING_DIARIO,MONTO,DESCRIPCION};
-        return db.query(TABLA_ING_DIARIO, columnas,ID_ING_DIARIO + "IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
+        String columnas [] = new String[]{"_id",ID_ING_DIARIO,MONTO,DESCRIPCION};
+        return db.query(TABLA_ING_DIARIO, columnas,ID_ING_DIARIO + " IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
     }
 
     public void cambiaEstadoIngPerDia(String id,String flag){

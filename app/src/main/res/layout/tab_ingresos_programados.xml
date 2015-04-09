@@ -9,7 +9,7 @@
         android:id="@+id/listViewDiario"
         android:layout_gravity="center_horizontal" />
 
-    <ListView
+<!--    <ListView
         android:layout_width="match_parent"
         android:layout_height="190dp"
         android:id="@+id/listViewPerDia"
@@ -19,6 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listViewPerFecha"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal" />-->
 
 </LinearLayout>

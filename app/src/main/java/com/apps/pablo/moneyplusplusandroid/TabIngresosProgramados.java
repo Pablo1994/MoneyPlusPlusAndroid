@@ -1,7 +1,9 @@
 package com.apps.pablo.moneyplusplusandroid;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ public class TabIngresosProgramados extends BaseFragment{
     View rootView;
     ListView listaDiario, listaPerDia, listaPerFecha;
     SimpleCursorAdapter adapterDiario, adapterPerDia, adapterPerFecha;
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.tab_ingresos_programados, container, false);
@@ -44,7 +47,7 @@ public class TabIngresosProgramados extends BaseFragment{
         adapterDiario = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_ingreso_diario,cursorDiario,fromDiario,toDiario,0);
         listaDiario.setAdapter(adapterDiario);
 
-        String [] fromPerDia = new String[]{manager.ID_ING_DIARIO,manager.MONTO,manager.DESCRIPCION,manager.FRECUENCIA};
+        /*String [] fromPerDia = new String[]{manager.ID_ING_DIARIO,manager.MONTO,manager.DESCRIPCION,manager.FRECUENCIA};
         int [] toPerDia = new int[]{R.id.itemPerDiaID,R.id.itemPerDiaMonto,R.id.itemPerDiaDescripcion,R.id.itemPerDiaFrecuencia};
         Cursor cursorPerDiaReal = manager.cargaCursorIngPerDia2(getDayOfWeek());
         Cursor cursorPerDia = manager.cargaCursorIngPerDia(getDayOfWeek());
@@ -81,9 +84,9 @@ public class TabIngresosProgramados extends BaseFragment{
             }
         }
         adapterPerDia = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_ingreso_per_dia,cursorPerDiaReal,fromPerDia,toPerDia,0);
-        listaPerDia.setAdapter(adapterPerDia);
+        listaPerDia.setAdapter(adapterPerDia);*/
 
-        String [] fromPerFecha = new String[]{manager.ID_ING_DIARIO,manager.MONTO,manager.DESCRIPCION, manager.FRECUENCIA};
+        /*String [] fromPerFecha = new String[]{manager.ID_ING_DIARIO,manager.MONTO,manager.DESCRIPCION, manager.FRECUENCIA};
         int [] toPerFecha = new int[]{R.id.itemPerFechaID,R.id.itemPerFechaMonto,R.id.itemPerFechaDescripcion};
         ArrayList<String> arrIdPerFecha = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
@@ -101,7 +104,7 @@ public class TabIngresosProgramados extends BaseFragment{
         ids = arrIdPerFecha.toArray(ids2);
         Cursor cursorPerFecha = manager.cargaCursorIngPerFecha(ids2);
         adapterPerFecha = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_ingreso_per_fecha,cursorPerFecha,fromPerFecha,toPerFecha,0);
-        listaPerFecha.setAdapter(adapterPerFecha);
+        listaPerFecha.setAdapter(adapterPerFecha);*/
 
         return rootView;
     }
