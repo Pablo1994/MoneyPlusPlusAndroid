@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 
@@ -106,12 +107,13 @@ public class DBManager {
     }
     public boolean insertar(IngresoDiario i){
         long id = db.insert(TABLA_ING_DIARIO, null, valoresIngresoDiario(i));
+        Log.i("inserta","id " + id);
         if(id != -1){
             ContentValues valoresDias = new ContentValues();
             for(String s : i.getDias()){
                 valoresDias.put(DIA,s);
                 valoresDias.put(FK_ING_DIARIO,id);
-                if(db.insert(DIAS,null,valoresDias) == -1)
+                if(db.insert(TABLA_DIAS,null,valoresDias) == -1)
                     return false;
             }
             return true;
