@@ -120,14 +120,14 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quincenal"
+                    android:text="@string/str_quincenal"
                     android:id="@+id/radioButtonQuin"
                     android:checked="false" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mensual"
+                    android:text="@string/str_mensual"
                     android:id="@+id/radioButtonMens"
                     android:checked="true" />
             </RadioGroup>

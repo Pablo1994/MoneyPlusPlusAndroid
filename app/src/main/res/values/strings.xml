@@ -38,4 +38,6 @@
     <string name="str_tipo">Tipo:</string>
     <string name="str_registra_gasto">Registrar Gasto</string>
     <string name="title_activity_resumen_dia">ResumenDia</string>
+    <string name="str_quincenal">Quincenal</string>
+    <string name="str_mensual">Mensual</string>
 </resources>

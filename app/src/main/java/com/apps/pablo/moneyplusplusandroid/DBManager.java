@@ -27,6 +27,15 @@ public class DBManager {
     public static final String FRECUENCIA = "frecuencia";
     public static final String TIPO = "tipo";
     public static final String BANDERA = "flag";
+
+    public String makePlaceholders(int len){
+        String cadena = "";
+        for(int i=1;i<len;i++){
+            cadena += "?, ";
+        }
+        cadena += "?";
+        return cadena;
+    }
     // ------------------- TABLAS DE INGRESOS ---------------------- //
 
     public static final String TABLA_ING_PURO = "ingreso_puro";
@@ -117,6 +126,7 @@ public class DBManager {
         values.put(DESCRIPCION, i.getDescripcion());
         values.put(DIA,i.getDia());
         values.put(FRECUENCIA,i.getFrecuencia());
+        values.put(BANDERA,"0");
         return values;
     }
     public boolean insertar(IngresoPeriodicoDia i){
@@ -171,9 +181,9 @@ public class DBManager {
         return db.query(TABLA_DIAS,columnas,DIA + "=?",new String[]{dia},null,null,null);
     }
 
-    public Cursor cargaCursorIngDiario(String id){
+    public Cursor cargaCursorIngDiario(String [] id){
         String columnas [] = new String[]{ID_ING_DIARIO,MONTO,DESCRIPCION};
-        return db.query(TABLA_ING_DIARIO, columnas,ID_ING_DIARIO + "=?",new String[]{id},null,null,null);
+        return db.query(TABLA_ING_DIARIO, columnas,ID_ING_DIARIO + "IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
     }
 
     public void cambiaEstadoIngPerDia(String id,String flag){
@@ -186,14 +196,19 @@ public class DBManager {
         return db.query(TABLA_ING_DIA, columnas,DIA + "=?",new String[]{dia},null,null,null);
     }
 
+    public Cursor cargaCursorIngPerDia2(String dia){
+        String columnas [] = new String[]{ID_ING_DIA,MONTO,DESCRIPCION,DIA,FRECUENCIA};
+        return db.query(TABLA_ING_DIA, columnas,DIA + "=?" + "AND " + BANDERA + "=?",new String[]{dia,"0"},null,null,null);
+    }
+
     public Cursor cargaCursorFechas(String fecha){
         String columnas [] = new String[]{FK_ING_FECHAS,FECHA};
         return db.query(TABLA_FECHAS,columnas,FECHA + "=?",new String[]{fecha},null,null,null);
     }
 
-    public Cursor cargaCursorIngPerFecha(String id){
+    public Cursor cargaCursorIngPerFecha(String [] id){
         String columnas [] = new String[]{ID_ING_PURO,MONTO,DESCRIPCION,FRECUENCIA};
-        return db.query(TABLA_ING_FECHA, columnas,ID_ING_FECHA + "=?",new String[]{id},null,null,null);
+        return db.query(TABLA_ING_FECHA, columnas,ID_ING_FECHA + "IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
     }
 
 
