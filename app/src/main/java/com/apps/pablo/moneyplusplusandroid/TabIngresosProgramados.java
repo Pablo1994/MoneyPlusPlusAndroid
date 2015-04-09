@@ -45,7 +45,8 @@ public class TabIngresosProgramados extends BaseFragment{
         ids = arrIdDiario.toArray(ids);
         Cursor cursorDiario = manager.cargaCursorIngDiario(ids);
         adapterDiario = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_ingreso_diario,cursorDiario,fromDiario,toDiario,0);
-        listaDiario.setAdapter(adapterDiario);
+        if(adapterDiario != null)
+            listaDiario.setAdapter(adapterDiario);
 
         /*String [] fromPerDia = new String[]{manager.ID_ING_DIARIO,manager.MONTO,manager.DESCRIPCION,manager.FRECUENCIA};
         int [] toPerDia = new int[]{R.id.itemPerDiaID,R.id.itemPerDiaMonto,R.id.itemPerDiaDescripcion,R.id.itemPerDiaFrecuencia};
