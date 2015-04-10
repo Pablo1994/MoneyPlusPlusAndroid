@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/itemPerFechaID"
+            android:id="@+id/itemGastoPerFechaID"
             android:layout_weight="0.57"
             android:textStyle="bold"
             android:textAlignment="center" />
@@ -30,21 +30,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/itemPerFechaMonto"
+                android:id="@+id/itemGastoPerFechaMonto"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/itemPerFechaDescripcion"
+                android:id="@+id/itemGastoPerFechaTipo"
+                android:textStyle="italic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/itemGastoPerFechaDescripcion"
                 android:textStyle="italic" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/itemPerFechaFrecuencia" />
+                android:id="@+id/itemGastoPerFechaFrecuencia" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

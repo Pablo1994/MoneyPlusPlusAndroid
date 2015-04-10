@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/itemPerDiaID"
+            android:id="@+id/itemGastoPerDiaID"
             android:layout_weight="0.57"
             android:textStyle="bold"
             android:textAlignment="center" />
@@ -30,21 +30,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/itemPerDiaMonto"
+                android:id="@+id/itemGastoPerDiaMonto"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/itemPerDiaDescripcion"
+                android:id="@+id/itemGastoPerDiaTipo"
+                android:textStyle="italic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/itemGastoPerDiaDescripcion"
                 android:textStyle="italic" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/itemPerDiaFrecuencia" />
+                android:id="@+id/itemGastoPerDiaFrecuencia" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

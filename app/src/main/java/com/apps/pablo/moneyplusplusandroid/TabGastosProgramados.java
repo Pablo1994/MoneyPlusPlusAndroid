@@ -50,8 +50,8 @@ public class TabGastosProgramados extends BaseFragment{
         if(adapterDiario != null)
             listaDiario.setAdapter(adapterDiario);
 
-        String [] fromPerDia = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.DESCRIPCION,manager.FRECUENCIA};
-        int [] toPerDia = new int[]{R.id.itemPerDiaID,R.id.itemPerDiaMonto,R.id.itemPerDiaDescripcion,R.id.itemPerDiaFrecuencia};
+        String [] fromPerDia = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.TIPO,manager.DESCRIPCION,manager.FRECUENCIA};
+        int [] toPerDia = new int[]{R.id.itemGastoPerDiaID,R.id.itemGastoPerDiaMonto,R.id.itemGastoPerDiaTipo,R.id.itemGastoPerDiaDescripcion,R.id.itemGastoPerDiaFrecuencia};
         Cursor cursorPerDiaReal = manager.cargaCursorGastoPerDia(getDayOfWeek());
         Cursor cursorPerDia = manager.cargaCursorGastoPerDia(getDayOfWeek());
         if (cursorPerDia.moveToFirst()){
@@ -90,8 +90,8 @@ public class TabGastosProgramados extends BaseFragment{
         if(adapterPerDia != null)
             listaPerDia.setAdapter(adapterPerDia);
 
-        String [] fromPerFecha = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.DESCRIPCION, manager.FRECUENCIA};
-        int [] toPerFecha = new int[]{R.id.itemPerFechaID,R.id.itemPerFechaMonto,R.id.itemPerFechaDescripcion};
+        String [] fromPerFecha = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.TIPO,manager.DESCRIPCION, manager.FRECUENCIA};
+        int [] toPerFecha = new int[]{R.id.itemGastoPerFechaID,R.id.itemGastoPerFechaMonto,R.id.itemGastoPerFechaTipo,R.id.itemGastoPerFechaDescripcion,R.id.itemGastoPerFechaFrecuencia};
         ArrayList<String> arrIdPerFecha = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         int fecha = calendar.get(Calendar.DAY_OF_MONTH);

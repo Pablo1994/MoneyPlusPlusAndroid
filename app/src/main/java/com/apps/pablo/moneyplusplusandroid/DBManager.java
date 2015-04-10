@@ -220,20 +220,20 @@ public class DBManager {
     public static final String ID_GASTO_PURO = "_id";
 
     public static final String GASTO_PURO = "CREATE TABLE " + TABLA_GASTO_PURO + " (" + ID_GASTO_PURO +
-            " INTEGER primary key autoincrement, " + MONTO + " INTEGER, " + DESCRIPCION +
+            " INTEGER primary key autoincrement, " + MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION +
             " TEXT, "+ FECHA + " TEXT);";
 
     public static final String TABLA_GASTO_DIA = "gasto_per_dia";
     public static final String ID_GASTO_DIA = "_id";
 
     public static final String GASTO_PER_DIA = "CREATE TABLE " + TABLA_GASTO_DIA + " (" + ID_GASTO_DIA + " INTEGER primary key autoincrement, " +
-            MONTO + " INTEGER, " + DESCRIPCION +  " TEXT, " + DIA + " TEXT, " + FRECUENCIA + " TEXT);";
+            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION +  " TEXT, " + DIA + " TEXT, " + FRECUENCIA + " TEXT);";
 
     public static final String TABLA_GASTO_DIARIO = "gasto_diario";
     public static final String ID_GASTO_DIARIO = "_id";
 
     public static final String GASTO_DIARIO = "CREATE TABLE " + TABLA_GASTO_DIARIO + " (" + ID_GASTO_DIARIO + " INTEGER primary key autoincrement, " +
-            MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + TIPO +" TEXT);";
+            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION + " TEXT, " + TIPO +" TEXT);";
 
     public static final String TABLA_DIAS_GASTOS = "dias_gastos";
     public static final String FK_GASTO_DIARIO = "idGastoDiario";
@@ -246,7 +246,7 @@ public class DBManager {
     public static final String ID_GASTO_FECHA = "_id";
 
     public static final String GASTO_PER_FECHA = "CREATE TABLE " + TABLA_GASTO_FECHA + " (" + ID_GASTO_FECHA + " INTEGER primary key autoincrement, " +
-            MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + TIPO + " TEXT, " + FRECUENCIA + " TEXT);";
+            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION + " TEXT, " + TIPO + " TEXT, " + FRECUENCIA + " TEXT);";
 
     public static final String TABLA_FECHAS_GASTOS = "fechas_gastos";
     public static final String FK_GASTO_FECHAS = "idGastoPerFec";
@@ -346,7 +346,7 @@ public class DBManager {
     }
 
     public Cursor cargaCursorGastoPuro(){
-        String columnas [] = new String[]{ID_ING_PURO,MONTO,DESCRIPCION,FECHA};
+        String columnas [] = new String[]{ID_ING_PURO,MONTO,TIPO,DESCRIPCION,FECHA};
         return db.query(TABLA_ING_PURO, columnas,null,null,null,null,null);
     }
 
