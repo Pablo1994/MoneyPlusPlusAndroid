@@ -28,9 +28,9 @@ public class TabGastosProgramados extends BaseFragment{
         rootView = inflater.inflate(R.layout.tab_gastos_programados, container, false);
 
         DBManager manager = ResumenDia.manager;
-        listaDiario = (ListView) rootView.findViewById(R.id.listViewDiario);
-        listaPerDia = (ListView) rootView.findViewById(R.id.listViewPerDia);
-        listaPerFecha = (ListView) rootView.findViewById(R.id.listViewPerFecha);
+        listaDiario = (ListView) rootView.findViewById(R.id.listViewGastoDiario);
+        listaPerDia = (ListView) rootView.findViewById(R.id.listViewGastoPerDia);
+        listaPerFecha = (ListView) rootView.findViewById(R.id.listViewGastoPerFecha);
         String [] fromDiario = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.DESCRIPCION};
         int [] toDiario = new int[]{R.id.itemDiarioID,R.id.itemDiarioMonto,R.id.itemDiarioDescripcion};
         ArrayList<String> arrIdDiario = new ArrayList<>();
@@ -106,7 +106,7 @@ public class TabGastosProgramados extends BaseFragment{
         cursorDias.close();
         String [] ids2 = new String[arrIdPerFecha.size()];
         ids = arrIdPerFecha.toArray(ids2);
-        Cursor cursorPerFecha = manager.cargaCursorGastoDiario(ids2);
+        Cursor cursorPerFecha = manager.cargaCursorGastoPerFecha(ids2);
         adapterPerFecha = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_gasto_per_fecha,cursorPerFecha,fromPerFecha,toPerFecha,0);
         if(adapterPerFecha != null)
             listaPerFecha.setAdapter(adapterPerFecha);

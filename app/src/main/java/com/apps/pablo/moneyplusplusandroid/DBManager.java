@@ -375,8 +375,8 @@ public class DBManager {
         return db.query(TABLA_FECHAS_GASTOS,columnas,FECHA + "=?",new String[]{fecha},null,null,null);
     }
 
-    public Cursor cargaCursorGastoPerFecha(String id){
+    public Cursor cargaCursorGastoPerFecha(String [] id){
         String columnas [] = new String[]{ID_ING_PURO,MONTO,DESCRIPCION,FRECUENCIA};
-        return db.query(TABLA_GASTO_FECHA, columnas,ID_GASTO_FECHA + "=?",new String[]{id},null,null,null);
+        return db.query(TABLA_GASTO_FECHA, columnas,ID_GASTO_FECHA + " IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
     }
 }
