@@ -31,8 +31,8 @@ public class TabGastosProgramados extends BaseFragment{
         listaDiario = (ListView) rootView.findViewById(R.id.listViewGastoDiario);
         listaPerDia = (ListView) rootView.findViewById(R.id.listViewGastoPerDia);
         listaPerFecha = (ListView) rootView.findViewById(R.id.listViewGastoPerFecha);
-        String [] fromDiario = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.DESCRIPCION};
-        int [] toDiario = new int[]{R.id.itemDiarioID,R.id.itemDiarioMonto,R.id.itemDiarioDescripcion};
+        String [] fromDiario = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.TIPO, manager.DESCRIPCION};
+        int [] toDiario = new int[]{R.id.itemGastoDiarioID,R.id.itemGastoDiarioMonto,R.id.itemGastoDiarioTipo,R.id.itemGastoDiarioDescripcion};
         ArrayList<String> arrIdDiario = new ArrayList<>();
         Cursor cursorDias = manager.cargaCursorDiasGasto(getDayOfWeek());
         if (cursorDias.moveToFirst()){

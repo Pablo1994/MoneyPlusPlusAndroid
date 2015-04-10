@@ -356,7 +356,7 @@ public class DBManager {
     }
 
     public Cursor cargaCursorGastoDiario(String [] id){
-        String columnas [] = new String[]{ID_GASTO_DIARIO,MONTO,DESCRIPCION};
+        String columnas [] = new String[]{ID_GASTO_DIARIO,MONTO,TIPO,DESCRIPCION};
         return db.query(TABLA_GASTO_DIARIO, columnas,ID_GASTO_DIARIO + " IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
     }
 
