@@ -34,7 +34,7 @@ public class TabGastosProgramados extends BaseFragment{
         String [] fromDiario = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.DESCRIPCION};
         int [] toDiario = new int[]{R.id.itemDiarioID,R.id.itemDiarioMonto,R.id.itemDiarioDescripcion};
         ArrayList<String> arrIdDiario = new ArrayList<>();
-        Cursor cursorDias = manager.cargaCursorDias(getDayOfWeek());
+        Cursor cursorDias = manager.cargaCursorDiasGasto(getDayOfWeek());
         if (cursorDias.moveToFirst()){
             while(!cursorDias.isAfterLast()){
                 String data = cursorDias.getString(cursorDias.getColumnIndex(manager.FK_GASTO_DIARIO));
