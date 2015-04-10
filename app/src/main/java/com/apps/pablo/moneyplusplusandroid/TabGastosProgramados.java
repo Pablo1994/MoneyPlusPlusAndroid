@@ -45,15 +45,15 @@ public class TabGastosProgramados extends BaseFragment{
         cursorDias.close();
         String [] ids = new String[arrIdDiario.size()];
         ids = arrIdDiario.toArray(ids);
-        Cursor cursorDiario = manager.cargaCursorIngDiario(ids);
+        Cursor cursorDiario = manager.cargaCursorGastoDiario(ids);
         adapterDiario = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_gasto_diario,cursorDiario,fromDiario,toDiario,0);
         if(adapterDiario != null)
             listaDiario.setAdapter(adapterDiario);
 
         String [] fromPerDia = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.DESCRIPCION,manager.FRECUENCIA};
         int [] toPerDia = new int[]{R.id.itemPerDiaID,R.id.itemPerDiaMonto,R.id.itemPerDiaDescripcion,R.id.itemPerDiaFrecuencia};
-        Cursor cursorPerDiaReal = manager.cargaCursorIngPerDia2(getDayOfWeek());
-        Cursor cursorPerDia = manager.cargaCursorIngPerDia(getDayOfWeek());
+        Cursor cursorPerDiaReal = manager.cargaCursorGastoPerDia(getDayOfWeek());
+        Cursor cursorPerDia = manager.cargaCursorGastoPerDia(getDayOfWeek());
         if (cursorPerDia.moveToFirst()){
             while(cursorPerDia.isAfterLast()){
                 String freq = cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.FRECUENCIA));
@@ -73,14 +73,14 @@ public class TabGastosProgramados extends BaseFragment{
                     case "Mensual":
                         flag = cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.BANDERA));
                         if(flag.equals("3")){
-                            manager.cambiaEstadoIngPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"2");
+                            manager.cambiaEstadoGastoPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"2");
                         }else if(flag.equals("2")){
-                            manager.cambiaEstadoIngPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"1");
+                            manager.cambiaEstadoGastoPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"1");
                         }else if(flag.equals("1")){
-                            manager.cambiaEstadoIngPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"0");
+                            manager.cambiaEstadoGastoPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"0");
                         }
                         else if(flag.equals("0")){
-                            manager.cambiaEstadoIngPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"3");
+                            manager.cambiaEstadoGastoPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"3");
                         }
                         break;
                 }
@@ -106,7 +106,7 @@ public class TabGastosProgramados extends BaseFragment{
         cursorDias.close();
         String [] ids2 = new String[arrIdPerFecha.size()];
         ids = arrIdPerFecha.toArray(ids2);
-        Cursor cursorPerFecha = manager.cargaCursorIngPerFecha(ids2);
+        Cursor cursorPerFecha = manager.cargaCursorGastoDiario(ids2);
         adapterPerFecha = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_gasto_per_fecha,cursorPerFecha,fromPerFecha,toPerFecha,0);
         if(adapterPerFecha != null)
             listaPerFecha.setAdapter(adapterPerFecha);

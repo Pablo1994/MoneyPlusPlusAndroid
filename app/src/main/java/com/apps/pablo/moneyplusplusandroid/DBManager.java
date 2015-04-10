@@ -355,9 +355,9 @@ public class DBManager {
         return db.query(TABLA_DIAS_GASTOS,columnas,DIA + "=?",new String[]{dia},null,null,null);
     }
 
-    public Cursor cargaCursorGastoDiario(String id){
+    public Cursor cargaCursorGastoDiario(String [] id){
         String columnas [] = new String[]{ID_GASTO_DIARIO,MONTO,DESCRIPCION};
-        return db.query(TABLA_GASTO_DIARIO, columnas,ID_GASTO_DIARIO + "=?",new String[]{id},null,null,null);
+        return db.query(TABLA_GASTO_DIARIO, columnas,ID_GASTO_DIARIO + " IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
     }
 
     public void cambiaEstadoGastoPerDia(String id,String flag){
