@@ -38,7 +38,7 @@ public class IngresaGasto extends Base {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gasto_gasto);
-        Mensaje("Deslice hacia la derecha para programar ingresos diarios y periódicos");
+        Mensaje("Deslice hacia la derecha para programar gastos diarios y periódicos");
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
