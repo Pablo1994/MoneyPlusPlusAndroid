@@ -366,7 +366,7 @@ public class DBManager {
         db.update(TABLA_GASTO_DIA,values,ID_GASTO_DIA+"=?",new String[]{id});
     }
     public Cursor cargaCursorGastoPerDia(String dia){
-        String columnas [] = new String[]{ID_GASTO_DIA,MONTO,DESCRIPCION,DIA,FRECUENCIA};
+        String columnas [] = new String[]{ID_GASTO_DIA,MONTO,TIPO,DESCRIPCION,DIA,FRECUENCIA};
         return db.query(TABLA_GASTO_DIA, columnas,DIA + "=?",new String[]{dia},null,null,null);
     }
 
@@ -376,7 +376,7 @@ public class DBManager {
     }
 
     public Cursor cargaCursorGastoPerFecha(String [] id){
-        String columnas [] = new String[]{ID_ING_PURO,MONTO,DESCRIPCION,FRECUENCIA};
+        String columnas [] = new String[]{ID_ING_PURO,MONTO,TIPO,DESCRIPCION,FRECUENCIA};
         return db.query(TABLA_GASTO_FECHA, columnas,ID_GASTO_FECHA + " IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
     }
 }

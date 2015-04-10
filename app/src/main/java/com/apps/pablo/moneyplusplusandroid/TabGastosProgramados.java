@@ -95,7 +95,7 @@ public class TabGastosProgramados extends BaseFragment{
         ArrayList<String> arrIdPerFecha = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         int fecha = calendar.get(Calendar.DAY_OF_MONTH);
-        Cursor cursorFechas = manager.cargaCursorDias(String.valueOf(fecha));
+        Cursor cursorFechas = manager.cargaCursorFechasGasto(String.valueOf(fecha));
         if (cursorFechas.moveToFirst()){
             while(!cursorFechas.isAfterLast()){
                 String data = cursorFechas.getString(cursorFechas.getColumnIndex(manager.FK_GASTO_DIARIO));
@@ -103,7 +103,7 @@ public class TabGastosProgramados extends BaseFragment{
                 cursorDias.moveToNext();
             }
         }
-        cursorDias.close();
+        cursorFechas.close();
         String [] ids2 = new String[arrIdPerFecha.size()];
         ids = arrIdPerFecha.toArray(ids2);
         Cursor cursorPerFecha = manager.cargaCursorGastoPerFecha(ids2);
