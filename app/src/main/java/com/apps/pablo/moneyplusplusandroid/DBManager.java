@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 
@@ -40,14 +39,14 @@ public class DBManager {
     // ------------------- TABLAS DE INGRESOS ---------------------- //
 
     public static final String TABLA_ING_PURO = "ingreso_puro";
-    public static final String ID_ING_PURO = "ingPuroId";
+    public static final String ID_ING_PURO = "_id";
 
     public static final String INGRESO_PURO = "CREATE TABLE " + TABLA_ING_PURO + " (" + ID_ING_PURO +
             " INTEGER primary key autoincrement, " + MONTO + " INTEGER, " + DESCRIPCION +
             " TEXT, " + FECHA + " TEXT);";
 
     public static final String TABLA_ING_DIA = "ingreso_per_dia";
-    public static final String ID_ING_DIA = "ingPerDiaId";
+    public static final String ID_ING_DIA = "_id";
 
     public static final String INGRESO_PER_DIA = "CREATE TABLE " + TABLA_ING_DIA + " (" + ID_ING_DIA + " INTEGER primary key autoincrement, " +
             MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + DIA + " TEXT, " + FRECUENCIA + " TEXT, " + BANDERA + " TEXT);";
@@ -61,12 +60,12 @@ public class DBManager {
     public static final String TABLA_DIAS = "dias";
     public static final String FK_ING_DIARIO = "idIngDiario";
 
-    public static final String DIAS = "CREATE TABLE " + TABLA_DIAS + " (" + DIA + " TEXT, " + FK_ING_DIARIO +
+    public static final String DIAS = "CREATE TABLE " + TABLA_DIAS + " ( _id INTEGER primary key autoincrement," + DIA + " TEXT, " + FK_ING_DIARIO +
             " INT, FOREIGN KEY(" + FK_ING_DIARIO+ ") REFERENCES " +
             TABLA_ING_DIARIO + "(" + ID_ING_DIARIO + "));";
 
     public static final String TABLA_ING_FECHA = "ingreso_per_fecha";
-    public static final String ID_ING_FECHA = "ingPerFechaId";
+    public static final String ID_ING_FECHA = "_id";
 
     public static final String INGRESO_PER_FECHA = "CREATE TABLE " + TABLA_ING_FECHA + " (" + ID_ING_FECHA + " INTEGER primary key autoincrement, " +
             MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + FRECUENCIA + " TEXT);";
@@ -74,8 +73,9 @@ public class DBManager {
     public static final String TABLA_FECHAS = "fechas";
     public static final String FK_ING_FECHAS = "idIngPerFec";
 
-    public static final String FECHAS = "CREATE TABLE " + TABLA_FECHAS + " ("+ FECHA + " TEXT, " + FK_ING_FECHAS +
+    public static final String FECHAS = "CREATE TABLE " + TABLA_FECHAS + " ( _id INTEGER primary key autoincrement, "+ FECHA + " TEXT, " + FK_ING_FECHAS +
             " INT, FOREIGN KEY(" + FK_ING_FECHAS + ") REFERENCES " + TABLA_ING_FECHA + "(" + FK_ING_FECHAS +"));";
+
     public static String ingresos [] = {INGRESO_PURO,INGRESO_DIARIO,INGRESO_PER_DIA,INGRESO_PER_FECHA,DIAS,FECHAS};
 
     protected static DBHelper helper = null;
@@ -107,7 +107,6 @@ public class DBManager {
     }
     public boolean insertar(IngresoDiario i){
         long id = db.insert(TABLA_ING_DIARIO, null, valoresIngresoDiario(i));
-        Log.i("inserta","id " + id);
         if(id != -1){
             ContentValues valoresDias = new ContentValues();
             for(String s : i.getDias()){
@@ -148,7 +147,7 @@ public class DBManager {
             for(String s : i.getFechas()){
                 valoresFechas.put(FECHA,s);
                 valoresFechas.put(FK_ING_FECHAS,id);
-                if(db.insert(FECHAS,null,valoresFechas) == -1)
+                if(db.insert(TABLA_FECHAS,null,valoresFechas) == -1)
                     return false;
             }
             return true;
@@ -184,7 +183,7 @@ public class DBManager {
     }
 
     public Cursor cargaCursorIngDiario(String [] id){
-        String columnas [] = new String[]{"_id",ID_ING_DIARIO,MONTO,DESCRIPCION};
+        String columnas [] = new String[]{ID_ING_DIARIO,MONTO,DESCRIPCION};
         return db.query(TABLA_ING_DIARIO, columnas,ID_ING_DIARIO + " IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
     }
 
@@ -200,7 +199,7 @@ public class DBManager {
 
     public Cursor cargaCursorIngPerDia2(String dia){
         String columnas [] = new String[]{ID_ING_DIA,MONTO,DESCRIPCION,DIA,FRECUENCIA};
-        return db.query(TABLA_ING_DIA, columnas,DIA + "=?" + "AND " + BANDERA + "=?",new String[]{dia,"0"},null,null,null);
+        return db.query(TABLA_ING_DIA, columnas,DIA + "=?" + " AND " + BANDERA + "=?",new String[]{dia,"0"},null,null,null);
     }
 
     public Cursor cargaCursorFechas(String fecha){
@@ -210,26 +209,26 @@ public class DBManager {
 
     public Cursor cargaCursorIngPerFecha(String [] id){
         String columnas [] = new String[]{ID_ING_PURO,MONTO,DESCRIPCION,FRECUENCIA};
-        return db.query(TABLA_ING_FECHA, columnas,ID_ING_FECHA + "IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
+        return db.query(TABLA_ING_FECHA, columnas,ID_ING_FECHA + " IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
     }
 
 
     // ------------------- TABLAS DE GASTOS ------------------------ //
     public static final String TABLA_GASTO_PURO = "gasto_puro";
-    public static final String ID_GASTO_PURO = "gastoPuroId";
+    public static final String ID_GASTO_PURO = "_id";
 
     public static final String GASTO_PURO = "CREATE TABLE " + TABLA_GASTO_PURO + " (" + ID_GASTO_PURO +
             " INTEGER primary key autoincrement, " + MONTO + " INTEGER, " + DESCRIPCION +
             " TEXT, "+ FECHA + " TEXT);";
 
     public static final String TABLA_GASTO_DIA = "gasto_per_dia";
-    public static final String ID_GASTO_DIA = "gastoPerDiaId";
+    public static final String ID_GASTO_DIA = "_id";
 
     public static final String GASTO_PER_DIA = "CREATE TABLE " + TABLA_GASTO_DIA + " (" + ID_GASTO_DIA + " INTEGER primary key autoincrement, " +
             MONTO + " INTEGER, " + DESCRIPCION +  " TEXT, " + DIA + " TEXT, " + FRECUENCIA + " TEXT);";
 
     public static final String TABLA_GASTO_DIARIO = "gasto_diario";
-    public static final String ID_GASTO_DIARIO = "gastoDiarioId";
+    public static final String ID_GASTO_DIARIO = "_id";
 
     public static final String GASTO_DIARIO = "CREATE TABLE " + TABLA_GASTO_DIARIO + " (" + ID_GASTO_DIARIO + " INTEGER primary key autoincrement, " +
             MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + TIPO +" TEXT);";
@@ -237,12 +236,12 @@ public class DBManager {
     public static final String TABLA_DIAS_GASTOS = "dias_gastos";
     public static final String FK_GASTO_DIARIO = "idGastoDiario";
 
-    public static final String DIAS_GASTOS = "CREATE TABLE " + TABLA_DIAS_GASTOS + " (" + DIA + " TEXT, " + FK_GASTO_DIARIO +
+    public static final String DIAS_GASTOS = "CREATE TABLE " + TABLA_DIAS_GASTOS + " ( _id INTEGER primary key autoincrement, " + DIA + " TEXT, " + FK_GASTO_DIARIO +
             " INT, FOREIGN KEY(" + FK_GASTO_DIARIO+ ") REFERENCES " +
             TABLA_GASTO_DIARIO + "(" + ID_GASTO_DIARIO + "));";
 
     public static final String TABLA_GASTO_FECHA = "gasto_per_fecha";
-    public static final String ID_GASTO_FECHA = "gastoPerFechaId";
+    public static final String ID_GASTO_FECHA = "_id";
 
     public static final String GASTO_PER_FECHA = "CREATE TABLE " + TABLA_GASTO_FECHA + " (" + ID_GASTO_FECHA + " INTEGER primary key autoincrement, " +
             MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + TIPO + " TEXT, " + FRECUENCIA + " TEXT);";
@@ -250,7 +249,7 @@ public class DBManager {
     public static final String TABLA_FECHAS_GASTOS = "fechas_gastos";
     public static final String FK_GASTO_FECHAS = "idGastoPerFec";
 
-    public static final String FECHAS_GASTOS = "CREATE TABLE " + TABLA_FECHAS_GASTOS + " ("+ FECHA + " TEXT, " + FK_GASTO_FECHAS +
+    public static final String FECHAS_GASTOS = "CREATE TABLE " + TABLA_FECHAS_GASTOS + " ( _id INTEGER primary key autoincrement, "+ FECHA + " TEXT, " + FK_GASTO_FECHAS +
             " INT, FOREIGN KEY(" + FK_GASTO_FECHAS + ") REFERENCES " + TABLA_GASTO_FECHA + "(" + FK_GASTO_FECHAS +"));";
     public static String gastos [] = {GASTO_PURO,GASTO_DIARIO,GASTO_PER_DIA,GASTO_PER_FECHA,DIAS_GASTOS,FECHAS_GASTOS};
 

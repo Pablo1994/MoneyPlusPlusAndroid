@@ -156,7 +156,7 @@ public class tabIngresoPeriodico extends BaseFragment implements AdapterView.OnI
                 double monto = Double.parseDouble(editTextMontoFecha.getText().toString());
                 String desc = editTextDescripcionFecha.getText().toString();
                 String freq = ((RadioButton) rootView.findViewById(radioGroupFecha.getCheckedRadioButtonId())).getText().toString();
-                String [] fechas = {};
+                String [] fechas = new String[2];
                 String fecha1 = editTextFecha.getText().toString();
                 fechas[0] = fecha1;
                 if(editTextFecha2.getVisibility() == View.VISIBLE){
