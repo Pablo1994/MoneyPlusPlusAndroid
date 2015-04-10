@@ -26,7 +26,7 @@ public class DBManager {
     public static final String DIA = "dia";
     public static final String FRECUENCIA = "frecuencia";
     public static final String TIPO = "tipo";
-    public static final String BANDERA = "flag";
+    public static final String BANDERA = "flag"; // Esto es para saber si el ingreso ya fué aprobado para el día, o bien para saber cuantas semanas faltan para que se tenga que aplicar el ingreso de nuevo en los casos de mensual y quincenal.
 
     public String makePlaceholders(int len){
         String cadena = "";
@@ -55,7 +55,7 @@ public class DBManager {
     public static final String ID_ING_DIARIO = "_id";
 
     public static final String INGRESO_DIARIO = "CREATE TABLE " + TABLA_ING_DIARIO + " ( " + ID_ING_DIARIO + " INTEGER primary key autoincrement, " +
-            MONTO + " INTEGER, " + DESCRIPCION + " TEXT);";
+            MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + BANDERA + " TEXT);";
 
     public static final String TABLA_DIAS = "dias";
     public static final String FK_ING_DIARIO = "idIngDiario";
@@ -103,6 +103,7 @@ public class DBManager {
         ContentValues values = new ContentValues();
         values.put(MONTO, i.getMonto());
         values.put(DESCRIPCION, i.getDescripcion());
+        values.put(BANDERA, "false");
         return values;
     }
     public boolean insertar(IngresoDiario i){
@@ -138,6 +139,7 @@ public class DBManager {
         values.put(MONTO, i.getMonto());
         values.put(DESCRIPCION, i.getDescripcion());
         values.put(FRECUENCIA, i.getFrecuencia());
+        values.put(BANDERA, "0");
         return values;
     }
     public boolean insertar(IngresoPeriodicoFecha i){
