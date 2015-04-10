@@ -20,6 +20,7 @@
     <string name="gastoStr">Gasto</string>
     <string name="actividades_str">Actividades del día de hoy</string>
     <string name="title_activity_ingresa_ingreso">Nuevo Ingreso</string>
+    <string name="title_activity_ingresa_gasto">Nuevo Gasto</string>
     <string name="str_monto">Monto: </string>
     <string name="str_descripcion">Descripción:</string>
     <string name="str_fecha">Fecha:</string>

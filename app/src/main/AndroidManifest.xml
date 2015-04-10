@@ -27,6 +27,15 @@
                 android:value="com.apps.pablo.moneyplusplusandroid.PantallaPrincipal" />
         </activity>
         <activity
+            android:name=".IngresaGasto"
+            android:label="@string/title_activity_ingresa_gasto"
+            android:parentActivityName=".PantallaPrincipal"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.apps.pablo.moneyplusplusandroid.PantallaPrincipal" />
+        </activity>
+        <activity
             android:name=".ResumenDia"
             android:label="@string/title_activity_resumen_dia"
             android:parentActivityName=".PantallaPrincipal" >

@@ -43,9 +43,9 @@ public class TabIngresosProgramados extends BaseFragment{
             }
         }
         cursorDias.close();
-        String [] ids = new String[arrIdDiario.size()];
-        ids = arrIdDiario.toArray(ids);
-        Cursor cursorDiario = manager.cargaCursorIngDiario(ids);
+        String [] idsDiario = new String[arrIdDiario.size()];
+        idsDiario = arrIdDiario.toArray(idsDiario);
+        Cursor cursorDiario = manager.cargaCursorIngDiario(idsDiario);
         adapterDiario = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_ingreso_diario,cursorDiario,fromDiario,toDiario,0);
         if(adapterDiario != null)
             listaDiario.setAdapter(adapterDiario);
@@ -60,6 +60,7 @@ public class TabIngresosProgramados extends BaseFragment{
                 String flag;
                 switch (freq){
                     case "Semanal":
+
                         break;
                     case "Quicenal":
                         flag = cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.BANDERA));
@@ -95,7 +96,7 @@ public class TabIngresosProgramados extends BaseFragment{
         ArrayList<String> arrIdPerFecha = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         int fecha = calendar.get(Calendar.DAY_OF_MONTH);
-        Cursor cursorFechas = manager.cargaCursorDias(String.valueOf(fecha));
+        Cursor cursorFechas = manager.cargaCursorFechas(String.valueOf(fecha));
         if (cursorFechas.moveToFirst()){
             while(!cursorFechas.isAfterLast()){
                 String data = cursorFechas.getString(cursorFechas.getColumnIndex(manager.FK_ING_DIARIO));
@@ -105,7 +106,7 @@ public class TabIngresosProgramados extends BaseFragment{
         }
         cursorDias.close();
         String [] ids2 = new String[arrIdPerFecha.size()];
-        ids = arrIdPerFecha.toArray(ids2);
+        ids2 = arrIdPerFecha.toArray(ids2);
         Cursor cursorPerFecha = manager.cargaCursorIngPerFecha(ids2);
         adapterPerFecha = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_ingreso_per_fecha,cursorPerFecha,fromPerFecha,toPerFecha,0);
         if(adapterPerFecha != null)

@@ -185,7 +185,7 @@ public class DBManager {
     }
 
     public Cursor cargaCursorIngDiario(String [] id){
-        String columnas [] = new String[]{ID_ING_DIARIO,MONTO,DESCRIPCION};
+        String columnas [] = new String[]{ID_ING_DIARIO,MONTO,DESCRIPCION,BANDERA};
         return db.query(TABLA_ING_DIARIO, columnas,ID_ING_DIARIO + " IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
     }
 
