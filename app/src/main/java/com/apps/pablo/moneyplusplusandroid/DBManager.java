@@ -36,6 +36,16 @@ public class DBManager {
         cadena += "?";
         return cadena;
     }
+
+    public static final String TABLA_RESUMEN_MES = "meses";
+    public static final String MESES_ID = "_id";
+    public static final String INGRESOS = "ingresos";
+    public static final String GASTOS = "gastos";
+    public static final String PERIODO = "periodo";
+
+    public static final String RESUMEN_MES = "CREATE TABLE " + TABLA_RESUMEN_MES + " (" + MESES_ID + " INTEGER primary key autoincrement, "
+            + PERIODO + " TEXT, " + INGRESOS + " TEXT, " + GASTOS + " TEXT);";
+
     // ------------------- TABLAS DE INGRESOS ---------------------- //
 
     public static final String TABLA_ING_PURO = "ingreso_puro";
