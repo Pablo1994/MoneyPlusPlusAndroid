@@ -66,7 +66,7 @@ public class TabIngresosProgramados extends BaseFragment implements View.OnCreat
 
         String [] fromPerDia = new String[]{manager.ID_ING_DIARIO,manager.MONTO,manager.DESCRIPCION,manager.FRECUENCIA};
         int [] toPerDia = new int[]{R.id.itemPerDiaID,R.id.itemPerDiaMonto,R.id.itemPerDiaDescripcion,R.id.itemPerDiaFrecuencia};
-        Cursor cursorPerDiaReal = manager.cargaCursorIngPerDia2(getDayOfWeek());
+        Cursor cursorPerDiaReal = manager.cargaCursorIngPerDia2(this.getDayOfWeek());
         //Cursor cursorPerDia = manager.cargaCursorIngPerDia(getDayOfWeek());
         /*if (cursorPerDia.moveToFirst()){
             while(cursorPerDia.isAfterLast()){
@@ -95,7 +95,7 @@ public class TabIngresosProgramados extends BaseFragment implements View.OnCreat
                 }
             }
         }*/
-        adapterPerDia = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_ingreso_per_dia,cursorPerDiaReal,fromPerDia,toPerDia,0);
+        adapterPerDia = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_gasto_per_dia,cursorPerDiaReal,fromPerDia,toPerDia,0);
         if(adapterPerDia != null)
             listaPerDia.setAdapter(adapterPerDia);
 
@@ -103,8 +103,23 @@ public class TabIngresosProgramados extends BaseFragment implements View.OnCreat
         int [] toPerFecha = new int[]{R.id.itemPerFechaID,R.id.itemPerFechaMonto,R.id.itemPerFechaDescripcion};
         ArrayList<String> arrIdPerFecha = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
+        Cursor cursorFechas = null;
         int fecha = calendar.get(Calendar.DATE);
-        Cursor cursorFechas = manager.cargaCursorFechas(String.valueOf(fecha));
+        if(fecha == calendar.getActualMaximum(Calendar.DAY_OF_MONTH)) {
+            switch (fecha - calendar.getActualMaximum(Calendar.DAY_OF_MONTH)) {
+                case 1:
+                    cursorFechas = manager.cargaCursorFechas(new String []{String.valueOf(fecha), String.valueOf(fecha + 1)});
+                    break;
+                case 2:
+                    cursorFechas = manager.cargaCursorFechas(new String []{String.valueOf(fecha), String.valueOf(fecha + 1), String.valueOf(fecha + 2)});
+                    break;
+                case 3:
+                    cursorFechas = manager.cargaCursorFechas(new String []{String.valueOf(fecha), String.valueOf(fecha + 1), String.valueOf(fecha + 2), String.valueOf(fecha + 3)});
+                    break;
+            }
+        } else {
+            cursorFechas = manager.cargaCursorFechas(String.valueOf(fecha));
+        }
         if (cursorFechas.moveToFirst()){
             while(!cursorFechas.isAfterLast()){
                 String data = cursorFechas.getString(cursorFechas.getColumnIndex(manager.FK_ING_FECHAS));

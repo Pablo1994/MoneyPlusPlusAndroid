@@ -37,7 +37,7 @@ public class TabGastosProgramados extends BaseFragment implements View.OnCreateC
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.tab_gastos_programados, container, false);
-
+        manager = ResumenDia.manager;
         listaDiario = (ListView) rootView.findViewById(R.id.listViewGastoDiario);
         listaPerDia = (ListView) rootView.findViewById(R.id.listViewGastoPerDia);
         listaPerFecha = (ListView) rootView.findViewById(R.id.listViewGastoPerFecha);
@@ -60,12 +60,13 @@ public class TabGastosProgramados extends BaseFragment implements View.OnCreateC
                 getActivity().getMenuInflater().inflate(R.menu.menu_gasto_pf, contextMenu);
             }
         });
-
+        cargaCursorDiario();
 
         String [] fromPerDia = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.TIPO,manager.DESCRIPCION,manager.FRECUENCIA};
         int [] toPerDia = new int[]{R.id.itemGastoPerDiaID,R.id.itemGastoPerDiaMonto,R.id.itemGastoPerDiaTipo,R.id.itemGastoPerDiaDescripcion,R.id.itemGastoPerDiaFrecuencia};
-        Cursor cursorPerDiaReal = manager.cargaCursorGastoPerDia(getDayOfWeek());
-        Cursor cursorPerDia = manager.cargaCursorGastoPerDia(getDayOfWeek());
+        String dia = this.getDayOfWeek();
+        Cursor cursorPerDiaReal = manager.cargaCursorGastoPerDia2(dia);
+        Cursor cursorPerDia = manager.cargaCursorGastoPerDia2(dia);
         /*if (cursorPerDia.moveToFirst()){
             while(cursorPerDia.isAfterLast()){
                 String freq = cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.FRECUENCIA));

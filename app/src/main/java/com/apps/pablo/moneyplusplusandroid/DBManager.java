@@ -248,6 +248,11 @@ public class DBManager {
         return db.query(TABLA_FECHAS,columnas,FECHA + "=?",new String[]{fecha},null,null,null);
     }
 
+    public Cursor cargaCursorFechas(String [] fechas){
+        String columnas [] = new String[]{FK_ING_FECHAS,FECHA};
+        return db.query(TABLA_FECHAS,columnas,FECHA + "IN(" + makePlaceholders(fechas.length) + ")",fechas,null,null,null);
+    }
+
     public Cursor cargaCursorIngPerFecha(String [] id){
         String columnas [] = new String[]{ID_ING_PURO,MONTO,DESCRIPCION,FRECUENCIA};
         return db.query(TABLA_ING_FECHA, columnas,ID_ING_FECHA + " IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
@@ -266,7 +271,7 @@ public class DBManager {
     public static final String ID_GASTO_DIA = "_id";
 
     public static final String GASTO_PER_DIA = "CREATE TABLE " + TABLA_GASTO_DIA + " (" + ID_GASTO_DIA + " INTEGER primary key autoincrement, " +
-            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION +  " TEXT, " + DIA + " TEXT, " + FRECUENCIA + " TEXT, " + BANDERA + " TEXT);";
+            MONTO + " INTEGER, " + TIPO + " TEXT, " + DESCRIPCION +  " TEXT, " + DIA + " TEXT, " + FRECUENCIA + " TEXT, " + BANDERA + " TEXT);";
 
     public static final String TABLA_GASTO_DIARIO = "gasto_diario";
     public static final String ID_GASTO_DIARIO = "_id";
@@ -392,7 +397,7 @@ public class DBManager {
     }
 
     public Cursor cargaCursorGastoPuro(String mes){
-        String columnas [] = new String[]{ID_ING_PURO,MONTO,TIPO,DESCRIPCION,FECHA};
+        String columnas [] = new String[]{ID_GASTO_PURO,MONTO,TIPO,DESCRIPCION,FECHA};
         return db.query(TABLA_GASTO_PURO, columnas,"strftime('%m', " + FECHA + ")=?",new String[]{mes},null,null,null);
     }
     public Cursor cargaCursorDiasGasto(String dia){
@@ -423,6 +428,11 @@ public class DBManager {
     public Cursor cargaCursorGastoPerDia(String dia){
         String columnas [] = new String[]{ID_GASTO_DIA,MONTO,TIPO,DESCRIPCION,DIA,FRECUENCIA};
         return db.query(TABLA_GASTO_DIA, columnas,DIA + "=?",new String[]{dia},null,null,null);
+    }
+
+    public Cursor cargaCursorGastoPerDia2(String dia){
+        String columnas [] = new String[]{ID_ING_DIA,MONTO,TIPO,DESCRIPCION,DIA,FRECUENCIA};
+        return db.query(TABLA_GASTO_DIA, columnas,DIA + "=?" + " AND " + BANDERA + "=?",new String[]{dia,"0"},null,null,null);
     }
 
     public Cursor cargaCursorFechasGasto(String fecha){
