@@ -24,7 +24,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import model.GastoUnico;
-import model.IngresoUnico;
 
 /**
  * Created by Pablo Arias on 08/04/15.
@@ -190,7 +189,7 @@ public class TabGastosProgramados extends BaseFragment implements View.OnCreateC
         int pos = info.position;
         Cursor o;
         switch(item.getItemId()) {
-            case R.id.aplicaID:
+            case R.id.aplicaGD:
                 o = (Cursor) listaDiario.getAdapter().getItem(pos);
                 Log.i("itemito", "HOLA!");
                 monto = o.getDouble(o.getColumnIndex(manager.MONTO));
@@ -212,13 +211,14 @@ public class TabGastosProgramados extends BaseFragment implements View.OnCreateC
                 Mensaje(rootView.getContext(),"Gasto aplicado");
                 cargaCursorDiario();
                 break;
-            case R.id.modificaID:
+            case R.id.modificaGD:
                 o = (Cursor) listaDiario.getAdapter().getItem(pos);
                 break;
-            case R.id.eliminaID:
+            case R.id.eliminaGD:
                 o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                manager.eliminaGastoDiario(o.getString(o.getColumnIndex(manager.ID_GASTO_DIARIO)));
                 break;
-            case R.id.aplicaIPD:
+            case R.id.aplicaGPD:
                 o = (Cursor) listaPerDia.getAdapter().getItem(pos);
                 Log.i("itemito","HOLA!");
                 monto = o.getDouble(o.getColumnIndex(manager.MONTO));
@@ -243,13 +243,14 @@ public class TabGastosProgramados extends BaseFragment implements View.OnCreateC
                 Mensaje(rootView.getContext(),"Gasto aplicado");
                 cargaCursorDiario();
                 break;
-            case R.id.modificaIPD:
+            case R.id.modificaGPD:
                 o = (Cursor) listaPerDia.getAdapter().getItem(pos);
                 break;
-            case R.id.eliminaIPD:
+            case R.id.eliminaGPD:
                 o = (Cursor) listaPerDia.getAdapter().getItem(pos);
+                manager.eliminaGastoPerDia(o.getString(o.getColumnIndex(manager.ID_GASTO_DIA)));
                 break;
-            case R.id.aplicaIPF:
+            case R.id.aplicaGPF:
                 o = (Cursor) listaPerFecha.getAdapter().getItem(pos);
                 Log.i("itemito","HOLA!");
                 monto = o.getDouble(o.getColumnIndex(manager.MONTO));
@@ -270,11 +271,12 @@ public class TabGastosProgramados extends BaseFragment implements View.OnCreateC
                 Mensaje(rootView.getContext(),"Gasto aplicado");
                 cargaCursorDiario();
                 break;
-            case R.id.modificaIPF:
+            case R.id.modificaGPF:
                 o = (Cursor) listaPerFecha.getAdapter().getItem(pos);
                 break;
-            case R.id.eliminaIPF:
+            case R.id.eliminaGPF:
                 o = (Cursor) listaPerFecha.getAdapter().getItem(pos);
+                manager.eliminaGastoPerFecha(o.getString(o.getColumnIndex(manager.ID_GASTO_FECHA)));
                 break;
         }
         return super.onContextItemSelected(item);

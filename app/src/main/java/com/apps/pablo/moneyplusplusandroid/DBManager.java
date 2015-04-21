@@ -183,19 +183,19 @@ public class DBManager {
             return false;
     }
 
-    public boolean eliminaIngUnico(int id){
+    public boolean eliminaIngUnico(String id){
         return db.delete(TABLA_ING_PURO,ID_ING_PURO + "=?", new String[]{String.valueOf(id)}) > 0;
     }
 
-    public boolean eliminaIngDiario(int id){
+    public boolean eliminaIngDiario(String id){
         return db.delete(TABLA_ING_PURO,ID_ING_DIARIO+"=?", new String[]{String.valueOf(id)}) > 0;
     }
 
-    public boolean eliminaIngPerFecha(int id){
+    public boolean eliminaIngPerFecha(String id){
         return db.delete(TABLA_ING_PURO,ID_ING_FECHA+"=?", new String[]{String.valueOf(id)}) > 0;
     }
 
-    public boolean eliminaIngPerDia(int id){
+    public boolean eliminaIngPerDia(String id){
         return db.delete(TABLA_ING_PURO,ID_ING_DIA+"=?", new String[]{String.valueOf(id)}) > 0;
     }
 
@@ -370,19 +370,19 @@ public class DBManager {
         else
             return false;
     }
-    public boolean eliminaGastoUnico(int id){
+    public boolean eliminaGastoUnico(String id){
         return db.delete(TABLA_GASTO_PURO,ID_GASTO_PURO + "=?", new String[]{String.valueOf(id)}) > 0;
     }
 
-    public boolean eliminaGastoDiario(int id){
+    public boolean eliminaGastoDiario(String id){
         return db.delete(TABLA_GASTO_PURO,ID_GASTO_DIARIO+"=?", new String[]{String.valueOf(id)}) > 0;
     }
 
-    public boolean eliminaGastoPerFecha(int id){
+    public boolean eliminaGastoPerFecha(String id){
         return db.delete(TABLA_GASTO_PURO,ID_GASTO_FECHA+"=?", new String[]{String.valueOf(id)}) > 0;
     }
 
-    public boolean eliminaGastoPerDia(int id){
+    public boolean eliminaGastoPerDia(String id){
         return db.delete(TABLA_GASTO_PURO,ID_GASTO_DIA+"=?", new String[]{String.valueOf(id)}) > 0;
     }
 

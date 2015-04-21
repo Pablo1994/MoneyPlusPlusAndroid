@@ -214,6 +214,7 @@ public class TabIngresosProgramados extends BaseFragment implements View.OnCreat
                 break;
             case R.id.eliminaID:
                 o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                manager.eliminaIngDiario(o.getString(o.getColumnIndex(manager.ID_ING_DIARIO)));
                 break;
             case R.id.aplicaIPD:
                 o = (Cursor) listaPerDia.getAdapter().getItem(pos);
@@ -244,6 +245,7 @@ public class TabIngresosProgramados extends BaseFragment implements View.OnCreat
                 break;
             case R.id.eliminaIPD:
                 o = (Cursor) listaPerDia.getAdapter().getItem(pos);
+                manager.eliminaIngPerDia(o.getString(o.getColumnIndex(manager.ID_ING_DIA)));
                 break;
             case R.id.aplicaIPF:
                 o = (Cursor) listaPerFecha.getAdapter().getItem(pos);
@@ -270,6 +272,7 @@ public class TabIngresosProgramados extends BaseFragment implements View.OnCreat
                 break;
             case R.id.eliminaIPF:
                 o = (Cursor) listaPerFecha.getAdapter().getItem(pos);
+                manager.eliminaIngPerFecha(o.getString(o.getColumnIndex(manager.ID_ING_FECHA)));
                 break;
         }
         return super.onContextItemSelected(item);
