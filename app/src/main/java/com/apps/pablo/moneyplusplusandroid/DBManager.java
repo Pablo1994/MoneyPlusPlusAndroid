@@ -204,6 +204,11 @@ public class DBManager {
         return db.query(TABLA_ING_PURO, columnas,null,null,null,null,null);
     }
 
+    public Cursor cargaCursorIngPuro(String mes){
+        String columnas [] = new String[]{ID_ING_PURO,MONTO,DESCRIPCION,FECHA};
+        return db.query(TABLA_ING_PURO, columnas,"strftime('%m', " + FECHA + ")=?",new String[]{mes},null,null,null);
+    }
+
     public Cursor cargaCursorDias(String dia){
         String columnas [] = new String[]{FK_ING_DIARIO,DIA};
         return db.query(TABLA_DIAS,columnas,DIA + "=?",new String[]{dia},null,null,null);
@@ -335,6 +340,7 @@ public class DBManager {
         values.put(TIPO,i.getTipo());
         values.put(DIA,i.getDia());
         values.put(FRECUENCIA,i.getFrecuencia());
+        values.put(BANDERA,"0");
         return values;
     }
     public boolean insertar(GastoPeriodicoDia i){
@@ -385,6 +391,10 @@ public class DBManager {
         return db.query(TABLA_ING_PURO, columnas,null,null,null,null,null);
     }
 
+    public Cursor cargaCursorGastoPuro(String mes){
+        String columnas [] = new String[]{ID_ING_PURO,MONTO,TIPO,DESCRIPCION,FECHA};
+        return db.query(TABLA_GASTO_PURO, columnas,"strftime('%m', " + FECHA + ")=?",new String[]{mes},null,null,null);
+    }
     public Cursor cargaCursorDiasGasto(String dia){
         String columnas [] = new String[]{FK_GASTO_DIARIO,DIA};
         Log.i("itemito","Llegó aquí");
