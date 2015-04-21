@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/aplicaID" android:title="Aplicar Ingreso"></item>
+    <item android:id="@+id/modificaID" android:title="Modificar Ingreso"></item>
+    <item android:id="@+id/eliminaID" android:title="Eliminar Ingreso"></item>
+</menu>

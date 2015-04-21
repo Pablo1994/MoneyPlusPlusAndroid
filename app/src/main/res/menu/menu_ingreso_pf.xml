@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/aplicaIPF" android:title="Aplicar Ingreso"></item>
+    <item android:id="@+id/modificaIPF" android:title="Modificar Ingreso"></item>
+    <item android:id="@+id/eliminaIPF" android:title="Eliminar Ingreso"></item>
+</menu>

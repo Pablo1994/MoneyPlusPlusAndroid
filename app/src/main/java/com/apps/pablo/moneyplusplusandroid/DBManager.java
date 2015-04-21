@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 
@@ -15,6 +16,7 @@ import model.IngresoDiario;
 import model.IngresoPeriodicoDia;
 import model.IngresoPeriodicoFecha;
 import model.IngresoUnico;
+import model.Mes;
 
 /**
  * Created by pablo on 06/04/15.
@@ -38,13 +40,25 @@ public class DBManager {
     }
 
     public static final String TABLA_RESUMEN_MES = "meses";
-    public static final String MESES_ID = "_id";
+    public static final String MES = "mes";
+    public static final String ANIO = "anio";
     public static final String INGRESOS = "ingresos";
     public static final String GASTOS = "gastos";
-    public static final String PERIODO = "periodo";
 
-    public static final String RESUMEN_MES = "CREATE TABLE " + TABLA_RESUMEN_MES + " (" + MESES_ID + " INTEGER primary key autoincrement, "
-            + PERIODO + " TEXT, " + INGRESOS + " TEXT, " + GASTOS + " TEXT);";
+    public static final String RESUMEN_MES = "CREATE TABLE " + TABLA_RESUMEN_MES + " (" + MES + " TEXT, " + ANIO + " TEXT,"
+            + INGRESOS + " TEXT, " + GASTOS + " TEXT, PRIMARY KEY("+MES+", "+ ANIO +"));";
+
+    public ContentValues valoresResumenMes(Mes m){
+        ContentValues values = new ContentValues();
+        values.put(MES,m.getMes());
+        values.put(ANIO,m.getAnio());
+        values.put(INGRESOS,m.getIngresos());
+        values.put(GASTOS,m.getGastos());
+        return values;
+    }
+    public boolean insertar(Mes m){
+        return db.insert(TABLA_ING_PURO, null, valoresResumenMes(m)) != -1;
+    }
 
     // ------------------- TABLAS DE INGRESOS ---------------------- //
 
@@ -78,7 +92,7 @@ public class DBManager {
     public static final String ID_ING_FECHA = "_id";
 
     public static final String INGRESO_PER_FECHA = "CREATE TABLE " + TABLA_ING_FECHA + " (" + ID_ING_FECHA + " INTEGER primary key autoincrement, " +
-            MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + FRECUENCIA + " TEXT);";
+            MONTO + " INTEGER, " + DESCRIPCION + " TEXT, " + FRECUENCIA + " TEXT, " + BANDERA + " TEXT);";
 
     public static final String TABLA_FECHAS = "fechas";
     public static final String FK_ING_FECHAS = "idIngPerFec";
@@ -155,6 +169,7 @@ public class DBManager {
     public boolean insertar(IngresoPeriodicoFecha i){
         long id = db.insert(TABLA_ING_FECHA, null, valoresIngresoFechas(i));
         if(id != -1){
+            Log.i("itemito","entró aqui");
             ContentValues valoresFechas = new ContentValues();
             for(String s : i.getFechas()){
                 valoresFechas.put(FECHA,s);
@@ -194,15 +209,24 @@ public class DBManager {
         return db.query(TABLA_DIAS,columnas,DIA + "=?",new String[]{dia},null,null,null);
     }
 
-    public Cursor cargaCursorIngDiario(String [] id){
+    public Cursor cargaCursorIngDiario(String [] id,String fecha){
         String columnas [] = new String[]{ID_ING_DIARIO,MONTO,DESCRIPCION};
-        return db.query(TABLA_ING_DIARIO, columnas,ID_ING_DIARIO + " IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
+        String arrFecha [] = new String[]{fecha};
+        String arreglo [] = new String[id.length + arrFecha.length];
+        System.arraycopy(id, 0, arreglo, 0, id.length);
+        System.arraycopy(arrFecha, 0, arreglo, id.length, arrFecha.length);
+        return db.query(TABLA_ING_DIARIO, columnas,ID_ING_DIARIO + " IN(" + makePlaceholders(id.length) + ")" + " AND " + BANDERA + "!=?",arreglo,null,null,null);
     }
 
     public void cambiaEstadoIngPerDia(String id,String flag){
         ContentValues values = new ContentValues();
         values.put(BANDERA,flag);
         db.update(TABLA_ING_DIA,values,ID_ING_DIA+"=?",new String[]{id});
+    }
+    public void cambiaEstadoIngDiario(String id,String flag){
+        ContentValues values = new ContentValues();
+        values.put(BANDERA,flag);
+        db.update(TABLA_ING_DIARIO,values,ID_ING_DIARIO + "=?" ,new String[]{id});
     }
     public Cursor cargaCursorIngPerDia(String dia){
         String columnas [] = new String[]{ID_ING_DIA,MONTO,DESCRIPCION,DIA,FRECUENCIA};
@@ -243,7 +267,7 @@ public class DBManager {
     public static final String ID_GASTO_DIARIO = "_id";
 
     public static final String GASTO_DIARIO = "CREATE TABLE " + TABLA_GASTO_DIARIO + " (" + ID_GASTO_DIARIO + " INTEGER primary key autoincrement, " +
-            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION + " TEXT, " + TIPO +" TEXT);";
+            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION + " TEXT);";
 
     public static final String TABLA_DIAS_GASTOS = "dias_gastos";
     public static final String FK_GASTO_DIARIO = "idGastoDiario";
@@ -256,7 +280,7 @@ public class DBManager {
     public static final String ID_GASTO_FECHA = "_id";
 
     public static final String GASTO_PER_FECHA = "CREATE TABLE " + TABLA_GASTO_FECHA + " (" + ID_GASTO_FECHA + " INTEGER primary key autoincrement, " +
-            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION + " TEXT, " + TIPO + " TEXT, " + FRECUENCIA + " TEXT);";
+            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION + " TEXT, " + FRECUENCIA + " TEXT);";
 
     public static final String TABLA_FECHAS_GASTOS = "fechas_gastos";
     public static final String FK_GASTO_FECHAS = "idGastoPerFec";

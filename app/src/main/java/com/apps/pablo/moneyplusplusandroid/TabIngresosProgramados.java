@@ -6,19 +6,31 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.format.DateFormat;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+
+import model.IngresoUnico;
 
 /**
  * Created by Pablo Arias on 08/04/15.
  */
-public class TabIngresosProgramados extends BaseFragment{
+public class TabIngresosProgramados extends BaseFragment implements View.OnCreateContextMenuListener{
+    DBManager manager;
+    Cursor cursorDiario;
     View rootView;
     ListView listaDiario, listaPerDia, listaPerFecha;
     SimpleCursorAdapter adapterDiario, adapterPerDia, adapterPerFecha;
@@ -27,28 +39,30 @@ public class TabIngresosProgramados extends BaseFragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.tab_ingresos_programados, container, false);
 
-        DBManager manager = ResumenDia.manager;
+        manager = ResumenDia.manager;
         listaDiario = (ListView) rootView.findViewById(R.id.listViewDiario);
         listaPerDia = (ListView) rootView.findViewById(R.id.listViewPerDia);
         listaPerFecha = (ListView) rootView.findViewById(R.id.listViewPerFecha);
-        String [] fromDiario = new String[]{manager.ID_ING_DIARIO,manager.MONTO,manager.DESCRIPCION};
-        int [] toDiario = new int[]{R.id.itemDiarioID,R.id.itemDiarioMonto,R.id.itemDiarioDescripcion};
-        ArrayList<String> arrIdDiario = new ArrayList<>();
-        Cursor cursorDias = manager.cargaCursorDias(getDayOfWeek());
-        if (cursorDias.moveToFirst()){
-            while(!cursorDias.isAfterLast()){
-                String data = cursorDias.getString(cursorDias.getColumnIndex(manager.FK_ING_DIARIO));
-                arrIdDiario.add(data);
-                cursorDias.moveToNext();
+        listaDiario.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v,
+                                            ContextMenu.ContextMenuInfo menuInfo) {
+                getActivity().getMenuInflater().inflate(R.menu.menu_ingreso_d, menu);
             }
-        }
-        cursorDias.close();
-        String [] idsDiario = new String[arrIdDiario.size()];
-        idsDiario = arrIdDiario.toArray(idsDiario);
-        Cursor cursorDiario = manager.cargaCursorIngDiario(idsDiario);
-        adapterDiario = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_ingreso_diario,cursorDiario,fromDiario,toDiario,0);
-        if(adapterDiario != null)
-            listaDiario.setAdapter(adapterDiario);
+        });
+        listaPerDia.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                getActivity().getMenuInflater().inflate(R.menu.menu_ingreso_pd, contextMenu);
+            }
+        });
+        listaPerFecha.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                getActivity().getMenuInflater().inflate(R.menu.menu_ingreso_pf, contextMenu);
+            }
+        });
+        cargaCursorDiario();
 
         String [] fromPerDia = new String[]{manager.ID_ING_DIARIO,manager.MONTO,manager.DESCRIPCION,manager.FRECUENCIA};
         int [] toPerDia = new int[]{R.id.itemPerDiaID,R.id.itemPerDiaMonto,R.id.itemPerDiaDescripcion,R.id.itemPerDiaFrecuencia};
@@ -95,16 +109,16 @@ public class TabIngresosProgramados extends BaseFragment{
         int [] toPerFecha = new int[]{R.id.itemPerFechaID,R.id.itemPerFechaMonto,R.id.itemPerFechaDescripcion};
         ArrayList<String> arrIdPerFecha = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
-        int fecha = calendar.get(Calendar.DAY_OF_MONTH);
+        int fecha = calendar.get(Calendar.DATE);
         Cursor cursorFechas = manager.cargaCursorFechas(String.valueOf(fecha));
         if (cursorFechas.moveToFirst()){
             while(!cursorFechas.isAfterLast()){
-                String data = cursorFechas.getString(cursorFechas.getColumnIndex(manager.FK_ING_DIARIO));
+                String data = cursorFechas.getString(cursorFechas.getColumnIndex(manager.FK_ING_FECHAS));
                 arrIdPerFecha.add(data);
-                cursorDias.moveToNext();
+                cursorFechas.moveToNext();
             }
         }
-        cursorDias.close();
+        cursorFechas.close();
         String [] ids2 = new String[arrIdPerFecha.size()];
         ids2 = arrIdPerFecha.toArray(ids2);
         Cursor cursorPerFecha = manager.cargaCursorIngPerFecha(ids2);
@@ -115,6 +129,30 @@ public class TabIngresosProgramados extends BaseFragment{
         return rootView;
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void cargaCursorDiario(){
+        String [] fromDiario = new String[]{manager.ID_ING_DIARIO,manager.MONTO,manager.DESCRIPCION};
+        int [] toDiario = new int[]{R.id.itemDiarioID,R.id.itemDiarioMonto,R.id.itemDiarioDescripcion};
+        ArrayList<String> arrIdDiario = new ArrayList<>();
+        Cursor cursorDias = manager.cargaCursorDias(getDayOfWeek());
+        if (cursorDias.moveToFirst()){
+            while(!cursorDias.isAfterLast()){
+                String data = cursorDias.getString(cursorDias.getColumnIndex(manager.FK_ING_DIARIO));
+                arrIdDiario.add(data);
+                cursorDias.moveToNext();
+            }
+        }
+        cursorDias.close();
+        String [] idsDiario = new String[arrIdDiario.size()];
+        idsDiario = arrIdDiario.toArray(idsDiario);
+        Calendar c = Calendar.getInstance();
+        String dia = String.valueOf(c.get(Calendar.DATE));
+        cursorDiario = manager.cargaCursorIngDiario(idsDiario,dia);
+        adapterDiario = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_ingreso_diario,cursorDiario,fromDiario,toDiario,0);
+        if(adapterDiario != null)
+            listaDiario.setAdapter(adapterDiario);
+
+    }
     public String getDayOfWeek(){
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -139,5 +177,104 @@ public class TabIngresosProgramados extends BaseFragment{
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+    }
+
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        double monto;
+        String desc;
+        Date d;
+        CharSequence fecha;
+        SimpleDateFormat format;
+        IngresoUnico iu;
+        Calendar c;
+        String dia;
+        int pos = info.position;
+        Cursor o;
+        switch(item.getItemId()) {
+            case R.id.aplicaID:
+                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                Log.i("itemito","HOLA!");
+                monto = o.getDouble(o.getColumnIndex(manager.MONTO));
+                desc = o.getString(o.getColumnIndex(manager.DESCRIPCION));
+                d = new Date();
+                fecha  = DateFormat.format("dd-MM-yyyy", d.getTime());
+                format = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+                    d = format.parse(fecha.toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                iu = new IngresoUnico(monto,desc,d);
+                manager.insertar(iu);
+                c = Calendar.getInstance();
+                dia = String.valueOf(c.get(Calendar.DATE));
+                manager.cambiaEstadoIngDiario(o.getString(o.getColumnIndex(manager.ID_ING_DIARIO)),dia);
+                Mensaje(rootView.getContext(),"Ingreso aplicado");
+                cargaCursorDiario();
+                break;
+            case R.id.modificaID:
+                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                break;
+            case R.id.eliminaID:
+                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                break;
+            case R.id.aplicaIPD:
+                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                Log.i("itemito","HOLA!");
+                monto = o.getDouble(o.getColumnIndex(manager.MONTO));
+                desc = o.getString(o.getColumnIndex(manager.DESCRIPCION));
+                d = new Date();
+                fecha  = DateFormat.format("dd-MM-yyyy", d.getTime());
+                format = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+                    d = format.parse(fecha.toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                iu = new IngresoUnico(monto,desc,d);
+                manager.insertar(iu);
+                c = Calendar.getInstance();
+                dia = String.valueOf(c.get(Calendar.DATE));
+                manager.cambiaEstadoIngDiario(o.getString(o.getColumnIndex(manager.ID_ING_DIARIO)),dia);
+                Mensaje(rootView.getContext(),"Ingreso aplicado");
+                cargaCursorDiario();
+                break;
+            case R.id.modificaIPD:
+                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                break;
+            case R.id.eliminaIPD:
+                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                break;
+            case R.id.aplicaIPF:
+                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                Log.i("itemito","HOLA!");
+                monto = o.getDouble(o.getColumnIndex(manager.MONTO));
+                desc = o.getString(o.getColumnIndex(manager.DESCRIPCION));
+                d = new Date();
+                fecha  = DateFormat.format("dd-MM-yyyy", d.getTime());
+                format = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+                    d = format.parse(fecha.toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                iu = new IngresoUnico(monto,desc,d);
+                manager.insertar(iu);
+                c = Calendar.getInstance();
+                dia = String.valueOf(c.get(Calendar.DATE));
+                Mensaje(rootView.getContext(),"Ingreso aplicado");
+                cargaCursorDiario();
+                break;
+            case R.id.modificaIPF:
+                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                break;
+            case R.id.eliminaIPF:
+                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                break;
+        }
+        return super.onContextItemSelected(item);
     }
 }

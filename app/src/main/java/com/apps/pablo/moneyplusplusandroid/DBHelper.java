@@ -18,6 +18,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(DBManager.RESUMEN_MES);
         for(String q : DBManager.ingresos){
             db.execSQL(q);
         }
