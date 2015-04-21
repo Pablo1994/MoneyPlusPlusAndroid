@@ -261,13 +261,13 @@ public class DBManager {
     public static final String ID_GASTO_DIA = "_id";
 
     public static final String GASTO_PER_DIA = "CREATE TABLE " + TABLA_GASTO_DIA + " (" + ID_GASTO_DIA + " INTEGER primary key autoincrement, " +
-            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION +  " TEXT, " + DIA + " TEXT, " + FRECUENCIA + " TEXT);";
+            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION +  " TEXT, " + DIA + " TEXT, " + FRECUENCIA + " TEXT, " + BANDERA + " TEXT);";
 
     public static final String TABLA_GASTO_DIARIO = "gasto_diario";
     public static final String ID_GASTO_DIARIO = "_id";
 
     public static final String GASTO_DIARIO = "CREATE TABLE " + TABLA_GASTO_DIARIO + " (" + ID_GASTO_DIARIO + " INTEGER primary key autoincrement, " +
-            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION + " TEXT);";
+            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION + " TEXT, " + BANDERA + " TEXT);";
 
     public static final String TABLA_DIAS_GASTOS = "dias_gastos";
     public static final String FK_GASTO_DIARIO = "idGastoDiario";
@@ -280,7 +280,7 @@ public class DBManager {
     public static final String ID_GASTO_FECHA = "_id";
 
     public static final String GASTO_PER_FECHA = "CREATE TABLE " + TABLA_GASTO_FECHA + " (" + ID_GASTO_FECHA + " INTEGER primary key autoincrement, " +
-            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION + " TEXT, " + FRECUENCIA + " TEXT);";
+            MONTO + " INTEGER, " +  TIPO + " TEXT, " + DESCRIPCION + " TEXT, " + FRECUENCIA + " TEXT, " + BANDERA + " TEXT);";
 
     public static final String TABLA_FECHAS_GASTOS = "fechas_gastos";
     public static final String FK_GASTO_FECHAS = "idGastoPerFec";
@@ -309,6 +309,7 @@ public class DBManager {
         values.put(MONTO, i.getMonto());
         values.put(DESCRIPCION, i.getDescripcion());
         values.put(TIPO,i.getTipo());
+        values.put(BANDERA, "false");
         return values;
     }
     public boolean insertar(GastoDiario i){
@@ -318,7 +319,7 @@ public class DBManager {
             for(String s : i.getDias()){
                 valoresDias.put(DIA,s);
                 valoresDias.put(FK_GASTO_DIARIO,id);
-                if(db.insert(DIAS_GASTOS,null,valoresDias) == -1)
+                if(db.insert(TABLA_DIAS_GASTOS,null,valoresDias) == -1)
                     return false;
             }
             return true;
@@ -349,13 +350,13 @@ public class DBManager {
         return values;
     }
     public boolean insertar(GastoPeriodicoFecha i){
-        long id = db.insert(TABLA_GASTO_DIARIO, null, valoresGastoFechas(i));
+        long id = db.insert(TABLA_GASTO_FECHA, null, valoresGastoFechas(i));
         if(id != -1){
             ContentValues valoresFechas = new ContentValues();
             for(String s : i.getFechas()){
                 valoresFechas.put(FECHA,s);
-                valoresFechas.put(FK_GASTO_DIARIO,id);
-                if(db.insert(FECHAS_GASTOS,null,valoresFechas) == -1)
+                valoresFechas.put(FK_GASTO_FECHAS,id);
+                if(db.insert(TABLA_FECHAS_GASTOS,null,valoresFechas) == -1)
                     return false;
             }
             return true;
@@ -386,18 +387,28 @@ public class DBManager {
 
     public Cursor cargaCursorDiasGasto(String dia){
         String columnas [] = new String[]{FK_GASTO_DIARIO,DIA};
+        Log.i("itemito","Llegó aquí");
         return db.query(TABLA_DIAS_GASTOS,columnas,DIA + "=?",new String[]{dia},null,null,null);
     }
 
-    public Cursor cargaCursorGastoDiario(String [] id){
+    public Cursor cargaCursorGastoDiario(String [] id,String fecha){
         String columnas [] = new String[]{ID_GASTO_DIARIO,MONTO,TIPO,DESCRIPCION};
-        return db.query(TABLA_GASTO_DIARIO, columnas,ID_GASTO_DIARIO + " IN(" + makePlaceholders(id.length) + ")",id,null,null,null);
+        String arrFecha [] = new String[]{fecha};
+        String arreglo [] = new String[id.length + arrFecha.length];
+        System.arraycopy(id, 0, arreglo, 0, id.length);
+        System.arraycopy(arrFecha, 0, arreglo, id.length, arrFecha.length);
+        return db.query(TABLA_GASTO_DIARIO, columnas,ID_GASTO_DIARIO + " IN(" + makePlaceholders(id.length) + ")" + " AND " + BANDERA + "!=?",arreglo,null,null,null);
     }
 
     public void cambiaEstadoGastoPerDia(String id,String flag){
         ContentValues values = new ContentValues();
         values.put(BANDERA,flag);
         db.update(TABLA_GASTO_DIA,values,ID_GASTO_DIA+"=?",new String[]{id});
+    }
+    public void cambiaEstadoGastoDiario(String id,String flag){
+        ContentValues values = new ContentValues();
+        values.put(BANDERA,flag);
+        db.update(TABLA_GASTO_DIARIO,values,ID_GASTO_DIARIO + "=?" ,new String[]{id});
     }
     public Cursor cargaCursorGastoPerDia(String dia){
         String columnas [] = new String[]{ID_GASTO_DIA,MONTO,TIPO,DESCRIPCION,DIA,FRECUENCIA};

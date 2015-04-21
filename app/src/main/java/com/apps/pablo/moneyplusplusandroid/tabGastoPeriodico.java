@@ -168,12 +168,12 @@ public class tabGastoPeriodico extends BaseFragment implements AdapterView.OnIte
                 }
                 else
                     Mensaje(rootView.getContext(),"No se pudo insertar, revise los valores e intente de nuevo.");
-            } else if(rootView.findViewById(R.id.scrollViewFecha).getVisibility() == View.VISIBLE){
+            } else if(rootView.findViewById(R.id.scrollViewFechaGasto).getVisibility() == View.VISIBLE){
                 double monto = Double.parseDouble(editTextMontoFecha.getText().toString());
                 String desc = editTextDescripcionFecha.getText().toString();
                 String tipo = spinnerTipoFecha.getSelectedItem().toString();
                 String freq = ((RadioButton) rootView.findViewById(radioGroupFecha.getCheckedRadioButtonId())).getText().toString();
-                String [] fechas = {};
+                String [] fechas = new String[2];
                 String fecha1 = editTextFecha.getText().toString();
                 fechas[0] = fecha1;
                 if(editTextFecha2.getVisibility() == View.VISIBLE){

@@ -16,169 +16,180 @@
         android:textStyle="bold"
         android:textSize="35sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/gastoStr"
-        android:id="@+id/textViewGastoDiario"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:textStyle="normal"
-        android:textSize="25sp" />
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.03"
-        android:layout_marginTop="5dp">
+        android:layout_height="310dp"
+        android:id="@+id/scrollView" >
 
-        <EditText
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/editTextGastoDiario"
-            android:layout_weight="1"
-            android:background="#ffc3fbf0" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/gastoStr"
+            android:id="@+id/textViewGastoDiario"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:textStyle="normal"
+            android:textSize="25sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/str_tipo"
-        android:id="@+id/textView8"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:textStyle="normal"
-        android:textSize="25sp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.03"
+            android:layout_marginTop="5dp">
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:id="@+id/spinnerGastoDiario"
-        android:layout_gravity="center_horizontal"
-        android:spinnerMode="dialog" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editTextGastoDiario"
+                android:layout_weight="1"
+                android:background="#ffc3fbf0" />
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/str_descripcion"
-        android:id="@+id/textView"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:textSize="25sp" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.03"
-        android:layout_marginTop="5dp">
-
-        <EditText
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/editTextDescGastoDiario"
-            android:layout_weight="1"
-            android:background="#ffc3fbf0"
-            android:inputType="text" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/str_tipo"
+            android:id="@+id/textView8"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:textStyle="normal"
+            android:textSize="25sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/str_dias"
-        android:id="@+id/textViewDias"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:textSize="25dp" />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:id="@+id/spinnerGastoDiario"
+            android:layout_gravity="center_horizontal"
+            android:spinnerMode="dialog" />
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/str_descripcion"
+            android:id="@+id/textView"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="25sp" />
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.03"
+            android:layout_marginTop="5dp">
 
-            <CheckBox
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/str_lunes"
-                android:id="@+id/checkBoxLunesGasto"
-                android:layout_column="1"
-                android:checked="false"
-                android:layout_weight="1" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/editTextDescGastoDiario"
+                android:layout_weight="1"
+                android:background="#ffc3fbf0"
+                android:inputType="text" />
+        </LinearLayout>
 
-            <CheckBox
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/str_martes"
-                android:id="@+id/checkBoxMartesGasto"
-                android:layout_column="3"
-                android:checked="false"
-                android:layout_weight="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/str_dias"
+            android:id="@+id/textViewDias"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="25dp" />
 
-            <CheckBox
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/str_miercoles"
-                android:id="@+id/checkBoxMiercolesGasto"
-                android:layout_column="5"
-                android:checked="false"
-                android:layout_weight="1.1" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
-            <CheckBox
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/str_jueves"
-                android:id="@+id/checkBoxJuevesGasto"
-                android:layout_column="7"
-                android:checked="false"
-                android:layout_weight="1" />
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-        </TableRow>
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_lunes"
+                    android:id="@+id/checkBoxLunesGasto"
+                    android:layout_column="1"
+                    android:checked="false"
+                    android:layout_weight="1" />
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_martes"
+                    android:id="@+id/checkBoxMartesGasto"
+                    android:layout_column="3"
+                    android:checked="false"
+                    android:layout_weight="1" />
 
-            <CheckBox
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/str_viernes"
-                android:id="@+id/checkBoxViernesGasto"
-                android:layout_column="8"
-                android:checked="false"
-                android:layout_weight="1" />
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_miercoles"
+                    android:id="@+id/checkBoxMiercolesGasto"
+                    android:layout_column="5"
+                    android:checked="false"
+                    android:layout_weight="1.1" />
 
-            <CheckBox
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/str_sabado"
-                android:id="@+id/checkBoxSabadoGasto"
-                android:layout_column="13"
-                android:checked="false"
-                android:layout_weight="1" />
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_jueves"
+                    android:id="@+id/checkBoxJuevesGasto"
+                    android:layout_column="7"
+                    android:checked="false"
+                    android:layout_weight="1" />
 
-            <CheckBox
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/str_domingo"
-                android:id="@+id/checkBoxDomingoGasto"
-                android:layout_column="16"
-                android:checked="false"
-                android:layout_weight="1" />
-        </TableRow>
-    </TableLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_viernes"
+                    android:id="@+id/checkBoxViernesGasto"
+                    android:layout_column="8"
+                    android:checked="false"
+                    android:layout_weight="1" />
+
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_sabado"
+                    android:id="@+id/checkBoxSabadoGasto"
+                    android:layout_column="13"
+                    android:checked="false"
+                    android:layout_weight="1" />
+
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_domingo"
+                    android:id="@+id/checkBoxDomingoGasto"
+                    android:layout_column="16"
+                    android:checked="false"
+                    android:layout_weight="1" />
+            </TableRow>
+        </TableLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:layout_width="152dp"

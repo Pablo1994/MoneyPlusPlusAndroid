@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/aplicaGD" android:title="Aplicar Gasto"></item>
+    <item android:id="@+id/modificaGD" android:title="Modificar Gasto"></item>
+    <item android:id="@+id/eliminaGD" android:title="Eliminar Gasto"></item>
+</menu>

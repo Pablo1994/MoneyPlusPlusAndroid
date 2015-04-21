@@ -67,8 +67,8 @@ public class TabIngresosProgramados extends BaseFragment implements View.OnCreat
         String [] fromPerDia = new String[]{manager.ID_ING_DIARIO,manager.MONTO,manager.DESCRIPCION,manager.FRECUENCIA};
         int [] toPerDia = new int[]{R.id.itemPerDiaID,R.id.itemPerDiaMonto,R.id.itemPerDiaDescripcion,R.id.itemPerDiaFrecuencia};
         Cursor cursorPerDiaReal = manager.cargaCursorIngPerDia2(getDayOfWeek());
-        Cursor cursorPerDia = manager.cargaCursorIngPerDia(getDayOfWeek());
-        if (cursorPerDia.moveToFirst()){
+        //Cursor cursorPerDia = manager.cargaCursorIngPerDia(getDayOfWeek());
+        /*if (cursorPerDia.moveToFirst()){
             while(cursorPerDia.isAfterLast()){
                 String freq = cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.FRECUENCIA));
                 String flag;
@@ -81,9 +81,6 @@ public class TabIngresosProgramados extends BaseFragment implements View.OnCreat
                         if(flag.equals("1")){
                             manager.cambiaEstadoIngPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_ING_DIA)),"0");
                         }
-                        else if(flag.equals("0")){
-                            manager.cambiaEstadoIngPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_ING_DIA)),"1");
-                        }
                         break;
                     case "Mensual":
                         flag = cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.BANDERA));
@@ -94,13 +91,10 @@ public class TabIngresosProgramados extends BaseFragment implements View.OnCreat
                         }else if(flag.equals("1")){
                             manager.cambiaEstadoIngPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_ING_DIA)),"0");
                         }
-                        else if(flag.equals("0")){
-                            manager.cambiaEstadoIngPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_ING_DIA)),"3");
-                        }
                         break;
                 }
             }
-        }
+        }*/
         adapterPerDia = new SimpleCursorAdapter(rootView.getContext(),R.layout.item_ingreso_per_dia,cursorPerDiaReal,fromPerDia,toPerDia,0);
         if(adapterPerDia != null)
             listaPerDia.setAdapter(adapterPerDia);
@@ -222,7 +216,7 @@ public class TabIngresosProgramados extends BaseFragment implements View.OnCreat
                 o = (Cursor) listaDiario.getAdapter().getItem(pos);
                 break;
             case R.id.aplicaIPD:
-                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                o = (Cursor) listaPerDia.getAdapter().getItem(pos);
                 Log.i("itemito","HOLA!");
                 monto = o.getDouble(o.getColumnIndex(manager.MONTO));
                 desc = o.getString(o.getColumnIndex(manager.DESCRIPCION));
@@ -238,18 +232,21 @@ public class TabIngresosProgramados extends BaseFragment implements View.OnCreat
                 manager.insertar(iu);
                 c = Calendar.getInstance();
                 dia = String.valueOf(c.get(Calendar.DATE));
-                manager.cambiaEstadoIngDiario(o.getString(o.getColumnIndex(manager.ID_ING_DIARIO)),dia);
+                if(o.getString(o.getColumnIndex(manager.FRECUENCIA))=="Mensual")
+                    manager.cambiaEstadoIngPerDia(o.getString(o.getColumnIndex(manager.ID_ING_DIA)),"3");
+                else if(o.getString(o.getColumnIndex(manager.FRECUENCIA))=="Quincenal")
+                    manager.cambiaEstadoIngPerDia(o.getString(o.getColumnIndex(manager.ID_ING_DIA)),"1");
                 Mensaje(rootView.getContext(),"Ingreso aplicado");
                 cargaCursorDiario();
                 break;
             case R.id.modificaIPD:
-                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                o = (Cursor) listaPerDia.getAdapter().getItem(pos);
                 break;
             case R.id.eliminaIPD:
-                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                o = (Cursor) listaPerDia.getAdapter().getItem(pos);
                 break;
             case R.id.aplicaIPF:
-                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                o = (Cursor) listaPerFecha.getAdapter().getItem(pos);
                 Log.i("itemito","HOLA!");
                 monto = o.getDouble(o.getColumnIndex(manager.MONTO));
                 desc = o.getString(o.getColumnIndex(manager.DESCRIPCION));
@@ -269,10 +266,10 @@ public class TabIngresosProgramados extends BaseFragment implements View.OnCreat
                 cargaCursorDiario();
                 break;
             case R.id.modificaIPF:
-                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                o = (Cursor) listaPerFecha.getAdapter().getItem(pos);
                 break;
             case R.id.eliminaIPF:
-                o = (Cursor) listaDiario.getAdapter().getItem(pos);
+                o = (Cursor) listaPerFecha.getAdapter().getItem(pos);
                 break;
         }
         return super.onContextItemSelected(item);
