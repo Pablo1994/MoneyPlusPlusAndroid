@@ -1,17 +1,30 @@
 package com.apps.pablo.moneyplusplusandroid;
 
-import android.support.v7.app.ActionBarActivity;
+import android.annotation.TargetApi;
+import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 
 public class ResumenGastos extends Base {
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumen_gastos);
+        String mes = getIntent().getStringExtra("mes");
+        ListView list = (ListView) findViewById(R.id.listViewGastos);
+        String [] from = {manager.ID_GASTO_PURO,manager.MONTO,manager.DESCRIPCION,manager.TIPO,manager.FECHA};
+        int [] to = {R.id.itemIngresoID,R.id.itemGastoID,R.id.itemGastoDescripcion,R.id.itemGastoTipo,R.id.itemGastoFecha};
+        Cursor cursor = manager.cargaCursorGastoPuro(mes);
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.item_gastos,cursor,from,to,0);
+        if (adapter != null)
+            list.setAdapter(adapter);
     }
 
 
