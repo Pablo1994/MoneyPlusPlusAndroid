@@ -41,4 +41,8 @@
     <string name="title_activity_resumen_dia">ResumenDia</string>
     <string name="str_quincenal">Quincenal</string>
     <string name="str_mensual">Mensual</string>
+    <string name="title_activity_resumen_ingresos">ResumenIngresos</string>
+    <string name="textviewingresos">Ingresos de</string>
+    <string name="title_activity_resumen_gastos">ResumenGastos</string>
+    <string name="textviewgastos">Gastos de</string>
 </resources>

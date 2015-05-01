@@ -199,7 +199,7 @@ public class DBManager {
         return db.delete(TABLA_ING_PURO,ID_ING_DIA+"=?", new String[]{String.valueOf(id)}) > 0;
     }
 
-    public Cursor cargaCursorIngPuro(){
+    public Cursor insertCursorIngPuro(){
         String columnas [] = new String[]{ID_ING_PURO,MONTO,DESCRIPCION,FECHA};
         return db.query(TABLA_ING_PURO, columnas,null,null,null,null,null);
     }

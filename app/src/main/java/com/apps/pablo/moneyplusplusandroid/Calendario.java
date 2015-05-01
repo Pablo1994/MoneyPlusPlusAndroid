@@ -1,6 +1,7 @@
 package com.apps.pablo.moneyplusplusandroid;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ public class Calendario extends BaseFragment implements AdapterView.OnItemSelect
     Spinner spinnerMes;
     TextView ingresos,gastos,balance;
     Calendar c;
+    String mesg;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.calendario, container, false);
@@ -37,12 +39,29 @@ public class Calendario extends BaseFragment implements AdapterView.OnItemSelect
 
         ingresos = (TextView) rootView.findViewById(R.id.textViewIngresos);
         gastos = (TextView) rootView.findViewById(R.id.textViewGastos);
+
         balance = (TextView) rootView.findViewById(R.id.textViewBalance);
         manager = PantallaPrincipal.manager;
         c = Calendar.getInstance();
         int m = c.get(Calendar.MONTH)+1;
         spinnerMes.setSelection(m-1);
         spinnerMes.setOnItemSelectedListener(this);
+        ingresos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(rootView.getContext(),ResumenIngresos.class);
+                i.putExtra("mes",mesg);
+                startActivity(i);
+            }
+        });
+        gastos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(rootView.getContext(),ResumenGastos.class);
+                i.putExtra("mes",mesg);
+                startActivity(i);
+            }
+        });
         return rootView;
     }
 
@@ -82,8 +101,10 @@ public class Calendario extends BaseFragment implements AdapterView.OnItemSelect
         int m = i+1;
         String mes;
         if(m < 10){
+            mesg = "0"+String.valueOf(m);
             mes = "0"+String.valueOf(m);
         } else {
+            mesg = String.valueOf(m);
             mes = String.valueOf(m);
         }
         llenaCampos(mes);
