@@ -5,14 +5,18 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -22,6 +26,7 @@ public class Calendario extends BaseFragment implements AdapterView.OnItemSelect
     View rootView;
     DBManager manager;
     Spinner spinnerMes;
+    DatePicker datePick;
     TextView ingresos,gastos,balance;
     Calendar c;
     String mesg;
@@ -30,12 +35,23 @@ public class Calendario extends BaseFragment implements AdapterView.OnItemSelect
         rootView = inflater.inflate(R.layout.calendario, container, false);
         spinnerMes = (Spinner) rootView.findViewById(R.id.spinnerMes);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(rootView.getContext(),
+        ArrayAdapter<CharSequence> adapterMes = ArrayAdapter.createFromResource(rootView.getContext(),
                 R.array.array_meses, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterMes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinnerMes.setAdapter(adapter2);
+        spinnerMes.setAdapter(adapterMes);
+
+        ArrayList<String> years = new ArrayList<String>();
+        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+        for (int i = 1980; i <= thisYear; i++) {
+            years.add(Integer.toString(i));
+        }
+        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_spinner_item, years);
+        adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Spinner spinYear = (Spinner)rootView.findViewById(R.id.spinnerYear);
+        spinYear.setAdapter(adapterYear);
 
         ingresos = (TextView) rootView.findViewById(R.id.textViewIngresos);
         gastos = (TextView) rootView.findViewById(R.id.textViewGastos);
