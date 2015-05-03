@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/textviewgastos"
-        android:id="@+id/textViewGastos"
+        android:id="@+id/labelGastos"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -20,6 +20,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listViewGastos"
-        android:layout_below="@+id/textViewGastos"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/labelGastos" />
 </RelativeLayout>

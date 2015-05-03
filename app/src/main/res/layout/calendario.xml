@@ -21,11 +21,11 @@
         android:weightSum="1">
 
         <TextView
-            android:layout_width="123dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textViewIngresos"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="15dp"
             android:textSize="40sp"
             android:layout_weight="0.14" />
 
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textViewGastos"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="20dp"
             android:textSize="40sp" />
     </LinearLayout>
 
@@ -51,7 +51,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Ingresos"
             android:id="@+id/textView12"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="25dp"
             android:textSize="30sp" />
 
         <TextView

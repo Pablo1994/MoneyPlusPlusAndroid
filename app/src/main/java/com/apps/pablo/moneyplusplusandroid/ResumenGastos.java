@@ -8,24 +8,30 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 
 public class ResumenGastos extends Base {
+
+    String mes;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumen_gastos);
-        String mes = getIntent().getStringExtra("mes");
+        mes = getIntent().getStringExtra("mes");
+        TextView txtViewGastos = (TextView) findViewById(R.id.labelGastos);
+        txtViewGastos.setText(txtViewGastos.getText() + getMes(mes));
         ListView list = (ListView) findViewById(R.id.listViewGastos);
         String [] from = {manager.ID_GASTO_PURO,manager.MONTO,manager.DESCRIPCION,manager.TIPO,manager.FECHA};
-        int [] to = {R.id.itemIngresoID,R.id.itemGastoID,R.id.itemGastoDescripcion,R.id.itemGastoTipo,R.id.itemGastoFecha};
+        int [] to = {R.id.itemGastoID,R.id.itemGastoMonto,R.id.itemGastoDescripcion,R.id.itemGastoTipo,R.id.itemGastoFecha};
         Cursor cursor = manager.cargaCursorGastoPuro(mes);
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),R.layout.item_gastos,cursor,from,to,0);
         if (adapter != null)
             list.setAdapter(adapter);
     }
+
 
 
     @Override

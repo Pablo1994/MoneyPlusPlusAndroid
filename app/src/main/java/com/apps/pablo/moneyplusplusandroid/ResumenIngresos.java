@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 
 public class ResumenIngresos extends Base {
@@ -18,6 +19,8 @@ public class ResumenIngresos extends Base {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumen_ingresos);
         String mes = getIntent().getStringExtra("mes");
+        TextView txtViewIngresos = (TextView) findViewById(R.id.labelIngresos);
+        txtViewIngresos.setText(txtViewIngresos.getText() + getMes(mes));
         ListView list = (ListView) findViewById(R.id.listViewIngresos);
         String [] from = {manager.ID_ING_PURO,manager.MONTO,manager.DESCRIPCION,manager.FECHA};
         int [] to = {R.id.itemIngresoID,R.id.itemIngresoMonto,R.id.itemIngresoDescripcion,R.id.itemIngresoFecha};

@@ -45,19 +45,11 @@
         </activity>
         <activity
             android:name=".ResumenIngresos"
-            android:label="@string/title_activity_resumen_ingresos"
-            android:parentActivityName=".PantallaPrincipal" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.apps.pablo.moneyplusplusandroid.PantallaPrincipal" />
+            android:label="@string/title_activity_resumen_ingresos" >
         </activity>
         <activity
             android:name=".ResumenGastos"
-            android:label="@string/title_activity_resumen_gastos"
-            android:parentActivityName=".PantallaPrincipal" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.apps.pablo.moneyplusplusandroid.PantallaPrincipal" />
+            android:label="@string/title_activity_resumen_gastos">
         </activity>
     </application>
 

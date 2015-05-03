@@ -12,14 +12,14 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/textviewingresos"
-        android:id="@+id/textViewIngresos"
+        android:id="@+id/labelIngresos"
         android:layout_centerHorizontal="true" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listViewIngresos"
-        android:layout_below="@+id/textViewIngresos"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/labelIngresos" />
 
 </RelativeLayout>
