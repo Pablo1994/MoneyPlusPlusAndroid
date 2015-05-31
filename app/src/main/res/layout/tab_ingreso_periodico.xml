@@ -21,7 +21,7 @@
         android:visibility="gone"
         android:layout_weight="0.26">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical" android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="1"
@@ -34,26 +34,22 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_monto"
                 android:id="@+id/textView3"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
+            <EditText
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="#ffa8ded6">
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/editTextMontoPerDia"
-                    android:layout_weight="1" />
-            </LinearLayout>
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editTextMontoPerDia"
+                android:background="#ffc7ccfb"
+                android:layout_below="@+id/textView3"
+                android:layout_alignRight="@+id/radio_group_dia"
+                android:layout_alignEnd="@+id/radio_group_dia" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,25 +57,11 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_descripcion"
                 android:id="@+id/textView4"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="0.03">
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:id="@+id/editTextDescPerDia"
-                    android:layout_weight="1"
-                    android:background="#ffa8ded6" />
-            </LinearLayout>
+                android:textSize="25sp"
+                android:layout_below="@+id/editTextMontoPerDia"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -87,17 +69,20 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Frecuencia: "
                 android:id="@+id/textView5"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_below="@+id/editTextDescPerDia"
+                android:layout_alignRight="@+id/textView4"
+                android:layout_alignEnd="@+id/textView4" />
 
             <RadioGroup
                 android:layout_width="337dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:id="@+id/radio_group_dia">
+                android:id="@+id/radio_group_dia"
+                android:layout_below="@+id/textView5"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -127,27 +112,32 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Día: "
                 android:id="@+id/textView6"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_below="@+id/radio_group_dia"
+                android:layout_alignLeft="@+id/textView5"
+                android:layout_alignStart="@+id/textView5" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextDescPerDia"
+                android:layout_weight="1"
+                android:background="#ffc7ccfb"
+                android:layout_below="@+id/textView4"
+                android:layout_alignRight="@+id/radio_group_dia"
+                android:layout_alignEnd="@+id/radio_group_dia" />
 
             <Spinner
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:id="@+id/spinnerDias"
-                android:layout_gravity="center_horizontal"
-                android:spinnerMode="dropdown" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.07" >
+                android:id="@+id/spinnerDias"
+                android:spinnerMode="dropdown"
+                android:layout_below="@+id/textView6"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
-            </LinearLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
     <ScrollView
@@ -155,10 +145,10 @@
         android:layout_height="281dp"
         android:id="@+id/scrollViewFecha"
         android:layout_gravity="center_horizontal"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_weight="0.11">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical" android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="1"
@@ -171,26 +161,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_monto"
                 android:id="@+id/textViewMontoPerFecha"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
                 android:textSize="25sp" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="#ffa8ded6">
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/editTextMontoPerFecha"
-                    android:layout_weight="1" />
-            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -198,25 +170,11 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_descripcion"
                 android:id="@+id/textViewDescPerFecha"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="0.03">
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:id="@+id/editTextDescPerFecha"
-                    android:layout_weight="1"
-                    android:background="#ffa8ded6" />
-            </LinearLayout>
+                android:textSize="25sp"
+                android:layout_below="@+id/editTextMontoPerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -224,17 +182,20 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Frecuencia: "
                 android:id="@+id/textViewFrecPerFecha"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_below="@+id/editTextDescPerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <RadioGroup
                 android:layout_width="337dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:id="@+id/radio_group_fecha">
+                android:id="@+id/radio_group_fecha"
+                android:layout_below="@+id/textViewFrecPerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -257,28 +218,12 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_fecha"
                 android:id="@+id/textViewFecPerFecha"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_below="@+id/radio_group_fecha"
+                android:layout_alignRight="@+id/textViewMontoPerFecha"
+                android:layout_alignEnd="@+id/textViewMontoPerFecha" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.07" >
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/editTextFecPerFecha"
-                    android:layout_weight="1"
-                    android:background="#ffa8ded6"
-                    android:focusableInTouchMode="true"
-                    android:focusable="true" />
-            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -286,17 +231,12 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_fecha2"
                 android:id="@+id/textViewFecha2PerFecha"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
                 android:textSize="25sp"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.07" >
+                android:visibility="visible"
+                android:layout_below="@+id/editTextFecPerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
                 <EditText
                     android:layout_width="wrap_content"
@@ -308,10 +248,49 @@
                     android:background="#ffa8ded6"
                     android:focusableInTouchMode="true"
                     android:focusable="true"
-                    android:visibility="gone" />
-            </LinearLayout>
+                    android:visibility="visible"
+                    android:layout_alignParentBottom="true"
+                    android_layout_below=/>
 
-        </LinearLayout>
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editTextMontoPerFecha"
+                android:layout_weight="1"
+                android:background="#ffc7ccfb"
+                android:layout_below="@+id/textViewMontoPerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextDescPerFecha"
+                android:layout_weight="1"
+                android:background="#ffc7ccfb"
+                android:layout_below="@+id/textViewDescPerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editTextFecPerFecha"
+                android:layout_weight="1"
+                android:background="#ffa8ded6"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                android:layout_below="@+id/textViewFecPerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
     </ScrollView>
 
     <Button
