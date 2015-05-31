@@ -60,6 +60,18 @@
     </LinearLayout>
 
     <Button
+        android:layout_width="142dp"
+        android:layout_height="wrap_content"
+        android:text="@string/ahorroStr"
+        android:id="@+id/buttonAhorro"
+        android:layout_weight="0.09"
+        android:background="@drawable/round_corners_equals"
+        android:textSize="20sp"
+        android:typeface="serif"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ver Actividades para el día de hoy"

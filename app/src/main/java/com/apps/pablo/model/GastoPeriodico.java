@@ -1,4 +1,4 @@
-package model;
+package com.apps.pablo.model;
 
 public class GastoPeriodico extends Gasto {
 

@@ -1,4 +1,4 @@
-package model;
+package com.apps.pablo.model;
 
 public class Gasto {
 	private double monto;

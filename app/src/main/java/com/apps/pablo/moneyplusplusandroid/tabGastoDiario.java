@@ -13,7 +13,7 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
-import model.GastoDiario;
+import com.apps.pablo.model.GastoDiario;
 
 /**
  * Created by pablo on 05/04/15.

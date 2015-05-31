@@ -25,6 +25,9 @@ public class DBHelper extends SQLiteOpenHelper{
         for(String r : DBManager.gastos){
             db.execSQL(r);
         }
+        for(String a : DBManager.ahorros){
+            db.execSQL(a);
+        }
     }
 
     @Override

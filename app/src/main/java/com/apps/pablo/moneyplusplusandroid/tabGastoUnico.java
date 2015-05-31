@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import model.GastoUnico;
+import com.apps.pablo.model.GastoUnico;
 
 /**
  * Created by pablo on 05/04/15.

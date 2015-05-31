@@ -33,6 +33,15 @@ public class Inicio extends android.support.v4.app.Fragment{
                 startActivity(intento);
             }
         });
+        Button btnAhorra = (Button) rootView.findViewById(R.id.buttonAhorro);
+        btnAhorra.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intento = new Intent(rootView.getContext(),IngresaAhorro.class);
+                startActivity(intento);
+            }
+        });
         Button btnActividades = (Button) rootView.findViewById(R.id.buttonActividades);
         btnActividades.setOnClickListener(new View.OnClickListener() {
             @Override

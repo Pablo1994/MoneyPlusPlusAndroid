@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.Locale;
-
 
 public class IngresaIngreso extends Base {
 
@@ -46,7 +44,7 @@ public class IngresaIngreso extends Base {
 
         // Set the title
         mTitle = getTitle();
-        Log.i("pablo",mTitle.toString());
+        Log.i("com",mTitle.toString());
     }
 
 
@@ -97,7 +95,7 @@ public class IngresaIngreso extends Base {
 
         @Override
         public Fragment getItem(int position) {
-            Log.i("pablo","pos" + position);
+            Log.i("com","pos" + position);
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             Fragment fragment = null;

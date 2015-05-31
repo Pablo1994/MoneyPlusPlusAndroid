@@ -1,4 +1,4 @@
-package model;
+package com.apps.pablo.model;
 
 public class IngresoPeriodicoFecha extends Ingreso {
 	private String[] fechas;

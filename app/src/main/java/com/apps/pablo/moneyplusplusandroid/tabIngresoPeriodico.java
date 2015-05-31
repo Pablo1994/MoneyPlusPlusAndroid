@@ -14,8 +14,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import model.IngresoPeriodicoDia;
-import model.IngresoPeriodicoFecha;
+import com.apps.pablo.model.IngresoPeriodicoDia;
+import com.apps.pablo.model.IngresoPeriodicoFecha;
 
 /**
  * Created by pablo on 05/04/15.

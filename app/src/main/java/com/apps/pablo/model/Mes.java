@@ -1,4 +1,4 @@
-package model;
+package com.apps.pablo.model;
 
 /**
  * Created by Pablo Arias on 20/04/15.

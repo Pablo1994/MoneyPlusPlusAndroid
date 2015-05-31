@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import model.GastoUnico;
+import com.apps.pablo.model.GastoUnico;
 
 /**
  * Created by Pablo Arias on 08/04/15.

@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import model.IngresoUnico;
+import com.apps.pablo.model.IngresoUnico;
 
 /**
  * Created by Pablo Arias on 05/04/15.

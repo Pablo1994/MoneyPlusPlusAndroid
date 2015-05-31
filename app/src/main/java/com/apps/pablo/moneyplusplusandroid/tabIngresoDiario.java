@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
-import model.IngresoDiario;
+import com.apps.pablo.model.IngresoDiario;
 
 /**
  * Created by pablo on 05/04/15.

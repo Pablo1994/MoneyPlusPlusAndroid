@@ -1,12 +1,12 @@
-package model;
+package com.apps.pablo.model;
 
-public class IngresoPeriodicoDia extends IngresoPeriodico {
+public class GastoPeriodicoDia extends GastoPeriodico {
 	private String dia;
 	private String frecuencia;
 
-	public IngresoPeriodicoDia(double monto, String descripcion, String dia,
+	public GastoPeriodicoDia(double monto, String descripcion, String tipo, String dia,
 			String frecuencia) {
-		super(monto, descripcion);
+		super(monto, descripcion, tipo);
 		this.dia = dia;
 		this.frecuencia = frecuencia;
 	}

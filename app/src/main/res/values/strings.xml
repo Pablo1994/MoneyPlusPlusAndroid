@@ -45,4 +45,6 @@
     <string name="textviewingresos">Ingresos de</string>
     <string name="title_activity_resumen_gastos">ResumenGastos</string>
     <string name="textviewgastos">Gastos de</string>
+    <string name="ahorroStr">Ahorro</string>
+    <string name="title_activity_ingresa_ahorro">IngresaAhorro</string>
 </resources>

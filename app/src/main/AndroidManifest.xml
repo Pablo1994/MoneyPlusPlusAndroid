@@ -24,7 +24,7 @@
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.apps.pablo.moneyplusplusandroid.PantallaPrincipal" />
+                android:value=".PantallaPrincipal" />
         </activity>
         <activity
             android:name=".IngresaGasto"
@@ -33,7 +33,15 @@
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.apps.pablo.moneyplusplusandroid.PantallaPrincipal" />
+                android:value=".PantallaPrincipal" />
+        </activity><activity
+            android:name=".IngresaAhorro"
+            android:label="Nuevo Ahorro"
+            android:parentActivityName=".PantallaPrincipal"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".PantallaPrincipal" />
         </activity>
         <activity
             android:name=".ResumenDia"
@@ -41,7 +49,7 @@
             android:parentActivityName=".PantallaPrincipal" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.apps.pablo.moneyplusplusandroid.PantallaPrincipal" />
+                android:value=".PantallaPrincipal" />
         </activity>
         <activity
             android:name=".ResumenIngresos"
@@ -49,7 +57,7 @@
         </activity>
         <activity
             android:name=".ResumenGastos"
-            android:label="@string/title_activity_resumen_gastos">
+            android:label="@string/title_activity_resumen_gastos" >
         </activity>
     </application>
 
