@@ -6,17 +6,6 @@
     android:background="@drawable/fondo"
     android:focusableInTouchMode="false">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Ingreso Único"
-        android:id="@+id/textViewIngUnico"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="35dp"
-        android:textStyle="bold"
-        android:textSize="35sp" />
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
