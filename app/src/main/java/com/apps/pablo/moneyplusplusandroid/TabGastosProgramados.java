@@ -60,7 +60,7 @@ public class TabGastosProgramados extends BaseFragment implements View.OnCreateC
                 getActivity().getMenuInflater().inflate(R.menu.menu_gasto_pf, contextMenu);
             }
         });
-        cargaCursorDiario();
+        cargaCursorGastoDiario();
 
         String [] fromPerDia = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.TIPO,manager.DESCRIPCION,manager.FRECUENCIA};
         int [] toPerDia = new int[]{R.id.itemGastoPerDiaID,R.id.itemGastoPerDiaMonto,R.id.itemGastoPerDiaTipo,R.id.itemGastoPerDiaDescripcion,R.id.itemGastoPerDiaFrecuencia};
@@ -128,7 +128,7 @@ public class TabGastosProgramados extends BaseFragment implements View.OnCreateC
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void cargaCursorDiario(){
+    public void cargaCursorGastoDiario(){
         String [] fromDiario = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.TIPO, manager.DESCRIPCION};
         int [] toDiario = new int[]{R.id.itemGastoDiarioID,R.id.itemGastoDiarioMonto,R.id.itemGastoDiarioTipo,R.id.itemGastoDiarioDescripcion};
         ArrayList<String> arrIdDiario = new ArrayList<>();
@@ -210,7 +210,7 @@ public class TabGastosProgramados extends BaseFragment implements View.OnCreateC
                 dia = String.valueOf(c.get(Calendar.DATE));
                 manager.cambiaEstadoGastoDiario(o.getString(o.getColumnIndex(manager.ID_GASTO_DIARIO)),dia);
                 Mensaje(rootView.getContext(),"Gasto aplicado");
-                cargaCursorDiario();
+                cargaCursorGastoDiario();
                 break;
             case R.id.modificaGD:
                 o = (Cursor) listaDiario.getAdapter().getItem(pos);
@@ -242,7 +242,7 @@ public class TabGastosProgramados extends BaseFragment implements View.OnCreateC
                 else if(o.getString(o.getColumnIndex(manager.FRECUENCIA))=="Quincenal")
                     manager.cambiaEstadoGastoPerDia(o.getString(o.getColumnIndex(manager.ID_ING_DIA)),"1");
                 Mensaje(rootView.getContext(),"Gasto aplicado");
-                cargaCursorDiario();
+                cargaCursorGastoDiario();
                 break;
             case R.id.modificaGPD:
                 o = (Cursor) listaPerDia.getAdapter().getItem(pos);
@@ -270,7 +270,7 @@ public class TabGastosProgramados extends BaseFragment implements View.OnCreateC
                 c = Calendar.getInstance();
                 dia = String.valueOf(c.get(Calendar.DATE));
                 Mensaje(rootView.getContext(),"Gasto aplicado");
-                cargaCursorDiario();
+                cargaCursorGastoDiario();
                 break;
             case R.id.modificaGPF:
                 o = (Cursor) listaPerFecha.getAdapter().getItem(pos);

@@ -18,7 +18,8 @@
             android:id="@+id/itemGastoPerDiaID"
             android:layout_weight="0.57"
             android:textStyle="bold"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/background_material_dark" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -31,27 +32,31 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/itemGastoPerDiaMonto"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/background_material_dark" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/itemGastoPerDiaTipo"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:textColor="@color/background_material_dark" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/itemGastoPerDiaDescripcion"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:textColor="@color/background_material_dark" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/itemGastoPerDiaFrecuencia" />
+                android:id="@+id/itemGastoPerDiaFrecuencia"
+                android:textColor="@color/background_material_dark" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

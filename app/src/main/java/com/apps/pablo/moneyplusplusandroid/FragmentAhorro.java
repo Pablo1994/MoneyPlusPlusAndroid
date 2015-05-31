@@ -224,13 +224,15 @@ public class FragmentAhorro extends BaseFragment {
                             }
                         }
                     });
-                    Button regIngreso = (Button) view.findViewById(R.id.buttonAhorroProgramado);
-                    regIngreso.setOnClickListener(new View.OnClickListener() {
+                    Button regAhorroP = (Button) view.findViewById(R.id.buttonAhorroProgramado);
+                    final View finalView1 = view;
+                    regAhorroP.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view1) {
                             double monto = Double.parseDouble(editTextMontoFecha.getText().toString());
                             String desc = editTextDescripcionFecha.getText().toString();
-                            String freq = ((RadioButton) view1.findViewById(radioGroupFecha.getCheckedRadioButtonId())).getText().toString();
+                            Log.i("pablito", "id: " + ((RadioButton) finalView1.findViewById(radioGroupFecha.getCheckedRadioButtonId())).getText());
+                            String freq = ((RadioButton) finalView1.findViewById(radioGroupFecha.getCheckedRadioButtonId())).getText().toString();
                             String[] fechas = new String[2];
                             String fecha1 = editTextFechaP.getText().toString();
                             fechas[0] = fecha1;
@@ -239,7 +241,7 @@ public class FragmentAhorro extends BaseFragment {
                                 fechas[1] = fecha2;
                             }
                             AhorroProgramado ahorro = new AhorroProgramado(monto, desc, fechas, freq);
-                            if (IngresaIngreso.manager.insertar(ahorro)) {
+                            if (IngresaAhorro.manager.insertar(ahorro)) {
                                 Mensaje(view1.getContext(), "Insertado correctamente");
                                 editTextMontoFecha.setText("");
                                 editTextDescripcionFecha.setText("");

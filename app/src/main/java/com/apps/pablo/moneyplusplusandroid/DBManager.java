@@ -176,7 +176,7 @@ public class DBManager {
     public boolean insertar(IngresoPeriodicoFecha i) {
         long id = db.insert(TABLA_ING_FECHA, null, valoresIngresoFechas(i));
         if (id != -1) {
-            Log.i("itemito", "entró aqui");
+            Log.i("pablengue", "entró aqui");
             ContentValues valoresFechas = new ContentValues();
             for (String s : i.getFechas()) {
                 valoresFechas.put(FECHA, s);
@@ -194,15 +194,15 @@ public class DBManager {
     }
 
     public boolean eliminaIngDiario(String id) {
-        return db.delete(TABLA_ING_PURO, ID_ING_DIARIO + "=?", new String[]{String.valueOf(id)}) > 0;
+        return db.delete(TABLA_ING_DIARIO, ID_ING_DIARIO + "=?", new String[]{String.valueOf(id)}) > 0;
     }
 
     public boolean eliminaIngPerFecha(String id) {
-        return db.delete(TABLA_ING_PURO, ID_ING_FECHA + "=?", new String[]{String.valueOf(id)}) > 0;
+        return db.delete(TABLA_ING_FECHA, ID_ING_FECHA + "=?", new String[]{String.valueOf(id)}) > 0;
     }
 
     public boolean eliminaIngPerDia(String id) {
-        return db.delete(TABLA_ING_PURO, ID_ING_DIA + "=?", new String[]{String.valueOf(id)}) > 0;
+        return db.delete(TABLA_ING_DIA, ID_ING_DIA + "=?", new String[]{String.valueOf(id)}) > 0;
     }
 
     public Cursor insertCursorIngPuro() {
@@ -392,15 +392,15 @@ public class DBManager {
     }
 
     public boolean eliminaGastoDiario(String id) {
-        return db.delete(TABLA_GASTO_PURO, ID_GASTO_DIARIO + "=?", new String[]{String.valueOf(id)}) > 0;
+        return db.delete(TABLA_GASTO_DIARIO, ID_GASTO_DIARIO + "=?", new String[]{String.valueOf(id)}) > 0;
     }
 
     public boolean eliminaGastoPerFecha(String id) {
-        return db.delete(TABLA_GASTO_PURO, ID_GASTO_FECHA + "=?", new String[]{String.valueOf(id)}) > 0;
+        return db.delete(TABLA_GASTO_FECHA, ID_GASTO_FECHA + "=?", new String[]{String.valueOf(id)}) > 0;
     }
 
     public boolean eliminaGastoPerDia(String id) {
-        return db.delete(TABLA_GASTO_PURO, ID_GASTO_DIA + "=?", new String[]{String.valueOf(id)}) > 0;
+        return db.delete(TABLA_GASTO_DIA, ID_GASTO_DIA + "=?", new String[]{String.valueOf(id)}) > 0;
     }
 
     public Cursor cargaCursorGastoPuro() {
@@ -415,7 +415,6 @@ public class DBManager {
 
     public Cursor cargaCursorDiasGasto(String dia) {
         String columnas[] = new String[]{FK_GASTO_DIARIO, DIA};
-        Log.i("itemito", "Llegó aquí");
         return db.query(TABLA_DIAS_GASTOS, columnas, DIA + "=?", new String[]{dia}, null, null, null);
     }
 
@@ -509,7 +508,7 @@ public class DBManager {
     public boolean insertar(AhorroProgramado a) {
         long id = db.insert(TABLA_ING_FECHA, null, valoresAhorroProgramado(a));
         if (id != -1) {
-            Log.i("itemito", "entró aqui");
+            Log.i("pablengue", "entró aqui");
             ContentValues valoresFechas = new ContentValues();
             for (String s : a.getFechas()) {
                 valoresFechas.put(FECHA, s);
@@ -543,5 +542,5 @@ public class DBManager {
         return db.query(TABLA_AHORRO_PROGRAMADO, columnas, ID_AHORRO_PROGRAMADO + " IN(" + makePlaceholders(id.length) + ")", id, null, null, null);
     }
 
-    public static String ahorros[] = {AHORRO_PURO, AHORRO_PROGRAMADO};
+    public static String ahorros[] = {AHORRO_PURO, AHORRO_PROGRAMADO, FECHAS_AHORROS};
 }
