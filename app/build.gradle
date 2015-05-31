@@ -22,6 +22,8 @@ android {
          exclude 'META-INF/NOTICE'
         exclude 'META-INF/ASL2.0'
      }
+    compileOptions {
+    }
 }
 
 dependencies {
@@ -29,5 +31,5 @@ dependencies {
     compile 'com.android.support:support-v4:21.0.0'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.androidplot:androidplot-core:0.6.1'
-    compile "com.android.support:appcompat-v7:21.0.+"
+    compile 'com.android.support:appcompat-v7:21.0.+'
 }

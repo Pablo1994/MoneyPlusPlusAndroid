@@ -43,30 +43,25 @@ public class tabIngresoDiario extends BaseFragment {
                     if (cb.isChecked())
                         dias.add(cb.getText().toString());
                 }
-                if(!editTextMonto.getText().toString().equals("") && !editTextDescripcion.getText().toString().equals("") && !(dias.isEmpty())) {
+                if (!editTextMonto.getText().toString().equals("") && !editTextDescripcion.getText().toString().equals("") && !(dias.isEmpty())) {
                     double monto = Double.parseDouble(editTextMonto.getText().toString());
                     String desc = editTextDescripcion.getText().toString();
 
                     IngresoDiario ingreso = new IngresoDiario(monto, desc, dias);
                     if (IngresaIngreso.manager.insertar(ingreso)) {
-                        Mensaje(rootView.getContext(), "Insertado correctamente");
+                        tabIngresoDiario.this.Mensaje(rootView.getContext(), "Insertado correctamente");
                         editTextMonto.setText("");
                         editTextDescripcion.setText("");
                         for (CheckBox cb : boxes) {
                             cb.setChecked(false);
                         }
                     } else
-                        Mensaje(rootView.getContext(), "No se pudo insertar, revise los valores e intente de nuevo.");
+                        tabIngresoDiario.this.Mensaje(rootView.getContext(), "No se pudo insertar, revise los valores e intente de nuevo.");
                 } else {
-                    Mensaje(rootView.getContext(),"Por favor rellene todos los campos y seleccione al menos un día de la semana.");
+                    tabIngresoDiario.this.Mensaje(rootView.getContext(), "Por favor rellene todos los campos y seleccione al menos un día de la semana.");
                 }
             }
         });
         return rootView;
-    }
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((IngresaIngreso) activity).onSectionAttached(2);
     }
 }

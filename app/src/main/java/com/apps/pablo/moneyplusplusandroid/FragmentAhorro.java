@@ -1,23 +1,39 @@
 package com.apps.pablo.moneyplusplusandroid;
 
+import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.apps.pablo.model.AhorroProgramado;
+import com.apps.pablo.model.AhorroUnico;
+import com.apps.pablo.model.IngresoPeriodicoFecha;
 import com.apps.pablo.view.SlidingTabLayout;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Pablo Arias on 31/05/15.
  */
 public class FragmentAhorro extends BaseFragment {
 
-    private String [] tabs = {"Ahorro Único", "Ahorro Programado"};
+    private String[] tabs = {"Ahorro Único", "Ahorro Programado"};
     private SlidingTabLayout mSlidingTabLayout;
 
     /**
@@ -35,10 +51,11 @@ public class FragmentAhorro extends BaseFragment {
         return inflater.inflate(R.layout.fragment_ahorro, container, false);
     }
     // BEGIN_INCLUDE (fragment_onviewcreated)
+
     /**
      * This is called after the {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} has finished.
      * Here we can pick out the {@link View}s we need to configure from the content view.
-     *
+     * <p>
      * We set the {@link ViewPager}'s adapter to be an instance of {@link SamplePagerAdapter}. The
      * {@link SlidingTabLayout} is then given the {@link ViewPager} so that it can populate itself.
      *
@@ -88,6 +105,7 @@ public class FragmentAhorro extends BaseFragment {
         }
 
         // BEGIN_INCLUDE (pageradapter_getpagetitle)
+
         /**
          * Return the title of the item at {@code position}. This is important as what this method
          * returns is what is displayed in the {@link SlidingTabLayout}.
@@ -109,21 +127,130 @@ public class FragmentAhorro extends BaseFragment {
         public Object instantiateItem(ViewGroup container, int position) {
             // Inflate a new layout from our resources
             View view = null;
-            switch (position){
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            switch (position) {
                 case 0:
                     view = getActivity().getLayoutInflater().inflate(R.layout.tab_ahorro_unico,
                             container, false);
                     // Add the newly created View to the ViewPager
                     container.addView(view);
+
+                    final EditText editTextMonto = (EditText) view.findViewById(R.id.editTextMontoAU);
+                    final EditText editTextDesc = (EditText) view.findViewById(R.id.editTextDescripcionAU);
+                    final EditText editTextFecha = (EditText) view.findViewById(R.id.editTextFechaAU);
+                    editTextFecha.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view1) {
+                            // Process to get Current Date
+                            final Calendar c = Calendar.getInstance();
+                            int mYear = c.get(Calendar.YEAR);
+                            int mMonth = c.get(Calendar.MONTH);
+                            int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                            // Launch Date Picker Dialog
+                            DatePickerDialog dpd = new DatePickerDialog(view1.getContext(),
+                                    new DatePickerDialog.OnDateSetListener() {
+                                        @Override
+                                        public void onDateSet(DatePicker view2, int year, int monthOfYear, int dayOfMonth) {
+                                            // Display Selected date in textbox
+                                            editTextFecha.setText(dayOfMonth + "-"
+                                                    + (monthOfYear + 1) + "-" + year);
+
+                                        }
+                                    }, mYear, mMonth, mDay);
+                            dpd.show();
+                        }
+                    });
+                    Button regAhorro = (Button) view.findViewById(R.id.buttonAhorroUnico);
+                    regAhorro.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view1) {
+                            double monto = Double.parseDouble(editTextMonto.getText().toString());
+                            String desc = editTextDesc.getText().toString();
+                            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                            Date fecha = null;
+                            try {
+                                fecha = format.parse(editTextFecha.getText().toString());
+                                System.out.println("Date ->" + fecha);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            AhorroUnico ahorro = new AhorroUnico(monto, desc, fecha);
+                            if (IngresaAhorro.manager.insertar(ahorro)) {
+                                Mensaje(view1.getContext(), "Insertado correctamente");
+                                editTextMonto.setText("");
+                                editTextDesc.setText("");
+                                editTextFecha.setText("");
+                            } else
+                                Mensaje(view1.getContext(), "No se pudo insertar, revise los valores e intente de nuevo.");
+                        }
+                    });
                     break;
                 case 1:
                     view = getActivity().getLayoutInflater().inflate(R.layout.tab_ahorro_programado,
                             container, false);
                     // Add the newly created View to the ViewPager
                     container.addView(view);
+                    final EditText editTextMontoFecha = (EditText) view.findViewById(R.id.editTextMontoAhorroProg);
+                    final EditText editTextDescripcionFecha = (EditText) view.findViewById(R.id.editTextDescAhorroProg);
+
+
+                    final EditText editTextFechaP = (EditText) view.findViewById(R.id.editTextFecAhorroProg);
+
+                    final EditText editTextFechaP2 = (EditText) view.findViewById(R.id.editTextFecha2AhorroProg);
+
+                    final RadioGroup radioGroupFecha = (RadioGroup) view.findViewById(R.id.radio_group_ahorro_prog);
+                    final View finalView = view;
+                    radioGroupFecha.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            // checkedId is the RadioButton selected
+                            TextView textView;
+                            EditText editText;
+                            switch (checkedId) {
+                                case R.id.radioButtonMensFecha:
+                                    textView = (TextView) finalView.findViewById(R.id.textViewFecha2AhorroProg);
+                                    editText = (EditText) finalView.findViewById(R.id.editTextFecha2AhorroProg);
+                                    textView.setVisibility(View.GONE);
+                                    editText.setVisibility(View.GONE);
+                                    break;
+                                case R.id.radioButtonQuinFecha:
+                                    textView = (TextView) finalView.findViewById(R.id.textViewFecha2AhorroProg);
+                                    editText = (EditText) finalView.findViewById(R.id.editTextFecha2AhorroProg);
+                                    textView.setVisibility(View.VISIBLE);
+                                    editText.setVisibility(View.VISIBLE);
+                                    break;
+                            }
+                        }
+                    });
+                    Button regIngreso = (Button) view.findViewById(R.id.buttonAhorroProgramado);
+                    regIngreso.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view1) {
+                            double monto = Double.parseDouble(editTextMontoFecha.getText().toString());
+                            String desc = editTextDescripcionFecha.getText().toString();
+                            String freq = ((RadioButton) view1.findViewById(radioGroupFecha.getCheckedRadioButtonId())).getText().toString();
+                            String[] fechas = new String[2];
+                            String fecha1 = editTextFechaP.getText().toString();
+                            fechas[0] = fecha1;
+                            if (editTextFechaP2.getVisibility() == View.VISIBLE) {
+                                String fecha2 = editTextFechaP2.getText().toString();
+                                fechas[1] = fecha2;
+                            }
+                            AhorroProgramado ahorro = new AhorroProgramado(monto, desc, fechas, freq);
+                            if (IngresaIngreso.manager.insertar(ahorro)) {
+                                Mensaje(view1.getContext(), "Insertado correctamente");
+                                editTextMontoFecha.setText("");
+                                editTextDescripcionFecha.setText("");
+                                editTextFechaP.setText("");
+                                editTextFechaP2.setText("");
+                            } else
+                                Mensaje(view1.getContext(), "No se pudo insertar, revise los valores e intente de nuevo.");
+                        }
+                    });
                     break;
             }
-
 
 
             Log.i("hola", "instantiateItem() [position: " + position + "]");

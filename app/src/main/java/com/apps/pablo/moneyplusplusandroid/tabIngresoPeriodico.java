@@ -97,11 +97,6 @@ public class tabIngresoPeriodico extends BaseFragment implements AdapterView.OnI
 
         return rootView;
     }
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((IngresaIngreso) activity).onSectionAttached(2);
-    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

@@ -61,24 +61,19 @@ public class tabGastoDiario extends BaseFragment {
 
                     GastoDiario gasto = new GastoDiario(monto, desc, tipo, dias);
                     if (IngresaGasto.manager.insertar(gasto)) {
-                        Mensaje(rootView.getContext(), "Insertado correctamente");
+                        tabGastoDiario.this.Mensaje(rootView.getContext(), "Insertado correctamente");
                         editTextMonto.setText("");
                         editTextDescripcion.setText("");
                         for (CheckBox cb : boxes) {
                             cb.setChecked(false);
                         }
                     } else
-                        Mensaje(rootView.getContext(), "No se pudo insertar, revise los valores e intente de nuevo.");
+                        tabGastoDiario.this.Mensaje(rootView.getContext(), "No se pudo insertar, revise los valores e intente de nuevo.");
                 } else {
-                    Mensaje(rootView.getContext(), "Por favor rellene todos los campos y seleccione al menos un día de la semana.");
+                    tabGastoDiario.this.Mensaje(rootView.getContext(), "Por favor rellene todos los campos y seleccione al menos un día de la semana.");
                 }
             }
         });
         return rootView;
-    }
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((IngresaGasto) activity).onSectionAttached(2);
     }
 }

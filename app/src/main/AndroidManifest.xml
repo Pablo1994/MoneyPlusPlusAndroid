@@ -37,8 +37,7 @@
         </activity><activity
             android:name=".IngresaAhorro"
             android:label="Nuevo Ahorro"
-            android:parentActivityName=".PantallaPrincipal"
-            android:screenOrientation="portrait" >
+            android:parentActivityName=".PantallaPrincipal">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".PantallaPrincipal" />

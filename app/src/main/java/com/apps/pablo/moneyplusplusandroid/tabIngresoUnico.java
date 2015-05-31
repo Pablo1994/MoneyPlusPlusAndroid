@@ -36,11 +36,6 @@ public class tabIngresoUnico extends BaseFragment implements View.OnClickListene
         regIngreso.setOnClickListener(this);
         return rootView;
     }
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((IngresaIngreso) activity).onSectionAttached(1);
-    }
 
     @Override
     public void onClick(View v) {
@@ -54,10 +49,8 @@ public class tabIngresoUnico extends BaseFragment implements View.OnClickListene
             // Launch Date Picker Dialog
             DatePickerDialog dpd = new DatePickerDialog(v.getContext(),
                     new DatePickerDialog.OnDateSetListener() {
-
                         @Override
-                        public void onDateSet(DatePicker view, int year,
-                                int monthOfYear, int dayOfMonth) {
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                             // Display Selected date in textbox
                             editTextFecha.setText(dayOfMonth + "-"
                                     + (monthOfYear + 1) + "-" + year);

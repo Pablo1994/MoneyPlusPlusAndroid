@@ -73,14 +73,13 @@ public class tabGastoPeriodico extends BaseFragment implements AdapterView.OnIte
         editTextFecha2 = (EditText) rootView.findViewById(R.id.editTextGastoFecha2PerFecha);
 
         radioGroupFecha = (RadioGroup) rootView.findViewById(R.id.radio_group_gasto_fecha);
-        radioGroupFecha.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+        radioGroupFecha.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // checkedId is the RadioButton selected
                 TextView textView;
                 EditText editText;
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.radioButtonGastoMensFecha:
                         textView = (TextView) rootView.findViewById(R.id.textViewGastoFecha2PerFecha);
                         editText = (EditText) rootView.findViewById(R.id.editTextGastoFecha2PerFecha);
@@ -112,11 +111,6 @@ public class tabGastoPeriodico extends BaseFragment implements AdapterView.OnIte
         return rootView;
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((IngresaGasto) activity).onSectionAttached(2);
-    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

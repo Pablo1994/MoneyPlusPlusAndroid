@@ -18,7 +18,7 @@ public class IngresaAhorro extends Base{
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             FragmentAhorro fragment = new FragmentAhorro();
-            transaction.replace(R.id.fragment_formulario, fragment);
+            transaction.replace(R.id.fragment_formulario_ahorro, fragment);
             transaction.commit();
         }
     }
