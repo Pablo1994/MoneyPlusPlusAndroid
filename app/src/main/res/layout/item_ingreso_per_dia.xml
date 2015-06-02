@@ -31,20 +31,23 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/itemPerDiaMonto"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/itemPerDiaDescripcion"
-                android:textStyle="italic"/>
+                android:textStyle="italic"
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/itemPerDiaFrecuencia"/>
+                android:id="@+id/itemPerDiaFrecuencia"
+                android:textColor="#ff000000" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

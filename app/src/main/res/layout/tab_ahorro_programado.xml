@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.03"
         android:background="#ffa8ded6"
+        android:inputType="text"
         android:layout_below="@+id/textViewDescAhorroProg" />
 
     <TextView

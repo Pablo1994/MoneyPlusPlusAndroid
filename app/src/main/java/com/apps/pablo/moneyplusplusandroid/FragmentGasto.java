@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.apps.pablo.model.GastoDiario;
 import com.apps.pablo.model.GastoPeriodicoDia;
 import com.apps.pablo.model.GastoPeriodicoFecha;
+import com.apps.pablo.model.GastoTransporte;
 import com.apps.pablo.model.GastoUnico;
 import com.apps.pablo.view.SlidingTabLayout;
 
@@ -36,7 +37,7 @@ import java.util.Date;
  */
 public class FragmentGasto extends BaseFragment {
 
-    private String[] tabs = {"Gasto Único", "Gasto Diario", "Gasto Periódico"};
+    private String[] tabs = {"Gasto Único", "Gasto Diario", "Gasto Periódico", "Transporte"};
     private SlidingTabLayout mSlidingTabLayout;
 
     /**
@@ -76,7 +77,7 @@ public class FragmentGasto extends BaseFragment {
         // Give the SlidingTabLayout the ViewPager, this must be done AFTER the ViewPager has had
         // it's PagerAdapter set.
         mSlidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs);
-        mSlidingTabLayout.setTabsNumber(3);
+        mSlidingTabLayout.setTabsNumber(1);
         mSlidingTabLayout.setViewPager(mViewPager);
         // END_INCLUDE (setup_slidingtablayout)
     }
@@ -95,7 +96,7 @@ public class FragmentGasto extends BaseFragment {
          */
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
 
         /**
@@ -185,7 +186,7 @@ public class FragmentGasto extends BaseFragment {
                                 e.printStackTrace();
                             }
                             GastoUnico gasto = new GastoUnico(monto, desc, tipo, fecha);
-                            if (IngresaIngreso.manager.insertar(gasto)) {
+                            if (IngresaGasto.manager.insertar(gasto)) {
                                 Mensaje(view.getContext(), "Insertado correctamente");
                                 editTextMonto.setText("");
                                 editTextDesc.setText("");
@@ -195,7 +196,7 @@ public class FragmentGasto extends BaseFragment {
                         }
                     });
                     break;
-                case 1:
+                case 2:
                     view = getActivity().getLayoutInflater().inflate(R.layout.tab_gasto_diario,
                             container, false);
                     // Add the newly created View to the ViewPager
@@ -249,7 +250,7 @@ public class FragmentGasto extends BaseFragment {
                         }
                     });
                     break;
-                case 2:
+                case 3:
                     view = getActivity().getLayoutInflater().inflate(R.layout.tab_gasto_periodico,
                             container, false);
                     // Add the newly created View to the ViewPager
@@ -305,7 +306,8 @@ public class FragmentGasto extends BaseFragment {
                                     textView.setVisibility(View.GONE);
                                     editText.setVisibility(View.GONE);
                                     break;
-                                case R.id.radioButtonQuinFecha:
+                                case R.id.radioButtonGastoQuinFecha:
+                                    Log.i("pablengue","hola");
                                     textView = (TextView) finalView.findViewById(R.id.textViewGastoFecha2PerFecha);
                                     editText = (EditText) finalView.findViewById(R.id.editTextGastoFecha2PerFecha);
                                     textView.setVisibility(View.VISIBLE);
@@ -371,7 +373,7 @@ public class FragmentGasto extends BaseFragment {
                                 String freq = ((RadioButton) view.findViewById(radioGroupDia.getCheckedRadioButtonId())).getText().toString();
                                 String dia = spinnerDia.getSelectedItem().toString();
                                 GastoPeriodicoDia gasto = new GastoPeriodicoDia(monto, desc, tipo, dia, freq);
-                                if (IngresaIngreso.manager.insertar(gasto)) {
+                                if (IngresaGasto.manager.insertar(gasto)) {
                                     Mensaje(view.getContext(), "Insertado correctamente");
                                     editTextMontoDia.setText("");
                                     editTextDescripcionDia.setText("");
@@ -390,7 +392,7 @@ public class FragmentGasto extends BaseFragment {
                                     fechas[1] = fecha2;
                                 }
                                 GastoPeriodicoFecha gasto = new GastoPeriodicoFecha(monto, desc, tipo, fechas, freq);
-                                if (IngresaIngreso.manager.insertar(gasto)) {
+                                if (IngresaGasto.manager.insertar(gasto)) {
                                     Mensaje(view.getContext(), "Insertado correctamente");
                                     editTextMontoFecha.setText("");
                                     editTextDescripcionFecha.setText("");
@@ -399,6 +401,34 @@ public class FragmentGasto extends BaseFragment {
                                 } else
                                     Mensaje(view.getContext(), "No se pudo insertar, revise los valores e intente de nuevo.");
                             }
+                        }
+                    });
+                    break;
+                case 1:
+                    view = getActivity().getLayoutInflater().inflate(R.layout.tab_gasto_transporte,
+                            container, false);
+                    // Add the newly created View to the ViewPager
+                    container.addView(view);
+                    final EditText editTextMontoTransporte = (EditText) view.findViewById(R.id.editTextMontoGastoTransporte);
+                    final EditText editTextDescTransporte = (EditText) view.findViewById(R.id.editTextDescripcionGastoTransporte);
+                    final RadioGroup radioGroupTransporte = (RadioGroup) view.findViewById(R.id.radioGroupGastoTransporte);
+
+                    Button regGastoTransporte = (Button) view.findViewById(R.id.buttonGastoTransporte);
+                    regGastoTransporte.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            double monto = Double.parseDouble(editTextMontoTransporte.getText().toString());
+                            String desc = editTextDescTransporte.getText().toString();
+                            RadioButton medioRB = (RadioButton) view.findViewById(radioGroupTransporte.getCheckedRadioButtonId());
+                            String medio = medioRB.getText().toString();
+
+                            GastoTransporte gasto = new GastoTransporte(monto, desc, "Transporte", medio);
+                            if (IngresaGasto.manager.insertar(gasto)) {
+                                Mensaje(view.getContext(), "Insertado correctamente");
+                                editTextMontoTransporte.setText("");
+                                editTextDescTransporte.setText("");
+                            } else
+                                Mensaje(view.getContext(), "No se pudo insertar, revise los valores e intente de nuevo.");
                         }
                     });
                     break;

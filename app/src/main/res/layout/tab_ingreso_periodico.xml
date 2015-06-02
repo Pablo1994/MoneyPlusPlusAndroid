@@ -125,6 +125,7 @@
                 android:layout_weight="1"
                 android:background="#ffc7ccfb"
                 android:layout_below="@+id/textView4"
+                android:inputType="text"
                 android:layout_alignRight="@+id/radio_group_dia"
                 android:layout_alignEnd="@+id/radio_group_dia" />
 
@@ -145,7 +146,7 @@
         android:layout_height="281dp"
         android:id="@+id/scrollViewFecha"
         android:layout_gravity="center_horizontal"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_weight="0.11">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -172,6 +173,7 @@
                 android:id="@+id/textViewDescPerFecha"
                 android:textStyle="normal"
                 android:textSize="25sp"
+                android:inputType="text"
                 android:layout_below="@+id/editTextMontoPerFecha"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
@@ -233,24 +235,25 @@
                 android:id="@+id/textViewFecha2PerFecha"
                 android:textStyle="normal"
                 android:textSize="25sp"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_below="@+id/editTextFecPerFecha"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
                 <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
                     android:id="@+id/editTextFecha2PerFecha"
                     android:layout_weight="1"
-                    android:background="#ffa8ded6"
+                    android:background="#ffc7ccfb"
                     android:focusableInTouchMode="true"
                     android:focusable="true"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:layout_alignParentBottom="true"
-                    android_layout_below=/>
+                    android:layout_below="@+id/textViewFecha2PerFecha"
+                    />
 
             <EditText
                 android:layout_width="fill_parent"
@@ -270,6 +273,7 @@
                 android:id="@+id/editTextDescPerFecha"
                 android:layout_weight="1"
                 android:background="#ffc7ccfb"
+                android:inputType="text"
                 android:layout_below="@+id/textViewDescPerFecha"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
@@ -281,7 +285,7 @@
                 android:ems="10"
                 android:id="@+id/editTextFecPerFecha"
                 android:layout_weight="1"
-                android:background="#ffa8ded6"
+                android:background="#ffc7ccfb"
                 android:focusableInTouchMode="true"
                 android:focusable="true"
                 android:layout_below="@+id/textViewFecPerFecha"

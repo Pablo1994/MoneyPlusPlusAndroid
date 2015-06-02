@@ -18,7 +18,8 @@
             android:id="@+id/itemPerFechaID"
             android:layout_weight="0.57"
             android:textStyle="bold"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="#ff000000" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -31,20 +32,23 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/itemPerFechaMonto"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/itemPerFechaDescripcion"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/itemPerFechaFrecuencia" />
+                android:id="@+id/itemPerFechaFrecuencia"
+                android:textColor="#ff000000" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

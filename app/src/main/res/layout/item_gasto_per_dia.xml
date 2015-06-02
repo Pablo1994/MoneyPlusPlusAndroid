@@ -19,7 +19,7 @@
             android:layout_weight="0.57"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:textColor="@color/background_material_dark" />
+            android:textColor="#ff000000" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -33,7 +33,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/itemGastoPerDiaMonto"
                 android:textStyle="bold"
-                android:textColor="@color/background_material_dark" />
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/itemGastoPerDiaTipo"
                 android:textStyle="italic"
-                android:textColor="@color/background_material_dark" />
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -49,14 +49,14 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/itemGastoPerDiaDescripcion"
                 android:textStyle="italic"
-                android:textColor="@color/background_material_dark" />
+                android:textColor="#ff000000" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/itemGastoPerDiaFrecuencia"
-                android:textColor="@color/background_material_dark" />
+                android:textColor="#ff000000" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

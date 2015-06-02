@@ -13,6 +13,7 @@ import com.apps.pablo.model.AhorroUnico;
 import com.apps.pablo.model.GastoDiario;
 import com.apps.pablo.model.GastoPeriodicoDia;
 import com.apps.pablo.model.GastoPeriodicoFecha;
+import com.apps.pablo.model.GastoTransporte;
 import com.apps.pablo.model.GastoUnico;
 import com.apps.pablo.model.IngresoDiario;
 import com.apps.pablo.model.IngresoPeriodicoDia;
@@ -305,9 +306,28 @@ public class DBManager {
 
     public static final String FECHAS_GASTOS = "CREATE TABLE " + TABLA_FECHAS_GASTOS + " ( _id INTEGER primary key autoincrement, " + FECHA + " TEXT, " + FK_GASTO_FECHAS +
             " INT, FOREIGN KEY(" + FK_GASTO_FECHAS + ") REFERENCES " + TABLA_GASTO_FECHA + "(" + ID_GASTO_FECHA + "));";
-    public static String gastos[] = {GASTO_PURO, GASTO_DIARIO, GASTO_PER_DIA, GASTO_PER_FECHA, DIAS_GASTOS, FECHAS_GASTOS};
 
 
+    public static final String TABLA_GASTO_TRANSPORTE = "gasto_transporte";
+    public static final String ID_GASTO_TRANSPORTE = "_id";
+    public static final String MEDIO = "medio";
+
+    public static final String GASTO_TRANSPORTE = "CREATE TABLE " + TABLA_GASTO_TRANSPORTE + " (" + ID_GASTO_TRANSPORTE + " INTEGER primary key autoincrement, " +
+            MONTO + " INTEGER, " + TIPO + " TEXT, " + DESCRIPCION + " TEXT, " + MEDIO + " TEXT);";
+
+    public static String gastos[] = {GASTO_PURO, GASTO_DIARIO, GASTO_PER_DIA, GASTO_PER_FECHA, DIAS_GASTOS, FECHAS_GASTOS, GASTO_TRANSPORTE};
+
+    public ContentValues valoresGastoTransporte(GastoTransporte g){
+        ContentValues values = new ContentValues();
+        values.put(MONTO, g.getMonto());
+        values.put(DESCRIPCION, g.getDescripcion());
+        values.put(TIPO, g.getTipo());
+        values.put(MEDIO, g.getMedio());
+        return values;
+    }
+    public boolean insertar(GastoTransporte g){
+        return db.insert(TABLA_GASTO_TRANSPORTE, null, valoresGastoTransporte(g)) != -1;
+    }
     public ContentValues valoresGastoPuro(GastoUnico i) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(i.getFecha());
@@ -403,11 +423,19 @@ public class DBManager {
         return db.delete(TABLA_GASTO_DIA, ID_GASTO_DIA + "=?", new String[]{String.valueOf(id)}) > 0;
     }
 
+    public boolean eliminaGastoTransporte(String id){
+        return db.delete(TABLA_GASTO_TRANSPORTE, ID_GASTO_TRANSPORTE + "=?", new String[]{String.valueOf(id)}) > 0;
+    }
+
     public Cursor cargaCursorGastoPuro() {
-        String columnas[] = new String[]{ID_ING_PURO, MONTO, TIPO, DESCRIPCION, FECHA};
+        String columnas[] = new String[]{ID_GASTO_PURO, MONTO, TIPO, DESCRIPCION, FECHA};
         return db.query(TABLA_ING_PURO, columnas, null, null, null, null, null);
     }
 
+    public Cursor cargaCursorGastoTransporte(){
+        String columnas[] = new String[]{ID_GASTO_TRANSPORTE, MONTO, TIPO, DESCRIPCION, MEDIO};
+        return db.query(TABLA_GASTO_TRANSPORTE,columnas, null, null, null, null, null);
+    }
     public Cursor cargaCursorGastoPuro(String mes) {
         String columnas[] = new String[]{ID_GASTO_PURO, MONTO, TIPO, DESCRIPCION, FECHA};
         return db.query(TABLA_GASTO_PURO, columnas, "strftime('%m', " + FECHA + ")=?", new String[]{mes}, null, null, null);
@@ -506,7 +534,7 @@ public class DBManager {
     }
 
     public boolean insertar(AhorroProgramado a) {
-        long id = db.insert(TABLA_ING_FECHA, null, valoresAhorroProgramado(a));
+        long id = db.insert(TABLA_AHORRO_PROGRAMADO, null, valoresAhorroProgramado(a));
         if (id != -1) {
             Log.i("pablengue", "entró aqui");
             ContentValues valoresFechas = new ContentValues();

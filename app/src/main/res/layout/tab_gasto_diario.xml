@@ -1,47 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo"
     android:weightSum="1">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="310dp"
-        android:id="@+id/scrollView" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/gastoStr"
             android:id="@+id/textViewGastoDiario"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
             android:textStyle="normal"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.03"
-            android:layout_marginTop="5dp">
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:inputType="number"
                 android:ems="10"
                 android:id="@+id/editTextGastoDiario"
                 android:layout_weight="1"
-                android:background="#ffc3fbf0" />
-        </LinearLayout>
+                android:background="#ffc3fbf0"
+                android:layout_below="@+id/textViewGastoDiario"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,17 +37,21 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/str_tipo"
             android:id="@+id/textView8"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
             android:textStyle="normal"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:layout_below="@+id/editTextGastoDiario"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:id="@+id/spinnerGastoDiario"
             android:layout_gravity="center_horizontal"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dialog"
+            android:layout_below="@+id/textView8"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -67,26 +59,22 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/str_descripcion"
             android:id="@+id/textView"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:layout_below="@+id/spinnerGastoDiario"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.03"
-            android:layout_marginTop="5dp">
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/editTextDescGastoDiario"
                 android:layout_weight="1"
                 android:background="#ffc3fbf0"
-                android:inputType="text" />
-        </LinearLayout>
+                android:inputType="text"
+                android:layout_below="@+id/textView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -94,14 +82,19 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/str_dias"
             android:id="@+id/textViewDias"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            android:layout_below="@+id/editTextDescGastoDiario"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tableLayout2"
+            android:layout_below="@+id/textViewDias"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
             <TableRow
                 android:layout_width="fill_parent"
@@ -177,8 +170,7 @@
                     android:layout_weight="1" />
             </TableRow>
         </TableLayout>
-        </LinearLayout>
-    </ScrollView>
+
 
     <Button
         android:layout_width="152dp"
@@ -187,6 +179,8 @@
         android:id="@+id/buttonGastoDiario"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/round_corners_normal"
-        android:layout_marginTop="40dp" />
+        android:layout_below="@+id/tableLayout2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp" />
 
-</LinearLayout>
+</RelativeLayout>

@@ -53,6 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:id="@+id/editTextDescPerDia"
+            android:inputType="text"
             android:layout_weight="1"
             android:background="#ffa8ded6" />
     </LinearLayout>

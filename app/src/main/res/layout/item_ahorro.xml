@@ -14,12 +14,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/itemGastoPerFechaID"
+            android:id="@+id/itemAhorroID"
             android:layout_weight="0.57"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:textColor="#ff000000" />
+            android:textColor="#ff000000"
+            android:typeface="normal"/>
 
         <LinearLayout
             android:orientation="vertical"
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/itemGastoPerFechaMonto"
+                android:id="@+id/itemAhorroMonto"
                 android:textStyle="bold"
                 android:textColor="#ff000000" />
 
@@ -39,24 +39,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/itemGastoPerFechaTipo"
+                android:id="@+id/itemAhorroDescripcion"
                 android:textStyle="italic"
                 android:textColor="#ff000000" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:id="@+id/itemGastoPerFechaDescripcion"
-                android:textStyle="italic"
-                android:textColor="#ff000000" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/itemGastoPerFechaFrecuencia"
-                android:textColor="#ff000000" />
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

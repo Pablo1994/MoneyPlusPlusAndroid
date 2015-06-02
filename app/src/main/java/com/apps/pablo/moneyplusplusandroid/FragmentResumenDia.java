@@ -39,8 +39,8 @@ public class FragmentResumenDia extends BaseFragment {
     private SlidingTabLayout mSlidingTabLayout;
     DBManager manager = ResumenDia.manager;
     Cursor cursorDiario;
-    ListView listaDiario, listaPerDia, listaPerFecha, listaGastoDiario, listaGastoPerDia, listaGastoPerFecha;
-    SimpleCursorAdapter adapterDiario, adapterPerDia, adapterPerFecha, adapterGastoDiario, adapterGastoPerDia, adapterGastoPerFecha;
+    ListView listaDiario, listaPerDia, listaPerFecha, listaGastoDiario, listaGastoPerDia, listaGastoPerFecha, listaAhorro;
+    SimpleCursorAdapter adapterDiario, adapterPerDia, adapterPerFecha, adapterGastoDiario, adapterGastoPerDia, adapterGastoPerFecha, adapterAhorro;
 
     /**
      * A {@link ViewPager} which will be used in conjunction with the {@link SlidingTabLayout} above.
@@ -129,6 +129,7 @@ public class FragmentResumenDia extends BaseFragment {
             case R.id.eliminaID:
                 o = (Cursor) listaDiario.getAdapter().getItem(pos);
                 manager.eliminaIngDiario(o.getString(o.getColumnIndex(manager.ID_ING_DIARIO)));
+                cargaCursorDiario();
                 break;
             case R.id.aplicaIPD:
                 o = (Cursor) listaPerDia.getAdapter().getItem(pos);
@@ -152,7 +153,6 @@ public class FragmentResumenDia extends BaseFragment {
                 else if (o.getString(o.getColumnIndex(manager.FRECUENCIA)) == "Quincenal")
                     manager.cambiaEstadoIngPerDia(o.getString(o.getColumnIndex(manager.ID_ING_DIA)), "1");
                 Mensaje(getActivity().getApplicationContext(), "Ingreso aplicado");
-                cargaCursorDiario();
                 break;
             case R.id.modificaIPD:
                 o = (Cursor) listaPerDia.getAdapter().getItem(pos);
@@ -160,7 +160,6 @@ public class FragmentResumenDia extends BaseFragment {
             case R.id.eliminaIPD:
                 o = (Cursor) listaPerDia.getAdapter().getItem(pos);
                 manager.eliminaIngPerDia(o.getString(o.getColumnIndex(manager.ID_ING_DIA)));
-                cargaCursorDiario();
                 break;
             case R.id.aplicaIPF:
                 o = (Cursor) listaPerFecha.getAdapter().getItem(pos);
@@ -197,19 +196,19 @@ public class FragmentResumenDia extends BaseFragment {
                 desc = o.getString(o.getColumnIndex(manager.DESCRIPCION));
                 tipo = o.getString(o.getColumnIndex(manager.TIPO));
                 d = new Date();
-                fecha  = DateFormat.format("dd-MM-yyyy", d.getTime());
+                fecha = DateFormat.format("dd-MM-yyyy", d.getTime());
                 format = new SimpleDateFormat("dd-MM-yyyy");
                 try {
                     d = format.parse(fecha.toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                gu = new GastoUnico(monto,desc,tipo,d);
+                gu = new GastoUnico(monto, desc, tipo, d);
                 manager.insertar(gu);
                 c = Calendar.getInstance();
                 dia = String.valueOf(c.get(Calendar.DATE));
-                manager.cambiaEstadoGastoDiario(o.getString(o.getColumnIndex(manager.ID_GASTO_DIARIO)),dia);
-                Mensaje(getActivity().getApplicationContext(),"Gasto aplicado");
+                manager.cambiaEstadoGastoDiario(o.getString(o.getColumnIndex(manager.ID_GASTO_DIARIO)), dia);
+                Mensaje(getActivity().getApplicationContext(), "Gasto aplicado");
                 cargaCursorGastoDiario();
                 break;
             case R.id.modificaGD:
@@ -218,31 +217,31 @@ public class FragmentResumenDia extends BaseFragment {
             case R.id.eliminaGD:
                 o = (Cursor) listaGastoDiario.getAdapter().getItem(pos);
                 manager.eliminaGastoDiario(o.getString(o.getColumnIndex(manager.ID_GASTO_DIARIO)));
+                cargaCursorGastoDiario();
                 break;
             case R.id.aplicaGPD:
                 o = (Cursor) listaGastoPerDia.getAdapter().getItem(pos);
-                Log.i("itemito","HOLA!");
+                Log.i("itemito", "HOLA!");
                 monto = o.getDouble(o.getColumnIndex(manager.MONTO));
                 desc = o.getString(o.getColumnIndex(manager.DESCRIPCION));
                 tipo = o.getString(o.getColumnIndex(manager.TIPO));
                 d = new Date();
-                fecha  = DateFormat.format("dd-MM-yyyy", d.getTime());
+                fecha = DateFormat.format("dd-MM-yyyy", d.getTime());
                 format = new SimpleDateFormat("dd-MM-yyyy");
                 try {
                     d = format.parse(fecha.toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                gu = new GastoUnico(monto,desc,tipo,d);
+                gu = new GastoUnico(monto, desc, tipo, d);
                 manager.insertar(gu);
                 c = Calendar.getInstance();
                 dia = String.valueOf(c.get(Calendar.DATE));
-                if(o.getString(o.getColumnIndex(manager.FRECUENCIA))=="Mensual")
-                    manager.cambiaEstadoGastoPerDia(o.getString(o.getColumnIndex(manager.ID_GASTO_DIA)),"3");
-                else if(o.getString(o.getColumnIndex(manager.FRECUENCIA))=="Quincenal")
-                    manager.cambiaEstadoGastoPerDia(o.getString(o.getColumnIndex(manager.ID_ING_DIA)),"1");
-                Mensaje(getActivity().getApplicationContext(),"Gasto aplicado");
-                cargaCursorGastoDiario();
+                if (o.getString(o.getColumnIndex(manager.FRECUENCIA)) == "Mensual")
+                    manager.cambiaEstadoGastoPerDia(o.getString(o.getColumnIndex(manager.ID_GASTO_DIA)), "3");
+                else if (o.getString(o.getColumnIndex(manager.FRECUENCIA)) == "Quincenal")
+                    manager.cambiaEstadoGastoPerDia(o.getString(o.getColumnIndex(manager.ID_ING_DIA)), "1");
+                Mensaje(getActivity().getApplicationContext(), "Gasto aplicado");
                 break;
             case R.id.modificaGPD:
                 o = (Cursor) listaGastoPerDia.getAdapter().getItem(pos);
@@ -253,23 +252,23 @@ public class FragmentResumenDia extends BaseFragment {
                 break;
             case R.id.aplicaGPF:
                 o = (Cursor) listaGastoPerFecha.getAdapter().getItem(pos);
-                Log.i("itemito","HOLA!");
+                Log.i("itemito", "HOLA!");
                 monto = o.getDouble(o.getColumnIndex(manager.MONTO));
                 desc = o.getString(o.getColumnIndex(manager.DESCRIPCION));
                 tipo = o.getString(o.getColumnIndex(manager.TIPO));
                 d = new Date();
-                fecha  = DateFormat.format("dd-MM-yyyy", d.getTime());
+                fecha = DateFormat.format("dd-MM-yyyy", d.getTime());
                 format = new SimpleDateFormat("dd-MM-yyyy");
                 try {
                     d = format.parse(fecha.toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                gu = new GastoUnico(monto,desc,tipo,d);
+                gu = new GastoUnico(monto, desc, tipo, d);
                 manager.insertar(gu);
                 c = Calendar.getInstance();
                 dia = String.valueOf(c.get(Calendar.DATE));
-                Mensaje(getActivity().getApplicationContext(),"Gasto aplicado");
+                Mensaje(getActivity().getApplicationContext(), "Gasto aplicado");
                 cargaCursorGastoFechas();
                 break;
             case R.id.modificaGPF:
@@ -304,35 +303,38 @@ public class FragmentResumenDia extends BaseFragment {
         String dia = String.valueOf(c.get(Calendar.DATE));
         cursorDiario = manager.cargaCursorIngDiario(idsDiario, dia);
         adapterDiario = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.item_ingreso_diario, cursorDiario, fromDiario, toDiario, 0);
+
         if (adapterDiario != null)
             listaDiario.setAdapter(adapterDiario);
 
     }
+
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void cargaCursorGastoDiario(){
-        String [] fromDiario = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.TIPO, manager.DESCRIPCION};
-        int [] toDiario = new int[]{R.id.itemGastoDiarioID,R.id.itemGastoDiarioMonto,R.id.itemGastoDiarioTipo,R.id.itemGastoDiarioDescripcion};
+    public void cargaCursorGastoDiario() {
+        String[] fromDiario = new String[]{manager.ID_GASTO_DIARIO, manager.MONTO, manager.TIPO, manager.DESCRIPCION};
+        int[] toDiario = new int[]{R.id.itemGastoDiarioID, R.id.itemGastoDiarioMonto, R.id.itemGastoDiarioTipo, R.id.itemGastoDiarioDescripcion};
         ArrayList<String> arrIdDiario = new ArrayList<>();
         Cursor cursorDias = manager.cargaCursorDiasGasto(getDayOfWeek());
-        if (cursorDias.moveToFirst()){
-            while(!cursorDias.isAfterLast()){
+        if (cursorDias.moveToFirst()) {
+            while (!cursorDias.isAfterLast()) {
                 String data = cursorDias.getString(cursorDias.getColumnIndex(manager.FK_GASTO_DIARIO));
                 arrIdDiario.add(data);
                 cursorDias.moveToNext();
             }
         }
         cursorDias.close();
-        String [] ids = new String[arrIdDiario.size()];
+        String[] ids = new String[arrIdDiario.size()];
         ids = arrIdDiario.toArray(ids);
         Calendar c = Calendar.getInstance();
         String dia = String.valueOf(c.get(Calendar.DATE));
         Cursor cursorDiario = manager.cargaCursorGastoDiario(ids, dia);
-        adapterGastoDiario = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.item_gasto_diario,cursorDiario,fromDiario,toDiario,0);
-        if(adapterGastoDiario != null)
+        adapterGastoDiario = new SimpleCursorAdapter(getActivity().getBaseContext(), R.layout.item_gasto_diario, cursorDiario, fromDiario, toDiario, 0);
+        if (adapterGastoDiario != null)
             listaGastoDiario.setAdapter(adapterGastoDiario);
     }
+
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void cargaCursorFechas(){
+    public void cargaCursorFechas() {
         String[] fromPerFecha = new String[]{manager.ID_ING_DIARIO, manager.MONTO, manager.DESCRIPCION, manager.FRECUENCIA};
         int[] toPerFecha = new int[]{R.id.itemPerFechaID, R.id.itemPerFechaMonto, R.id.itemPerFechaDescripcion};
         ArrayList<String> arrIdPerFecha = new ArrayList<>();
@@ -372,69 +374,55 @@ public class FragmentResumenDia extends BaseFragment {
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void cargaCursorGastoFechas(){
-        String [] fromGastoPerDia = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.TIPO,manager.DESCRIPCION,manager.FRECUENCIA};
-        int [] toGastoPerDia = new int[]{R.id.itemGastoPerDiaID,R.id.itemGastoPerDiaMonto,R.id.itemGastoPerDiaTipo,R.id.itemGastoPerDiaDescripcion,R.id.itemGastoPerDiaFrecuencia};
-        String dia = getDayOfWeek();
-        Cursor cursorGastoPerDiaReal = manager.cargaCursorGastoPerDia2(dia);
-        Cursor cursorGastoPerDia = manager.cargaCursorGastoPerDia2(dia);
-        /*if (cursorPerDia.moveToFirst()){
-            while(cursorPerDia.isAfterLast()){
-                String freq = cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.FRECUENCIA));
-                String flag;
-                switch (freq){
-                    case "Semanal":
-                        break;
-                    case "Quicenal":
-                        flag = cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.BANDERA));
-                        if(flag.equals("1")){
-                            manager.cambiaEstadoIngPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"0");
-                        }
-                        else if(flag.equals("0")){
-                            manager.cambiaEstadoIngPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"1");
-                        }
-                        break;
-                    case "Mensual":
-                        flag = cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.BANDERA));
-                        if(flag.equals("3")){
-                            manager.cambiaEstadoGastoPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"2");
-                        }else if(flag.equals("2")){
-                            manager.cambiaEstadoGastoPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"1");
-                        }else if(flag.equals("1")){
-                            manager.cambiaEstadoGastoPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"0");
-                        }
-                        else if(flag.equals("0")){
-                            manager.cambiaEstadoGastoPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"3");
-                        }
-                        break;
-                }
-            }
-        }*/
-        adapterGastoPerDia = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.item_gasto_per_dia,cursorGastoPerDiaReal,fromGastoPerDia,toGastoPerDia,0);
-        if(adapterGastoPerDia != null)
-            listaGastoPerDia.setAdapter(adapterGastoPerDia);
-
-        String [] fromGastoPerFecha = new String[]{manager.ID_GASTO_DIARIO,manager.MONTO,manager.TIPO,manager.DESCRIPCION, manager.FRECUENCIA};
-        int [] toGastoPerFecha = new int[]{R.id.itemGastoPerFechaID,R.id.itemGastoPerFechaMonto,R.id.itemGastoPerFechaTipo,R.id.itemGastoPerFechaDescripcion,R.id.itemGastoPerFechaFrecuencia};
+    public void cargaCursorGastoFechas() {
+        String[] fromGastoPerFecha = new String[]{manager.ID_GASTO_DIARIO, manager.MONTO, manager.TIPO, manager.DESCRIPCION, manager.FRECUENCIA};
+        int[] toGastoPerFecha = new int[]{R.id.itemGastoPerFechaID, R.id.itemGastoPerFechaMonto, R.id.itemGastoPerFechaTipo, R.id.itemGastoPerFechaDescripcion, R.id.itemGastoPerFechaFrecuencia};
         ArrayList<String> arrIdPerFecha = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         int fecha = calendar.get(Calendar.DAY_OF_MONTH);
         Cursor cursorFechas = manager.cargaCursorFechasGasto(String.valueOf(fecha));
-        if (cursorFechas.moveToFirst()){
-            while(!cursorFechas.isAfterLast()){
+        if (cursorFechas.moveToFirst()) {
+            while (!cursorFechas.isAfterLast()) {
                 String data = cursorFechas.getString(cursorFechas.getColumnIndex(manager.FK_GASTO_DIARIO));
                 arrIdPerFecha.add(data);
                 cursorFechas.moveToNext();
             }
         }
         cursorFechas.close();
-        String [] ids2 = new String[arrIdPerFecha.size()];
+        String[] ids2 = new String[arrIdPerFecha.size()];
         ids2 = arrIdPerFecha.toArray(ids2);
         Cursor cursorGastoPerFecha = manager.cargaCursorGastoPerFecha(ids2);
-        adapterGastoPerFecha = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.item_gasto_per_fecha,cursorGastoPerFecha,fromGastoPerFecha,toGastoPerFecha,0);
-        if(adapterGastoPerFecha != null)
+        adapterGastoPerFecha = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.item_gasto_per_fecha, cursorGastoPerFecha, fromGastoPerFecha, toGastoPerFecha, 0);
+        if (adapterGastoPerFecha != null)
             listaGastoPerFecha.setAdapter(adapterGastoPerFecha);
     }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void cargaCursorAhorro() {
+        String[] fromAhorro = new String[]{manager.ID_AHORRO_PROGRAMADO, manager.MONTO, manager.DESCRIPCION};
+        int[] toAhorro = new int[]{R.id.itemAhorroID, R.id.itemAhorroMonto, R.id.itemAhorroDescripcion};
+        ArrayList<String> arrIdAhorro = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        int fecha = calendar.get(Calendar.DAY_OF_MONTH);
+        Cursor cursorFechasAhorro = manager.cargaCursorFechasAhorro(String.valueOf(fecha));
+        if (cursorFechasAhorro.moveToFirst()) {
+            while (!cursorFechasAhorro.isAfterLast()) {
+                String data = cursorFechasAhorro.getString(cursorFechasAhorro.getColumnIndex(manager.FK_AHORRO_FECHA));
+                arrIdAhorro.add(data);
+                cursorFechasAhorro.moveToNext();
+            }
+        }
+        cursorFechasAhorro.close();
+        String[] ids2Ahorro = new String[arrIdAhorro.size()];
+        Log.i("pablengue",String.valueOf(ids2Ahorro.length));
+        ids2Ahorro = arrIdAhorro.toArray(ids2Ahorro);
+        Cursor cursorAhorro = manager.cargaCursorAhorroProgramado(ids2Ahorro);
+        adapterAhorro = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.item_ahorro, cursorAhorro, fromAhorro, toAhorro, 0);
+        if (adapterAhorro != null) {
+            listaAhorro.setAdapter(adapterAhorro);
+        }
+    }
+
     /**
      * The {@link android.support.v4.view.PagerAdapter} used to display pages in this sample.
      * The individual pages are simple and just display two lines of text. The important section of
@@ -474,8 +462,6 @@ public class FragmentResumenDia extends BaseFragment {
             return tabs[position];
         }
         // END_INCLUDE (pageradapter_getpagetitle)
-
-
 
 
         /**
@@ -585,7 +571,46 @@ public class FragmentResumenDia extends BaseFragment {
                         }
                     });
                     cargaCursorGastoDiario();
-
+                    String[] fromGastoPerDia = new String[]{manager.ID_GASTO_DIARIO, manager.MONTO, manager.TIPO, manager.DESCRIPCION, manager.FRECUENCIA};
+                    int[] toGastoPerDia = new int[]{R.id.itemGastoPerDiaID, R.id.itemGastoPerDiaMonto, R.id.itemGastoPerDiaTipo, R.id.itemGastoPerDiaDescripcion, R.id.itemGastoPerDiaFrecuencia};
+                    String dia = getDayOfWeek();
+                    Cursor cursorGastoPerDiaReal = manager.cargaCursorGastoPerDia2(dia);
+                    Cursor cursorGastoPerDia = manager.cargaCursorGastoPerDia2(dia);
+        /*if (cursorPerDia.moveToFirst()){
+            while(cursorPerDia.isAfterLast()){
+                String freq = cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.FRECUENCIA));
+                String flag;
+                switch (freq){
+                    case "Semanal":
+                        break;
+                    case "Quicenal":
+                        flag = cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.BANDERA));
+                        if(flag.equals("1")){
+                            manager.cambiaEstadoIngPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"0");
+                        }
+                        else if(flag.equals("0")){
+                            manager.cambiaEstadoIngPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"1");
+                        }
+                        break;
+                    case "Mensual":
+                        flag = cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.BANDERA));
+                        if(flag.equals("3")){
+                            manager.cambiaEstadoGastoPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"2");
+                        }else if(flag.equals("2")){
+                            manager.cambiaEstadoGastoPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"1");
+                        }else if(flag.equals("1")){
+                            manager.cambiaEstadoGastoPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"0");
+                        }
+                        else if(flag.equals("0")){
+                            manager.cambiaEstadoGastoPerDia(cursorPerDia.getString(cursorPerDia.getColumnIndex(manager.ID_GASTO_DIA)),"3");
+                        }
+                        break;
+                }
+            }
+        }*/
+                    adapterGastoPerDia = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.item_gasto_per_dia, cursorGastoPerDiaReal, fromGastoPerDia, toGastoPerDia, 0);
+                    if (adapterGastoPerDia != null)
+                        listaGastoPerDia.setAdapter(adapterGastoPerDia);
                     cargaCursorGastoFechas();
                     break;
                 case 2:
@@ -593,6 +618,8 @@ public class FragmentResumenDia extends BaseFragment {
                             container, false);
                     // Add the newly created View to the ViewPager
                     container.addView(view);
+                    listaAhorro = (ListView) view.findViewById(R.id.listViewAhorro);
+                    cargaCursorAhorro();
                     break;
             }
 

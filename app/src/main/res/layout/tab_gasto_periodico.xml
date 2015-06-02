@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
@@ -11,17 +11,24 @@
         android:layout_height="51dp"
         android:id="@+id/spinnerModoGasto"
         android:layout_gravity="center_horizontal"
-        android:spinnerMode="dropdown" />
+        android:spinnerMode="dropdown"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="281dp"
+        android:layout_height="275dp"
         android:id="@+id/scrollViewDiaGasto"
         android:layout_gravity="center_horizontal"
         android:visibility="gone"
-        android:layout_weight="0.26">
+        android:layout_weight="0.26"
+        android:layout_below="@+id/spinnerModoGasto"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical" android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="1"
@@ -34,26 +41,26 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_monto"
                 android:id="@+id/textView3"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="#ffa8ded6">
 
                 <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
                     android:id="@+id/editTextGastoMontoPerDia"
-                    android:layout_weight="1" />
-            </LinearLayout>
+                    android:layout_weight="1"
+                    android:layout_below="@+id/textView3"
+                    android:layout_toEndOf="@+id/editTextGastoDescPerDia"
+                    android:background="#ffc3fbf0"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,17 +68,21 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_tipo"
                 android:id="@+id/textView9"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_below="@+id/editTextGastoMontoPerDia"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinnerTipoDias"
                 android:layout_gravity="center_horizontal"
-                android:spinnerMode="dropdown" />
+                android:spinnerMode="dropdown"
+                android:layout_below="@+id/textView9"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -79,25 +90,22 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_descripcion"
                 android:id="@+id/textView4"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="0.03">
+                android:textSize="25sp"
+                android:layout_below="@+id/spinnerTipoDias"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
                 <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/editTextGastoDescPerDia"
                     android:layout_weight="1"
-                    android:background="#ffa8ded6" />
-            </LinearLayout>
+                    android:background="#ffa8ded6"
+                    android:inputType="text"
+                    android:layout_below="@+id/textView4"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -105,17 +113,32 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Frecuencia: "
                 android:id="@+id/textView5"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_below="@+id/editTextGastoDescPerDia"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Día: "
+                android:id="@+id/textView6"
+                android:textStyle="normal"
+                android:textSize="25sp"
+                android:layout_below="@+id/radio_group_gasto_dia"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <RadioGroup
                 android:layout_width="337dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:id="@+id/radio_group_gasto_dia">
+                android:id="@+id/radio_group_gasto_dia"
+                android:layout_below="@+id/textView5"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -139,76 +162,55 @@
                     android:checked="true" />
             </RadioGroup>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Día: "
-                android:id="@+id/textView6"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:textStyle="normal"
-                android:textSize="25sp" />
-
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:id="@+id/spinnerGastoDias"
                 android:layout_gravity="center_horizontal"
-                android:spinnerMode="dropdown" />
+                android:spinnerMode="dropdown"
+                android:layout_below="@+id/textView6"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.07" >
 
-            </LinearLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="281dp"
+        android:layout_height="285dp"
         android:id="@+id/scrollViewFechaGasto"
         android:layout_gravity="center_horizontal"
         android:visibility="gone"
-        android:layout_weight="0.11">
+        android:layout_weight="0.11"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_below="@+id/spinnerModoGasto">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical" android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="1"
             android:visibility="visible"
-            android:id="@+id/layout_fecha">
+            android:id="@+id/layout_fecha"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/spinnerModoGasto"
+            android:gravity="fill_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="25dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_monto"
                 android:id="@+id/textViewMontoPerFecha"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/textViewFecPerFecha"
+                android:layout_alignEnd="@+id/textViewFecPerFecha" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="#ffa8ded6">
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/editTextGastoPerFecha"
-                    android:layout_weight="1" />
-            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -216,10 +218,11 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_tipo"
                 android:id="@+id/textView10"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_below="@+id/editTextGastoPerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <Spinner
                 android:layout_width="match_parent"
@@ -227,7 +230,10 @@
                 android:id="@+id/spinnerTipoFechas"
                 android:layout_gravity="center_horizontal"
                 android:spinnerMode="dropdown"
-                android:layout_weight="0.07" />
+                android:layout_weight="0.07"
+                android:layout_below="@+id/textView10"
+                android:layout_alignRight="@+id/editTextGastoPerFecha"
+                android:layout_alignEnd="@+id/editTextGastoPerFecha" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -235,25 +241,22 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_descripcion"
                 android:id="@+id/textViewDescPerFecha"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_below="@+id/spinnerTipoFechas"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="0.03">
 
                 <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/editTextDescGastoPerFecha"
                     android:layout_weight="1"
-                    android:background="#ffa8ded6" />
-            </LinearLayout>
+                    android:background="#ffa8ded6"
+                    android:layout_below="@+id/textViewDescPerFecha"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -261,17 +264,20 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Frecuencia: "
                 android:id="@+id/textViewFrecPerFecha"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_below="@+id/editTextDescGastoPerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <RadioGroup
                 android:layout_width="337dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:id="@+id/radio_group_gasto_fecha">
+                android:id="@+id/radio_group_gasto_fecha"
+                android:layout_below="@+id/textViewFrecPerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -288,67 +294,74 @@
                     android:checked="true" />
             </RadioGroup>
 
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editTextGastoPerFecha"
+                android:layout_weight="1"
+                android:background="#ffa8ded6"
+                android:layout_below="@+id/textViewMontoPerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_fecha"
                 android:id="@+id/textViewFecPerFecha"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:layout_below="@+id/radio_group_gasto_fecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
+            <EditText
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.07" >
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/editTextGastoFecPerFecha"
-                    android:layout_weight="1"
-                    android:background="#ffa8ded6"
-                    android:focusableInTouchMode="true"
-                    android:focusable="true" />
-            </LinearLayout>
-
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editTextGastoFecPerFecha"
+                android:layout_weight="1"
+                android:background="#ffa8ded6"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                android:layout_below="@+id/textViewFecPerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/str_fecha2"
                 android:id="@+id/textViewGastoFecha2PerFecha"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
                 android:textStyle="normal"
                 android:textSize="25sp"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:layout_below="@+id/editTextGastoFecPerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/editTextGastoFecha2PerFecha"
+                android:layout_weight="1"
+                android:background="#ffa8ded6"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                android:visibility="gone"
+                android:layout_below="@+id/textViewGastoFecha2PerFecha"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.07" >
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/editTextGastoFecha2PerFecha"
-                    android:layout_weight="1"
-                    android:background="#ffa8ded6"
-                    android:focusableInTouchMode="true"
-                    android:focusable="true"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
     <Button
@@ -359,6 +372,12 @@
         android:layout_gravity="center_horizontal"
         android:visibility="visible"
         android:background="@drawable/round_corners_normal"
-        android:layout_marginTop="15dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
 
-</LinearLayout>
+
+
+
+
+</RelativeLayout>
