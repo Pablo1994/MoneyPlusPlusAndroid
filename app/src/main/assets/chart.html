@@ -1,0 +1,31 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Mes', 'Ahorros', 'Ingresos',  'Gastos'],
+          ['Marzo',  Android.getAhorros("03"),      Android.getIngresos("03"),  Android.getGastos("03")],
+          ['Abril',  Android.getAhorros("04"),      Android.getIngresos("03"),  Android.getGastos("04")],
+          ['Mayo',  Android.getAhorros("05"),       Android.getIngresos("03"),  Android.getGastos("05")],
+          ['Junio',  Android.getAhorros("06"),      Android.getIngresos("03"),  Android.getGastos("06")]
+        ]);
+
+        var options = {
+          title: 'Comparación Por Mes',
+          hAxis: {title: 'Mes',  titleTextStyle: {color: '#333'}, viewWindowMode:'pretty'},
+          vAxis: {minValue: 0},
+          legend: {position: 'bottom'}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+</head>
+<body>
+<div id="chart_div" style="width: 500px; height: 450px; margin-left: -5"></div>
+</body>
+</html>
