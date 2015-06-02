@@ -39,8 +39,8 @@ public class FragmentResumenDia extends BaseFragment {
     private SlidingTabLayout mSlidingTabLayout;
     DBManager manager = ResumenDia.manager;
     Cursor cursorDiario;
-    ListView listaDiario, listaPerDia, listaPerFecha, listaGastoDiario, listaGastoPerDia, listaGastoPerFecha, listaAhorro;
-    SimpleCursorAdapter adapterDiario, adapterPerDia, adapterPerFecha, adapterGastoDiario, adapterGastoPerDia, adapterGastoPerFecha, adapterAhorro;
+    ListView listaDiario, listaPerDia, listaPerFecha, listaGastoDiario, listaGastoPerDia, listaGastoPerFecha, listaAhorro, listaGastoTransporte;
+    SimpleCursorAdapter adapterDiario, adapterPerDia, adapterPerFecha, adapterGastoDiario, adapterGastoPerDia, adapterGastoPerFecha, adapterAhorro, adapterGastoTransporte;
 
     /**
      * A {@link ViewPager} which will be used in conjunction with the {@link SlidingTabLayout} above.
@@ -250,6 +250,31 @@ public class FragmentResumenDia extends BaseFragment {
                 o = (Cursor) listaGastoPerDia.getAdapter().getItem(pos);
                 manager.eliminaGastoPerDia(o.getString(o.getColumnIndex(manager.ID_GASTO_DIA)));
                 break;
+            case R.id.aplicaGT:
+                o = (Cursor) listaGastoTransporte.getAdapter().getItem(pos);
+                Log.i("itemito", "HOLA!");
+                monto = o.getDouble(o.getColumnIndex(manager.MONTO));
+                desc = o.getString(o.getColumnIndex(manager.DESCRIPCION));
+                tipo = o.getString(o.getColumnIndex(manager.TIPO));
+                d = new Date();
+                fecha = DateFormat.format("dd-MM-yyyy", d.getTime());
+                format = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+                    d = format.parse(fecha.toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                gu = new GastoUnico(monto, desc, tipo, d);
+                manager.insertar(gu);
+                Mensaje(getActivity().getApplicationContext(), "Gasto aplicado");
+                break;
+            case R.id.modificaGT:
+                o = (Cursor) listaGastoTransporte.getAdapter().getItem(pos);
+                break;
+            case R.id.eliminaGT:
+                o = (Cursor) listaGastoTransporte.getAdapter().getItem(pos);
+                manager.eliminaGastoTransporte(o.getString(o.getColumnIndex(manager.ID_GASTO_TRANSPORTE)));
+                break;
             case R.id.aplicaGPF:
                 o = (Cursor) listaGastoPerFecha.getAdapter().getItem(pos);
                 Log.i("itemito", "HOLA!");
@@ -342,7 +367,6 @@ public class FragmentResumenDia extends BaseFragment {
         Cursor cursorFechas = null;
         int fecha = calendar.get(Calendar.DATE);
         if (fecha < 31 && fecha == calendar.getActualMaximum(Calendar.DAY_OF_MONTH)) {
-            Log.i("pablito", "entró aquí en " + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
             switch (fecha) {
                 case 30:
                     cursorFechas = manager.cargaCursorFechas(new String[]{String.valueOf(fecha), String.valueOf(fecha + 1)});
@@ -551,6 +575,7 @@ public class FragmentResumenDia extends BaseFragment {
                     listaGastoDiario = (ListView) view.findViewById(R.id.listViewGastoDiario);
                     listaGastoPerDia = (ListView) view.findViewById(R.id.listViewGastoPerDia);
                     listaGastoPerFecha = (ListView) view.findViewById(R.id.listViewGastoPerFecha);
+                    listaGastoTransporte = (ListView) view.findViewById(R.id.listViewGastoTransporte);
                     listaGastoDiario.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
                         @Override
                         public void onCreateContextMenu(ContextMenu menu, View v,
@@ -570,7 +595,21 @@ public class FragmentResumenDia extends BaseFragment {
                             getActivity().getMenuInflater().inflate(R.menu.menu_gasto_pf, contextMenu);
                         }
                     });
+                    listaGastoTransporte.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener(){
+
+                        @Override
+                        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                            getActivity().getMenuInflater().inflate(R.menu.menu_gasto_transporte, contextMenu);
+                        }
+                    });
                     cargaCursorGastoDiario();
+                    String[] fromGastoTransporte = new String[]{manager.ID_GASTO_TRANSPORTE, manager.MONTO,manager.DESCRIPCION,manager.MEDIO};
+                    int[] toGastoTransporte = new int[]{R.id.itemGastoTransporteID,R.id.itemGastoTransporteMonto,R.id.itemGastoTransporteDescripcion,R.id.itemGastoTransporteMedio};
+                    Cursor cursorGastoTransporte = manager.cargaCursorGastoTransporte();
+                    adapterGastoTransporte = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.item_gasto_transporte,cursorGastoTransporte,fromGastoTransporte,toGastoTransporte,0);
+                    if(adapterGastoTransporte != null)
+                        listaGastoTransporte.setAdapter(adapterGastoTransporte);
+
                     String[] fromGastoPerDia = new String[]{manager.ID_GASTO_DIARIO, manager.MONTO, manager.TIPO, manager.DESCRIPCION, manager.FRECUENCIA};
                     int[] toGastoPerDia = new int[]{R.id.itemGastoPerDiaID, R.id.itemGastoPerDiaMonto, R.id.itemGastoPerDiaTipo, R.id.itemGastoPerDiaDescripcion, R.id.itemGastoPerDiaFrecuencia};
                     String dia = getDayOfWeek();
@@ -612,6 +651,7 @@ public class FragmentResumenDia extends BaseFragment {
                     if (adapterGastoPerDia != null)
                         listaGastoPerDia.setAdapter(adapterGastoPerDia);
                     cargaCursorGastoFechas();
+
                     break;
                 case 2:
                     view = getActivity().getLayoutInflater().inflate(R.layout.tab_ahorros_programados,

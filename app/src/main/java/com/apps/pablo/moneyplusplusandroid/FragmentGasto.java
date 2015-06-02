@@ -37,7 +37,7 @@ import java.util.Date;
  */
 public class FragmentGasto extends BaseFragment {
 
-    private String[] tabs = {"Gasto Único", "Gasto Diario", "Gasto Periódico", "Transporte"};
+    private String[] tabs = {"Gasto Único","Transporte", "Gasto Diario", "Gasto Periódico"};
     private SlidingTabLayout mSlidingTabLayout;
 
     /**
@@ -419,8 +419,7 @@ public class FragmentGasto extends BaseFragment {
                         public void onClick(View view) {
                             double monto = Double.parseDouble(editTextMontoTransporte.getText().toString());
                             String desc = editTextDescTransporte.getText().toString();
-                            RadioButton medioRB = (RadioButton) view.findViewById(radioGroupTransporte.getCheckedRadioButtonId());
-                            String medio = medioRB.getText().toString();
+                            String medio = ((RadioButton) view.findViewById(radioGroupTransporte.getCheckedRadioButtonId())).getText().toString();
 
                             GastoTransporte gasto = new GastoTransporte(monto, desc, "Transporte", medio);
                             if (IngresaGasto.manager.insertar(gasto)) {
