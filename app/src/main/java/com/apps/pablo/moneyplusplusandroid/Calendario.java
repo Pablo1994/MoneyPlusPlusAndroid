@@ -116,7 +116,7 @@ public class Calendario extends BaseFragment implements AdapterView.OnItemSelect
             }
         }
         ahorros.setText(String.valueOf(ahoTotal));
-        int bal = Integer.parseInt(ingresos.getText().toString()) - Integer.parseInt(gastos.getText().toString());
+        int bal = Integer.parseInt(ingresos.getText().toString()) - (Integer.parseInt(ahorros.getText().toString()) + Integer.parseInt(gastos.getText().toString()));
         if(bal > 0)
             Mensaje(rootView.getContext(),"¡Felicidades, Ha ahorrado un total de " + bal + " colones en " + spinnerMes.getSelectedItem().toString() + "!");
         else if (bal < 0)

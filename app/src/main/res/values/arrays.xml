@@ -28,7 +28,6 @@
         <item>Domingo</item>
     </string-array>
     <string-array name="array_tipos">
-        <item>Transporte</item>
         <item>Alimentación</item>
         <item>Ropa</item>
         <item>Ocio</item>
