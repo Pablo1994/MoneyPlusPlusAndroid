@@ -414,20 +414,21 @@ public class FragmentGasto extends BaseFragment {
                     final RadioGroup radioGroupTransporte = (RadioGroup) view.findViewById(R.id.radioGroupGastoTransporte);
 
                     Button regGastoTransporte = (Button) view.findViewById(R.id.buttonGastoTransporte);
+                    final View finalView2 = view;
                     regGastoTransporte.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(View view) {
+                        public void onClick(View v) {
                             double monto = Double.parseDouble(editTextMontoTransporte.getText().toString());
                             String desc = editTextDescTransporte.getText().toString();
-                            String medio = ((RadioButton) view.findViewById(radioGroupTransporte.getCheckedRadioButtonId())).getText().toString();
+                            String medio = ((RadioButton) finalView2.findViewById(radioGroupTransporte.getCheckedRadioButtonId())).getText().toString();
 
                             GastoTransporte gasto = new GastoTransporte(monto, desc, "Transporte", medio);
                             if (IngresaGasto.manager.insertar(gasto)) {
-                                Mensaje(view.getContext(), "Insertado correctamente");
+                                Mensaje(finalView2.getContext(), "Insertado correctamente");
                                 editTextMontoTransporte.setText("");
                                 editTextDescTransporte.setText("");
                             } else
-                                Mensaje(view.getContext(), "No se pudo insertar, revise los valores e intente de nuevo.");
+                                Mensaje(finalView2.getContext(), "No se pudo insertar, revise los valores e intente de nuevo.");
                         }
                     });
                     break;

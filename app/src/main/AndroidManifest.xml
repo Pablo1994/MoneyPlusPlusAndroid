@@ -57,6 +57,10 @@
             android:name=".ResumenGastos"
             android:label="@string/title_activity_resumen_gastos" >
         </activity>
+        <activity
+            android:name=".ResumenAhorros"
+            android:label="Ahorros del mes" >
+        </activity>
     </application>
 
 </manifest>

@@ -25,7 +25,7 @@ public class Calendario extends BaseFragment implements AdapterView.OnItemSelect
     DBManager manager;
     Spinner spinnerMes;
     DatePicker datePick;
-    TextView ingresos,gastos,balance;
+    TextView ingresos,gastos,ahorros,balance;
     Calendar c;
     String mesg;
     @Override
@@ -45,14 +45,15 @@ public class Calendario extends BaseFragment implements AdapterView.OnItemSelect
         for (int i = 1980; i <= thisYear; i++) {
             years.add(Integer.toString(i));
         }
-        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_spinner_item, years);
+        /*ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_spinner_item, years);
         adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinYear = (Spinner)rootView.findViewById(R.id.spinnerYear);
-        spinYear.setAdapter(adapterYear);
+        spinYear.setAdapter(adapterYear);*/
 
         ingresos = (TextView) rootView.findViewById(R.id.textViewIngresos);
         gastos = (TextView) rootView.findViewById(R.id.textViewGastos);
+        ahorros = (TextView) rootView.findViewById(R.id.textViewResumenAhorros);
 
         balance = (TextView) rootView.findViewById(R.id.textViewBalance);
         manager = PantallaPrincipal.manager;
@@ -63,8 +64,8 @@ public class Calendario extends BaseFragment implements AdapterView.OnItemSelect
         ingresos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(rootView.getContext(),ResumenIngresos.class);
-                i.putExtra("mes",mesg);
+                Intent i = new Intent(rootView.getContext(), ResumenIngresos.class);
+                i.putExtra("mes", mesg);
                 startActivity(i);
             }
         });
@@ -72,6 +73,14 @@ public class Calendario extends BaseFragment implements AdapterView.OnItemSelect
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(rootView.getContext(),ResumenGastos.class);
+                i.putExtra("mes",mesg);
+                startActivity(i);
+            }
+        });
+        ahorros.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(rootView.getContext(),ResumenAhorros.class);
                 i.putExtra("mes",mesg);
                 startActivity(i);
             }
@@ -97,6 +106,16 @@ public class Calendario extends BaseFragment implements AdapterView.OnItemSelect
                 gasCursor.moveToNext();}
         }
         gastos.setText(String.valueOf(gasTotal));
+
+        int ahoTotal = 0;
+        Cursor ahoCursor = manager.cargaCursorAhorroPuro(mes);
+        if(ahoCursor.moveToFirst()){
+            while (!ahoCursor.isAfterLast()){
+                ahoTotal += ahoCursor.getInt(ahoCursor.getColumnIndex(manager.MONTO));
+                ahoCursor.moveToNext();
+            }
+        }
+        ahorros.setText(String.valueOf(ahoTotal));
         int bal = Integer.parseInt(ingresos.getText().toString()) - Integer.parseInt(gastos.getText().toString());
         if(bal > 0)
             Mensaje(rootView.getContext(),"¡Felicidades, Ha ahorrado un total de " + bal + " colones en " + spinnerMes.getSelectedItem().toString() + "!");

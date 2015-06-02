@@ -49,4 +49,5 @@
     <string name="title_activity_ingresa_ahorro">IngresaAhorro</string>
     <string name="strRegistraAhorro">Registrar ahorro</string>
     <string name="str_ruta">Ruta:</string>
+    <string name="textviewahorros">Ahorros</string>
 </resources>

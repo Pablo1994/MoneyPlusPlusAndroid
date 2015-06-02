@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:weightSum="1"
+        android:layout_marginBottom="3dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/itemAhorrosID"
+            android:layout_weight="0.57"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="#ff020202" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="295dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/itemAhorrosMonto"
+                android:textStyle="bold"
+                android:textColor="#ff020202" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/itemAhorrosDescripcion"
+                android:textStyle="italic"
+                android:textColor="#ff020202" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/itemAhorrosFecha"
+                android:textColor="#ff020202" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

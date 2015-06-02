@@ -5,6 +5,11 @@
     android:background="@drawable/fondo">
 
     <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewGastoTransporte" />
+
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listViewGastoDiario"
@@ -18,15 +23,10 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:id="@+id/listViewGastoPerFecha"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listViewGastoTransporte" />
 
     <Button
         android:layout_width="wrap_content"
